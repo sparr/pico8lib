@@ -1,3 +1,5 @@
+With exceptions listed farther down this document,
+
 This is free and unencumbered software released into the public domain.
 
 Anyone is free to copy, modify, publish, use, compile, sell, or
@@ -25,10 +27,11 @@ For more information, please refer to <https://unlicense.org>
 
 ------------------------------------------------------------------------
 
-Parts of the vector class are licensed as follows
+The vector class is licensed as follows
 
 MIT License
 
+Copyright (c) 2020 Clarence "Sparr" Risher
 Copyright (c) 2017 Brian Palmer
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
