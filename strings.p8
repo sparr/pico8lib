@@ -5,29 +5,41 @@ __lua__
 -- by sparr
 
 ------------------------------------------------------------------------
--- replacement tostr() that respects __tostring and can serialize tables
-local _tostr=tostr
+-- replacement tostr() that serializes tables
+-- all versions ", ..." can be removed to save tokens if you never use tostr(number,true)
+local _tostr = tostr
+-- this version respects __tostring and prints array values in order without keys
 local function tostr(n, ...)
  if type(n) == "table" then
   local m = getmetatable(n)
   if m and m.__tostring then
    return m.__tostring(n, ...)
   else
-   local s, f = "{", {}
+   local f, s = {}, "{" -- "[table:{" avoids ambiguity with literal strings that look like tables
    for i = 1, #n do
-    s = s .. tostr(n[i]) .. ", "
+    s = s .. (s == "{" and '' or ",") .. tostr(n[i])
     f[i] = true
    end
-   for k,v in pairs(n) do
+   for k, v in pairs(n) do
     if not f[k] then
-     s = s .. tostr(k) .. "=" .. tostr(v) .. ", " -- mishandles reserved words that require ["key"]
+     s = s .. (s == "{" and '' or ",") .. tostr(k) .. "=" .. tostr(v) -- mishandles reserved words that require ["key"]
     end
    end
-   s = sub(s, 1, #s-2) .. "}"
-   return s
+   return s .. "}" -- .. "]" to match less ambiguous alternative above
   end
  end
  return _tostr(n, ...)
+end
+-- this version prints all keys, in unpredictable order
+local function tostr(t, ...)
+ if type(n) == "table" then
+  local s = "{"
+  for k, v in pairs(t) do
+   s = s .. (s=="{" and '' or ",") .. tostr(k, ...) .. "=" .. tostr(v, ...) -- mishandles reserved words that require ["key"]
+  end
+  return s
+ end
+ return _tostr(t, ...)
 end
 
 ------------------------------------------------------------------------
