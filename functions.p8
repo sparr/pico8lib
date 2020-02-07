@@ -23,29 +23,11 @@ end
 ------------------------------------------------------------------------
 -- unpack list to multiple function parameters or return values
 -- example: a,b,c = unpack({1,2,3})
-local function unpack (arr)
- local function args(k, ...)
-  if (k > 0) return args(k - 1, arr[k], ...)
-   return ...
-  end
-  return args(#arr)
- end
- -- i,j are optional start and end indices
- local function unpack (arr, i, j)
-  local n, k = {}, 0
-  j = j or #arr
-  for i = i or 1, j do
-   k = k + 1
-   n[k] = arr[i]
-  end
-  local function args(k, ...)
-   if k > 0 then
-    return args(k - 1, n[k], ...)
-   end
-   return ...
-  end
-  return args(k)
- end
+local function unpack(arr, i)
+ i = i or 1
+ if (i >= #arr) return arr[i]
+ return arr[i], unpack(arr, i + 1)
+end
  
 ------------------------------------------------------------------------
 -- try/catch/finally implemented with coroutine return codes
