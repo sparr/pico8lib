@@ -65,7 +65,7 @@ local function merge(dst, src)
 end
 
 ------------------------------------------------------------------------
--- creates a new table copied from o
+-- creates a new table copied from o, using merge()
 local function copy(o)
  return type(o) == 'table' and merge({}, o) or o
 end
@@ -79,7 +79,14 @@ local function copy(o, t)
   return o
  end
 end
-
+-- creates a new table copied from o, self contained
+function copy(o)
+ local c = {}
+ for k,v in pairs(o) do
+  c[k] = type(v) == "table" and copy(v) or v
+ end
+ return c
+end
 ------------------------------------------------------------------------
 -- adds values from src to end of dst, in order
 local function concat(dst, src)
