@@ -158,6 +158,45 @@ local function fillp(p, x, y)
     return _fillp(p - p16 + flr(band(p32, f) + band(rotl(p32, 4), 0xffff - f)))
 end
 
+
+------------------------------------------------------------------------
+-- draw a filled ellipse
+-- by @freds72
+-- https://www.lexaloffle.com/bbs/?tid=35124
+-- permission to share from freds72 on discord
+-- find roots of a rotated ellipse
+-- and use that to rectfill interior
+-- x0/y0: ellipse center
+-- h/w: height/width
+-- angle
+-- c: color
+local function ellipsefill(x0, y0, w, h, angle ,c)
+ local asq, bsq = w * w, h * h
+
+ -- max. extent
+ local ab = max(w, h)
+
+ local cc, ss = cos(angle), sin(angle)
+ local csq , ssq = cc * cc, ss * ss
+ local rb0 = shl(cc * ss * (1 / asq - 1 / bsq), 1)
+ local rc0 = ssq / asq + csq / bsq
+ local ra = shl(csq / asq + ssq / bsq, 1)
+
+ for y = max(y0 - ab, 0), min(y0 + ab, 127) do
+  -- roots
+  local yy = y - y0 + 0.5
+  local rb, rc = rb0 * yy, yy * yy * rc0 - 1
+
+  local r = rb * rb - shl(ra * rc, 1)
+  if r == 0 then
+   pset(x0 - rb / ra, y, c)
+  elseif r > 0 then
+   r = r ^ 0.5
+   rectfill(x0 + (-rb + r) / ra, y, x0 + (-rb - r) / ra, y, c)
+  end
+ end
+end
+
 __gfx__
 0000000088888777
 0000000088877866
