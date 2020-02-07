@@ -21,11 +21,11 @@ The [PICO-8](https://www.lexaloffle.com/pico-8.php) is a fantasy console with li
 * [`snippets`](snippets.p8) - inline snippets to mix with your own code
 
 ## Conventions
-Code is not minified for character count; that is a job for a minifier if desired or necessary. Code is minified for token count.
+Code is not minified for character count; that is a job for a minifier if desired or necessary. I try to aim for 3-5 character identifiers in moderate to complex functions, 1-3 characters in simple functions.
 
 Functions and variables are `local` where possible, for performance reasons. Thanks to zep for giving it to us as a free token!
 
-Some functions are provided in multiple forms, optimized for tokens, size, and/or speed. Some functions have lines or blocks commented with variations.
+Some functions are provided in multiple variations, optimized for tokens, size, speed, and/or functionality. Every function should have at least a token-optimized version. Some functions have lines or blocks commented with variations.
 
 `-- inline[t,c]` marks code that could be inlined to save `t` tokens and `c` characters, usually at the cost of cpu or memory.
 
