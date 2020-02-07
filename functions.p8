@@ -26,23 +26,55 @@ end
 local function unpack (arr)
  local function args(k, ...)
   if (k > 0) return args(k - 1, arr[k], ...)
-  return ...
- end
- return args(#arr)
-end
--- i,j are optional start and end indices
-local function unpack (arr, i, j)
- local n,k = {},0
- j = j or #arr
- for i = i or 1, j do
-  k = k + 1
-  n[k] = arr[i]
- end
- local function args(k, ...)
-  if k > 0 then
-   return args(k - 1, n[k], ...)
+   return ...
   end
-  return ...
+  return args(#arr)
  end
- return args(k)
+ -- i,j are optional start and end indices
+ local function unpack (arr, i, j)
+  local n, k = {}, 0
+  j = j or #arr
+  for i = i or 1, j do
+   k = k + 1
+   n[k] = arr[i]
+  end
+  local function args(k, ...)
+   if k > 0 then
+    return args(k - 1, n[k], ...)
+   end
+   return ...
+  end
+  return args(k)
+ end
+ 
+------------------------------------------------------------------------
+-- try/catch/finally implemented with coroutine return codes
+-- from https://www.lexaloffle.com/bbs/?pid=72820
+-- "enjoy, and if you like it feel free to kick a buck to my patreon."
+-- https://www.patreon.com/sharkhugseniko
+-- example:
+--  try(
+--   function()
+--    print("good")
+--    print("bad" .. nil)
+--   end,
+--   function(e)
+--    print("an error occurred:\n" .. e)
+--   end,
+--   function()
+--    print("finally")
+--   end
+--  )
+local function try(t, c, f)
+ local co = cocreate(t)
+ local s, m = true
+ while s and costatus(co) ~= "dead" do
+  s, m = coresume(co)
+  if not s then
+   c(m)
+  end
+ end
+ if f then
+  f()
+ end
 end

@@ -145,6 +145,19 @@ local function rectinverse(x, y, i, j, c)
  rectfill(128, y, i + 1, j, c)
 end
 
+
+------------------------------------------------------------------------
+-- fillp with support for x/y offsets to shift the mask
+-- original algorithm from https://www.lexaloffle.com/bbs/?tid=30518
+-- heavily token optimized by sparr
+local _fillp = fillp
+local function fillp(p, x, y)
+    p, x, y = p or 0, x or 0, y or 0 -- remove[13,36] backward compatibility with fillp(p)
+    local p16, x = flr(p), band(x, 3)
+    local f, p32 = flr(15 / shl(1,x)) * 0x1111, rotr(p16 + lshr(p16, 16), band(y, 3) * 4 + x) -- shl is more tokens than ^ but much faster
+    return _fillp(p - p16 + flr(band(p32, f) + band(rotl(p32, 4), 0xffff - f)))
+end
+
 __gfx__
 0000000088888777
 0000000088877866

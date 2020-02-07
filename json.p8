@@ -4,11 +4,7 @@ __lua__
 -- pico8lib json library
 -- by sparr
 
-local function char_in_string(c, s)
- for i = 1, #s do
-  if (c == sub(s, i, i)) return true
- end
-end
+local char_in_string -- from strings.p8
 
 -- based on https://gist.github.com/tylerneylon/59f4bcf316be525b30ab
 -- "tylerneylon commented on sep 1, 2015 [...] yes, please use it. i put this in the public domain."

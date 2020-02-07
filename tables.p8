@@ -6,20 +6,20 @@ __lua__
 
 ------------------------------------------------------------------------
 -- get value from table by key, with default
-local function get(t,k,d)
- return t[k] or d
+local function get(t, k, d)
+ return t[k]~=nil and t[k] or d
 end
 
 ------------------------------------------------------------------------
 -- add value v to end of table t
 -- supposedly faster but less safe than add(t,v)
-local function add_f(t,v)
+local function add_f(t, v)
  t[#t + 1] = v
 end
 
 ------------------------------------------------------------------------
 -- delete value v from table t, do not preserve order
-local function del_r(t,v)
+local function del_r(t, v)
  local n = #t -- inline[1,12]
  for i = 1, n do
   if (t[i] == v) t[i], t[n] = t[n], nil return
@@ -28,11 +28,11 @@ end
 
 ------------------------------------------------------------------------
 -- delete index i from table t, preserve order
-local function del_i(t,i)
+local function del_i(t, i)
  local n = #t -- inline[1,14]
  if (i > 0 and i <= n) then -- remove[10,33]
-  for j = i, n-1 do t[j] = t[j + 1] end
-  t[n]=nil
+  for j = i, n - 1 do t[j] = t[j + 1] end
+  t[n] = nil
  end
 end
 
@@ -40,8 +40,8 @@ end
 -- delete index i from table t, do not preserve order
 local function del_ir(t,i)
  local n = #t -- inline[1,14]
- if (i > 0 and i < =n) then -- remove[10,33]
-  t[i], t[n] = t[n], nil
+ if (i > 0 and i <= n) then -- remove[10,33]
+  t[i], t[n] = t[n]
  end
 end
 

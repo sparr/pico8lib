@@ -7,16 +7,23 @@ The [PICO-8](https://www.lexaloffle.com/pico-8.php) is a fantasy console with li
 * [`tables`](tables.p8) - Manipulating and creating tables
 * [`functions`](functions.p8) - Manipulating and creating functions
 * [`math`](math.p8) - Mathematical operations, mostly on numbers
+* [`number`](number.p8) - Non-mathematical maniuplation of numbers
 * [`json`](json.p8) - JSON(ish) parser
 * [`graphics`](graphics.p8) - Drawing and sprite manipulation
 * [`physics`](physics.p8) - Collision functions, etc
+* ['memory'](memory.p8) - Reading, writing, manipulating memory
 
 ### Classes
 * [`vector`](vector.p8) - 2d vectors
 * [`rational`](rational.p8) - rational numbers
 
+### Snippets
+* [`snippets`](snippets.p8) - inline snippets to mix with your own code
+
 ## Conventions
 Code is not minified for character count; that is a job for a minifier if desired or necessary. Code is minified for token count.
+
+Functions and variables are `local` where possible, for performance reasons. Thanks to zep for giving it to us as a free token!
 
 Some functions are provided in multiple forms, optimized for tokens, size, and/or speed. Some functions have lines or blocks commented with variations.
 
