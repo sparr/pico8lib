@@ -11,7 +11,7 @@ The [PICO-8](https://www.lexaloffle.com/pico-8.php) is a fantasy console with li
 * [`json`](json.p8) - JSON(ish) parser
 * [`graphics`](graphics.p8) - Drawing and sprite manipulation
 * [`physics`](physics.p8) - Collision functions, etc
-* ['memory'](memory.p8) - Reading, writing, manipulating memory
+* [`memory`](memory.p8) - Reading, writing, manipulating memory
 
 ### Classes
 * [`vector`](vector.p8) - 2d vectors
