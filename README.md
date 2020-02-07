@@ -35,3 +35,6 @@ Some functions are provided in multiple variations, optimized for tokens, size, 
 PRs are welcome! I am looking to collect a variety of best-of-breed examples of common library functions. Additional (or any) tests would also be helpful.
 
 The best place to chat with other PICO-8 developers is on the [PICO-8 Discord](https://discord.gg/zM9SD7N).
+
+## Related Projects
+* https://github.com/adamscott/pico8-missing-builtins
