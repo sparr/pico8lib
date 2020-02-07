@@ -32,6 +32,7 @@ local function randfrac(n, x) -- (n ... x) for non-integer n and x
 ------------------------------------------------------------------------
 -- count the 1 bits in a number
 -- this version runs one loop per set bit, 26 tokens
+-- algorithm from https://graphics.stanford.edu/~seander/bithacks.html
 local function popcount(n)
  local c = 0
  while n ~= 0 do
@@ -41,6 +42,9 @@ local function popcount(n)
 end
 -- this version runs in constant time, 42 tokens
 -- constant time is 111% the one-set-bit time of the shorter loop function
+-- original implementation from https://www.lexaloffle.com/bbs/?pid=72850
+-- [2020-02-06 16:25]  felice: if i post code in a bbs post then it's free for all to use. credit is nice of course if it's significant.
+-- algorithm from https://support.amd.com/techdocs/25112.pdf or https://graphics.stanford.edu/~seander/bithacks.html
 local function popcount(v)
   v -= band(v * .5, 0x5555.5555)
   v = band(v, 0x3333.3333) + band(v *.25, 0x3333.3333)
