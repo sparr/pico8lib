@@ -38,7 +38,7 @@ end
 
 ------------------------------------------------------------------------
 -- delete index i from table t, do not preserve order
-local function del_ir(t,i)
+local function del_ir(t, i)
  local n = #t -- inline[1,14]
  if (i > 0 and i <= n) then -- remove[10,33]
   t[i], t[n] = t[n]
@@ -51,6 +51,37 @@ local function pop(t)
  local v = t[#t]
  t[#t] = nil
  return v
+end
+local push = add_f
+
+------------------------------------------------------------------------
+-- delete and return the first item from table t
+function unshift(t)
+ local v = t[1]
+ for i = 2, #t do
+  t[i - 1] = t[i]
+ end
+ t[#t] = nil
+ return v
+end
+
+------------------------------------------------------------------------
+-- add value v to the beginning of table t
+function unshift(t, v)
+ for i = #t, 1, -1 do
+  t[i + 1] = t[i]
+ end
+ t[1] = v
+end
+
+------------------------------------------------------------------------
+-- insert value v to table t at index i
+function insert(t, i, v)
+ v, i = i and v or i, v and i or #t + 1 -- remove[7,17] make i mandatory
+ for n = #t, i, -1 do
+  t[i + 1] = t[i]
+ end
+ t[i] = v
 end
 
 ------------------------------------------------------------------------
@@ -87,6 +118,7 @@ function copy(o)
  end
  return c
 end
+
 ------------------------------------------------------------------------
 -- adds values from src to end of dst, in order
 local function concat(dst, src)
@@ -94,4 +126,19 @@ local function concat(dst, src)
  for i=1,#src do
   dst[n+i]=src[i]
  end
+end
+
+------------------------------------------------------------------------
+-- selects a random value from tbl
+function tblrand(tbl)
+ return t[flr(rnd(#t)) + 1]
+end
+
+------------------------------------------------------------------------
+-- randomize the order of a table using fisher-yates shuffle
+function shuffle(t)
+  for i = #t, 1, -1 do
+    local j = flr(rnd(i)) + 1
+    t[i], t[j] = t[j], t[i]
+  end
 end
