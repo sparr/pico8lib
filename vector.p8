@@ -35,7 +35,7 @@ vector = setmetatable({
   return vector{ a.x - b.x, a.y - b.y }
  end,
 
- __mul = function(a, b) 
+ __mul = function(a, b)
   if (type(b) == "number") return vector{ a.x * b, a.y * b }
   if (type(a) == "number") return b * a
   return a.x * b.x + a.y * b.y -- scalar product
@@ -49,16 +49,23 @@ vector = setmetatable({
   return vector{ a.x / b, a.y / b }
  end,
 
+-- duplicated as dist() in math.p8
  __len = function(a)
   -- return sqrt(a.x*a.x+a.y*a.y) -- potential overflow
-  if (a.x < 128 and a.y < 128) return sqrt(a.x * a.x + a.y * a.y) -- remove[25,54] slight decrease in accuracy
-  local d = max(abs(a.x), abs(a.y))
-  local n = abs(a.x / d * a.y / d)
+  local x, y = abs(a.x), abs(a.y)
+  if (x < 128 and y < 128) return sqrt(x * x + y * y) -- remove[25,54] slight decrease in accuracy
+  local d = max(x, y)
+  local n = x / d * a.y / d
   return sqrt(n * n + 1) * d
  end,
- 
+
  __tostring = function(a)
   return "[vector:" .. tostr(a.x) .. "," .. tostr(a.y) .. "]"
+ end,
+
+ -- magnitude squared
+ magsqr = function(a)
+  return a.x * a.x + a.y * a.y
  end,
 
  angle = function(a)
@@ -110,6 +117,11 @@ vector = setmetatable({
   return {r = #a, t = a:angle()}
  end,
 
+ -- reflection vector between vector a and normal n
+ -- todo test
+ reflect = function(a, n)
+  return a - a * n * n * 2
+ end
 },{
 
  __call=function(t, o)
@@ -119,6 +131,7 @@ vector = setmetatable({
 
 })
 vector.__index = vector
+vector.mag = vector.__len
 
 ------------------------------------------------------------------------
 -- tests

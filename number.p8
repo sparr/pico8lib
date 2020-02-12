@@ -50,3 +50,13 @@ local function popcount(v)
   v = band(v, 0x3333.3333) + band(v *.25, 0x3333.3333)
   return band((band(v + v * .0625, 0x0f0f.0f0f) * 0x0101.0101) * 256, 63)
 end
+
+------------------------------------------------------------------------
+-- rotate an 8-bit integer n to the right by b bits
+function rotr8(n, b)
+ return band(bor(shr(n, b), shl(band(shr(n, b), 0x.ff), 8)),0xff)
+end
+-- rotate an 8-bit integer n to the left by b bits
+function rotl8(n, b)
+ return band(bor(shl(n, b), shr(band(shl(n, b), 0xff00), 8)),0xff)
+end

@@ -72,3 +72,32 @@ local function nthroot_fast(n, x)
  local r = x ^ (1 / n)
  return r - r / n + x / r ^ (n - 1) / n
 end
+
+
+------------------------------------------------------------------------
+-- distance between two points
+-- copied from vector.p8
+function dist(x1, y1, x2, y2)
+ local x, y = abs(x2 - x1), abs(y2 - y1)
+ if (x < 128 and y < 128) return sqrt(x * x + y * y) -- remove[25,54] slight decrease in accuracy
+ local d = max(x, y)
+ local n = x / d * a.y / d
+ return sqrt(n * n + 1) * d
+end
+
+------------------------------------------------------------------------
+-- distance squared between two points
+function distsqr(x1, y1, x2, y2)
+ local x, y = abs(x2 - x1), abs(y2 - y1)
+ return x * x + y * y
+end
+
+------------------------------------------------------------------------
+-- approximation of asin(d) for 0<=d<=.7071
+-- exact at d==0, d==sin(1/16), d==sin(1/8)
+-- max error .0021 at d==sin(3/32) in given range
+-- error within that max beyond bounds up to d==sin(.137)
+-- asin() is the inverse of sin(); a=asin(d) when d=sin(a)
+function asin_octant(d)
+ return d * 0x.29cf + (d > 0x.61f8 and (d - 0x.61f8) * 0x.0785 or 0)
+end
