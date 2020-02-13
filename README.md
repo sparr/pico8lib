@@ -37,5 +37,10 @@ PRs are welcome! I am looking to collect a variety of best-of-breed examples of 
 The best place to chat with other PICO-8 developers is on the [PICO-8 Discord](https://discord.gg/zM9SD7N).
 
 ## Related Projects
+
+### Libraries
 * https://github.com/adamscott/pico8-missing-builtins
 * https://github.com/clowerweb/Lib-Pico8
+
+### Coding tips
+* https://github.com/seleb/PICO-8-Token-Optimizations
