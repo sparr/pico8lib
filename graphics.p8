@@ -197,6 +197,88 @@ local function ellipsefill(x0, y0, w, h, angle ,c)
  end
 end
 
+
+------------------------------------------------------------------------
+-- "green screen" function
+-- replaces pixels of color c in rectangle x1,y1,x2,y2 with output of drawfunc
+-- initial version from https://www.lexaloffle.com/bbs/?tid=36813
+-- optimized by sparr
+-- todo version that uses peek/poke for faster handling of large contiguous "green" pixels
+function chromakey(drawfunc,x1,y1,x2,y2,c)
+    -- c defaults to 3
+    c = c or 3
+    -- load prior clip state
+    local clip_x1, clip_y1, clip_x2, clip_y2 = peek(0x5f20), peek(0x5f21), peek(0x5f22), peek(0x5f23)
+
+    -- squeeze chromakey rectangle into clipping region
+    x1, y1, x2, y2 = max(x1, clip_x1), max(y1, clip_y1), min(x2, clip_x2 + x1), min(y2, clip_y2 + x1)
+
+    for ys = y1, y2 do
+        local x0, chroma = x1
+        for xs = x1, x2 do
+            if pget(xs, ys) == c then
+                if not chroma then
+                    -- start detecting
+                    chroma = 1
+                    x0 = xs
+                end
+            elseif chroma then
+                -- stop detecting and draw rectangle
+                clip(x0, ys, xs - x0, 1)
+                drawfunc(x0, ys, xs - 1, ys)
+                chroma = nil
+                clip()
+            end
+        end
+        if chroma then
+            -- c extended to end of row
+            clip(x0, ys, x2 - x1 - x0, 1)
+            drawfunc(x0, ys, x2, ys)
+            clip()
+        end
+
+    end
+
+    -- reset clipping region
+    clip(clip_x1, clip_y1, clip_x2 - clip_x1, clip_y2 - clip_y1)
+end
+
+------------------------------------------------------------------------
+-- takes a string and width describing a map, two hex digits per tile
+-- draws the map, with other parameters same as map()
+-- example "0123456789abcdef",4 represents this 4x2 map:
+-- [[0x01,0x23,0x45,0x67],[0x89,0xab,0xcd,0xef]]
+function mapstring(mapstr, mapw, celx, cely, sx, sy, celw, celh, layer)
+ -- remove[] to save tokens by making parameters mandatory
+ ms, celx, cely, sx, sy, celw, celh, layer =
+ ms or "", celx or 0, cely or 0, sx or 0, sy or 0, celw or 1, celh or 1, layer or 0
+ for y = cely, cely + celh - 1 do
+  for x = celx, celx + celw - 1 do
+   local sprnum = tonum("0x" .. sub(mapstr,(y * mapw + x) * 2 + 1,(y * mapw + x) * 2 + 2))
+   if sprnum > 0 and band(layer, fget(sprnum)) == layer then
+    spr(sprnum, sx + (x - celx) * 8, sy + (y - cely) * 8)
+   end
+  end
+ end
+end
+
+------------------------------------------------------------------------
+-- takes a string and width describing a map, two hex digits per tile
+-- replaces existing map data, starting at celx,cely in the main map space
+-- example: string_to_map("0123456789ab",3,2,1) will do the following:
+-- mset(2,1,0x01) mset(3,1,0x23) mset(4,1,0x45)
+-- mset(2,2,0x56) mset(3,2,0x89) mset(4,2,0xab)
+function string_to_map(mapstr, mapw, celx, cely)
+ -- remove[] to save tokens by making parameters mandatory
+ mapstr, mapw, celx, cely = mapstr or "", mapw or #mapstr/2, celx or 0, cely or 0
+ for y = 0, #mapstr/mapw/2-1 do
+  for x = 0, mapw-1 do
+   mset(celx + x, cely + y, tonum("0x" .. sub(mapstr,(y * mapw + x) * 2 + 1,(y * mapw + x) * 2 + 2)))
+  end
+ end
+end
+
+
 __gfx__
 0000000088888777
 0000000088877866
