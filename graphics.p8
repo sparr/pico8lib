@@ -72,7 +72,7 @@ local function spr4(sn, x, y, w, h, ...) -- supports w,h,flip_h,flip_v, but much
 end
 
 ------------------------------------------------------------------------
--- draw a circle of even diameter
+-- draw a circle of even diameter (2-16)
 -- x,y is top left corner of bounding box
 -- r is radius, 1-8
 -- c is color
@@ -99,6 +99,57 @@ local function circeven(x, y, r, c)
  palt() -- optional if other code makes no expectations about transparency
 end
 
+------------------------------------------------------------------------
+-- draw a small filled circle of even diameter (2-8)
+-- x,y is top left corner of circle bounding box
+-- r is radius, 1-4
+-- c is color
+-- necessary sprite:
+-- 00444400
+-- 04033040
+-- 40322304
+-- 43211234
+-- 43211234
+-- 40322304
+-- 04033040
+-- 00444400
+local function circevensmall(x, y, r, c)
+ -- if (r < 1 or r > 4) return -- optional safety
+ -- c = c or band(peek(24357), 15) -- make color optional
+ -- todo optional code to preserve pal/palt state
+ for t = 0, 4 do
+  palt(t, r ~= t)
+ end
+ pal(r, c)
+ spr(1, x - 4 + r, y - 4 + r)
+ palt() -- optional if other code makes no expectations about transparency
+end
+
+------------------------------------------------------------------------
+-- draw a small filled circle of even diameter (2-8)
+-- x,y is top left corner of circle bounding box
+-- r is radius, 1-4
+-- c is color
+-- necessary sprite:
+-- 00444400
+-- 04433440
+-- 44322344
+-- 43211234
+-- 43211234
+-- 44322344
+-- 04433440
+-- 00444400
+local function circfillevensmall(x, y, r, c)
+ -- if (r < 1 or r > 4) return -- optional safety
+ -- c = c or band(peek(24357), 15) -- make color optional
+ -- todo optional code to preserve pal/palt state
+ for t = 1, 4 do
+  palt(t, r < t)
+  pal(r, c)
+ end
+ spr(1, x - 4 + r, y - 4 + r)
+ palt() -- optional if other code makes no expectations about transparency
+end
 
 ------------------------------------------------------------------------
 local function flrceil(x, d) return d * flr(x*d) end
