@@ -212,3 +212,9 @@ local function splitd(input, delim, ...)
  end
  return out
 end
+
+-- align string to center of x-axis
+-- x defaults to 64 (screen center)
+local function str_center(str, x)
+  return (x or 63) - #str * 2
+end
