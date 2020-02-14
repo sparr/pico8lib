@@ -163,7 +163,7 @@ end
 -- this version supports an optional max width
 local function wrap(str, m)
  local out, w, m = "", 0, m or 32
- for i=1,#str,1 do
+ for i=1,#str do
   local char = sub(str,i,i)
   local cw = char > "\127" and 2 or 1
   w += cw
@@ -213,8 +213,18 @@ local function splitd(input, delim, ...)
  return out
 end
 
--- align string to center of x-axis
+------------------------------------------------------------------------
+-- center align string at given x coordinate
 -- x defaults to 64 (screen center)
 local function str_center(str, x)
-  return (x or 63) - #str * 2
+ return (x or 64) - #str * 2
+end
+
+-- support for wide glyphs
+local function str_center(str, x)
+ local w = 0
+ for i=1,#str do
+  w += sub(str,i,i) > "\127" and 4 or 2
+ end
+ return (x or 64) - w
 end
