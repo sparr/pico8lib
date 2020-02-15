@@ -262,7 +262,7 @@ function chromakey(drawfunc,x1,y1,x2,y2,c)
     local clip_x1, clip_y1, clip_x2, clip_y2 = peek(0x5f20), peek(0x5f21), peek(0x5f22), peek(0x5f23)
 
     -- squeeze chromakey rectangle into clipping region
-    x1, y1, x2, y2 = max(x1, clip_x1), max(y1, clip_y1), min(x2, clip_x2 + x1), min(y2, clip_y2 + x1)
+    x1, y1, x2, y2 = max(x1, clip_x1), max(y1, clip_y1), min(x2, clip_x2 + x1), min(y2, clip_y2 + y1)
 
     for ys = y1, y2 do
         local x0, chroma = x1
