@@ -2,6 +2,10 @@
 
 The [PICO-8](https://www.lexaloffle.com/pico-8.php) is a fantasy console with limited space for programs and data, programmed in a flavor of Lua with a very small standard library. This repository is meant to serve as a collection of useful functions and tables built, curated, and optimized by the pico8 developer community.
 
+The focus of this repository is on game-agnostic code and functions. Most of the code you will find here is applicable to any type of game or game engine, and represents code you might generally expect to find in the lua standard library (string, table, math, etc) or in a more comprehensive console I/O library (drawing, memory access, etc).
+
+What you will not find here is code related to gameplay implementation, such as actor and component frameworks, rendering engines, or game rule logic. I would like to add this sort of content in the future, but it will require significant additional organization and documentation efforts above and beyond those requires for the current contents of the repo.
+
 ### Utility Functions
 * [`strings`](strings.p8) - Manipulating and creating strings
 * [`tables`](tables.p8) - Manipulating and creating tables
