@@ -10,7 +10,7 @@ __lua__
 -- input shade, 0-15              0   1   2   3   4   5   6   7   8   9  10  11  12  13  14  15
 local greyscale           ={[0]=  0,  1,  5,  5, 13, 13, 13,  6,  6,  6,  6,  7,  7,  7,  7,  7}
 local greyscale_dark      ={[0]=  0,  1,  1,  5,  5,  5,  5, 13, 13, 13, 13,  6,  6,  6,  6,  7}
-local greyscale_nopurple  ={[0]=  0,  1,  1,  1,  5,  5,  5,  5,  6,  6,  6,  6,  7,  7,  7  ,7}
+local greyscale_nopurple  ={[0]=  0,  1,  1,  1,  5,  5,  5,  5,  6,  6,  6,  6,  7,  7,  7,  7}
 local rainbow             ={[0]=  8,  8,  8,  9,  9, 10, 10, 10, 11, 11, 11, 12, 12, 12, 13, 13}
 
 
@@ -55,7 +55,7 @@ end
 -- line_func(...,pset) is equivalent to line_(...)
 local function line_func(x1, y1, x2, y2, c, f)
  local dx, dy, sx, sy = abs(x2 - x1), -abs(y2 - y1), x1 < x2 and 1 or -1, y1 < y2 and 1 or -1
- local p,e = 0, dx + dy
+ local p, e = 0, dx + dy
  f(x1, y1, c, p)
  while x1 ~= x2 or y1 ~= y2 do
   p += 1
@@ -173,7 +173,7 @@ local function circinverse(x, y, r, c)
   local lr = sgn(lrr)
   rectfill(-1, lrr, 128, flrceil(y + (r + 1) * lr, -lr), c) -- big top/bottom rectangles
   -- flrceil from math.p8
-  rectfill(flrceil(x + (r + 1) * lr, -lr),flrceil(y - r * lr, lr), lrr, flrceil(y + r * lr, -lr), c) -- smaller side rectangles
+  rectfill(flrceil(x + (r + 1) * lr, -lr), flrceil(y - r * lr, lr), lrr, flrceil(y + r * lr, -lr), c) -- smaller side rectangles
  end
  -- cx and cy are coordinates relative to the center that walk from east to southheast
  -- following the bresenham circle algorithm
@@ -215,7 +215,7 @@ local _fillp = fillp
 local function fillp(p, x, y)
     p, x, y = p or 0, x or 0, y or 0 -- remove[13,36] backward compatibility with fillp(p)
     local p16, x = flr(p), band(x, 3)
-    local f, p32 = flr(15 / shl(1,x)) * 0x1111, rotr(p16 + lshr(p16, 16), band(y, 3) * 4 + x) -- shl is more tokens than ^ but much faster
+    local f, p32 = flr(15 / shl(1, x)) * 0x1111, rotr(p16 + lshr(p16, 16), band(y, 3) * 4 + x) -- shl is more tokens than ^ but much faster
     return _fillp(p - p16 + flr(band(p32, f) + band(rotl(p32, 4), 0xffff - f)))
 end
 
@@ -231,7 +231,7 @@ end
 -- h/w: height/width
 -- angle
 -- c: color
-local function ellipsefill(x0, y0, w, h, angle ,c)
+local function ellipsefill(x0, y0, w, h, angle, c)
  local asq, bsq = w * w, h * h
 
  -- max. extent
@@ -265,7 +265,7 @@ end
 -- initial version from https://www.lexaloffle.com/bbs/?tid=36813
 -- optimized by sparr
 -- todo version that uses peek/poke for faster handling of large contiguous "green" pixels
-function chromakey(drawfunc,x1,y1,x2,y2,c)
+function chromakey(drawfunc, x1, y1, x2, y2, c)
     -- c defaults to 3
     c = c or 3
     -- load prior clip state
@@ -315,7 +315,7 @@ function mapstring(mapstr, mapw, celx, cely, sx, sy, celw, celh, layer)
  ms or "", celx or 0, cely or 0, sx or 0, sy or 0, celw or 1, celh or 1, layer or 0
  for y = cely, cely + celh - 1 do
   for x = celx, celx + celw - 1 do
-   local sprnum = tonum("0x" .. sub(mapstr,(y * mapw + x) * 2 + 1,(y * mapw + x) * 2 + 2))
+   local sprnum = tonum("0x" .. sub(mapstr, (y * mapw + x) * 2 + 1, (y * mapw + x) * 2 + 2))
    if sprnum > 0 and band(layer, fget(sprnum)) == layer then
     spr(sprnum, sx + (x - celx) * 8, sy + (y - cely) * 8)
    end
@@ -334,7 +334,7 @@ function string_to_map(mapstr, mapw, celx, cely)
  mapstr, mapw, celx, cely = mapstr or "", mapw or #mapstr/2, celx or 0, cely or 0
  for y = 0, #mapstr/mapw/2-1 do
   for x = 0, mapw-1 do
-   mset(celx + x, cely + y, tonum("0x" .. sub(mapstr,(y * mapw + x) * 2 + 1,(y * mapw + x) * 2 + 2)))
+   mset(celx + x, cely + y, tonum("0x" .. sub(mapstr, (y * mapw + x) * 2 + 1, (y * mapw + x) * 2 + 2)))
   end
  end
 end
@@ -357,7 +357,7 @@ end
 -- originally by cbmakes
 -- 4-direction outline
 function print_border_4(string, x, y, col, bcol)
- for d=-1,1,2 do
+ for d = -1, 1, 2 do
   ?string, x + d, y, bcol
   ?string, x, y + d, bcol
  end
