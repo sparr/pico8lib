@@ -40,11 +40,22 @@ PRs are welcome! I am looking to collect a variety of best-of-breed examples of 
 
 The best place to chat with other PICO-8 developers is on the [PICO-8 Discord](https://discord.gg/zM9SD7N).
 
-## Related Projects
+## Related Projects and Links
 
 ### Libraries
 * https://github.com/adamscott/pico8-missing-builtins
 * https://github.com/clowerweb/Lib-Pico8
+* https://github.com/0xcafed00d/pico-8-games/blob/master/lib/
+
+### Game engine implementations
+* https://github.com/jkingsDigiPen/pico-game/tree/master/carts/game0
+
+### Well engineered cart collections
+* https://github.com/freds72/pico8
 
 ### Coding tips
 * https://github.com/seleb/PICO-8-Token-Optimizations
+
+### Documentation
+* https://www.lexaloffle.com/pico-8.php?page=manual
+* https://pico-8.fandom.com/wiki/Pico-8_Wikia
