@@ -339,28 +339,39 @@ function string_to_map(mapstr, mapw, celx, cely)
  end
 end
 
-   
--- CBMakes's Text Border Function
--- text border (4 way)
-function bprint(string,x,y,col,bcol)
- print(string,x-1,y,bcol)
- print(string,x+1,y,bcol)
- print(string,x,y-1,bcol)
- print(string,x,y+1,bcol)
- print(string,x,y,col)
+------------------------------------------------------------------------
+-- print string with a shadow
+-- constant one pixel southeast shadow
+function print_shadow(string, x, y, col, bcol)
+ ?string, x + 1, y + 1, bcol
+ ?string, x, y, col
+end
+-- optional dx, dy for shadow placement
+function print_shadow(string, x, y, col, bcol, dx, dy)
+ ?string, x + (dx or 1), y + (dy or 1), bcol
+ ?string, x, y, col
 end
 
+------------------------------------------------------------------------
+-- print string with an outline
+-- originally by cbmakes
+-- 4-direction outline
+function print_border_4(string, x, y, col, bcol)
+ for d=-1,1,2 do
+  ?string, x + d, y, bcol
+  ?string, x, y + d, bcol
+ end
+ ?string, x, y, col
+end
 -- text border (8 way)
-function bprint8(string,x,y,col,bcol)
- print(string,x-1,y,bcol)
- print(string,x+1,y,bcol)
- print(string,x,y-1,bcol)
- print(string,x,y+1,bcol)
- print(string,x-1,y-1,bcol)
- print(string,x+1,y+1,bcol)
- print(string,x+1,y-1,bcol)
- print(string,x-1,y+1,bcol)
- print(string,x,y,col)
+function print_border_8(string, x, y, col, bcol)
+ for dy = -1, 1 do
+  -- for x = -1, 1, y == 0 and 2 or 1 do -- 10% faster, costs 8 tokens
+  for dx = -1, 1, y ==0  and 2 or 1 do
+   ?string, x + dx, y + dy, bcol
+  end
+ end
+ ?string, x, y, col
 end
 
 __gfx__
