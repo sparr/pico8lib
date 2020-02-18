@@ -363,7 +363,7 @@ function print_border_4(string, x, y, col, bcol)
  end
  ?string, x, y, col
 end
--- text border (8 way)
+-- 8-direction outline
 function print_border_8(string, x, y, col, bcol)
  for dy = -1, 1 do
   -- for x = -1, 1, y == 0 and 2 or 1 do -- 10% faster, costs 8 tokens
