@@ -292,3 +292,11 @@ local function str_center(str, x)
  end
  return (x or 64) - w
 end
+
+------------------------------------------------------------------------
+-- substring function with length instead of end position
+-- ssub(a,b) == sub(a,b,b)
+-- ssub(a,b,c) == sub(a,b,b+c)
+local function ssub(str, idx, len)
+ return sub(str, idx, idx + (len or 0))
+end
