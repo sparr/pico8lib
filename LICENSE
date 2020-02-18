@@ -1,4 +1,4 @@
-With exceptions listed farther down this document,
+With exceptions listed below,
 
 This is free and unencumbered software released into the public domain.
 
@@ -27,7 +27,7 @@ For more information, please refer to <https://unlicense.org>
 
 ------------------------------------------------------------------------
 
-The vector class is licensed as follows
+The vector library is licensed as follows
 
 MIT License
 
