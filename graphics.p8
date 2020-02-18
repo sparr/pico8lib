@@ -339,6 +339,29 @@ function string_to_map(mapstr, mapw, celx, cely)
  end
 end
 
+   
+-- CBMakes's Text Border Function
+-- text border (4 way)
+function bprint(string,x,y,col,bcol)
+ print(string,x-1,y,bcol)
+ print(string,x+1,y,bcol)
+ print(string,x,y-1,bcol)
+ print(string,x,y+1,bcol)
+ print(string,x,y,col)
+end
+
+-- text border (8 way)
+function bprint8(string,x,y,col,bcol)
+ print(string,x-1,y,bcol)
+ print(string,x+1,y,bcol)
+ print(string,x,y-1,bcol)
+ print(string,x,y+1,bcol)
+ print(string,x-1,y-1,bcol)
+ print(string,x+1,y+1,bcol)
+ print(string,x+1,y-1,bcol)
+ print(string,x-1,y+1,bcol)
+ print(string,x,y,col)
+end
 
 __gfx__
 0000000088888777
