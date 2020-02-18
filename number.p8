@@ -4,6 +4,10 @@ __lua__
 -- pico8lib number library
 -- by sparr
 
+const_number_minfrac = 0x0000.0001 -- 1/32768
+const_number_maxnum = 0x7fff.ffff -- 32677 + 32767/32768
+const_number_minnum = 0x8000.0000 -- -32768
+
 ------------------------------------------------------------------------
 -- random range functions
 -- originally inspired by https://www.lexaloffle.com/bbs/?pid=72829
@@ -53,10 +57,36 @@ end
 
 ------------------------------------------------------------------------
 -- rotate an 8-bit integer n to the right by b bits
-function rotr8(n, b)
+local function rotr8(n, b)
  return band(bor(shr(n, b), shl(band(shr(n, b), 0x.ff), 8)),0xff)
 end
 -- rotate an 8-bit integer n to the left by b bits
-function rotl8(n, b)
+local function rotl8(n, b)
  return band(bor(shl(n, b), shr(band(shl(n, b), 0xff00), 8)),0xff)
 end
+
+------------------------------------------------------------------------
+-- flrceil(x,1) is flr(x), flrceil(x,-1) is ceil(x)
+local function flrceil(x, d)
+ d = d or 1 -- remove[5,11] makes d non-optional
+ return d * flr(x*d)
+end
+
+------------------------------------------------------------------------
+-- nearest integer toward zero
+local function tozero(n)
+ return n > 0 and flr(n) or -flr(-n)
+end
+
+------------------------------------------------------------------------
+-- nearest integer toward +/- infinity
+local function toinf(n)
+ return n < 0 and flr(n) or -flr(-n)
+end
+
+------------------------------------------------------------------------
+-- round a number to the nearest integer, 0.5 rounds up
+local function round(n)
+ return flr(n + 0.5)
+end
+
