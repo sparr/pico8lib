@@ -4,6 +4,16 @@ __lua__
 -- pico8lib graphics library
 -- by sparr
 
+
+------------------------------------------------------------------------
+-- color palettes
+-- input shade, 0-15              0   1   2   3   4   5   6   7   8   9  10  11  12  13  14  15
+local greyscale           ={[0]=  0,  1,  5,  5, 13, 13, 13,  6,  6,  6,  6,  7,  7,  7,  7,  7}
+local greyscale_dark      ={[0]=  0,  1,  1,  5,  5,  5,  5, 13, 13, 13, 13,  6,  6,  6,  6,  7}
+local greyscale_nopurple  ={[0]=  0,  1,  1,  1,  5,  5,  5,  5,  6,  6,  6,  6,  7,  7,  7  ,7}
+local rainbow             ={[0]=  8,  8,  8,  9,  9, 10, 10, 10, 11, 11, 11, 12, 12, 12, 13, 13}
+
+
 ------------------------------------------------------------------------
 -- bresenham's line drawing algorithm
 local function line_(x1, y1, x2, y2, c)
