@@ -5,6 +5,10 @@ __lua__
 -- by sparr
 
 ------------------------------------------------------------------------
+-- empty function, useful for callbacks and placeholders
+local function noop() end
+
+------------------------------------------------------------------------
 -- create a memoized version of a function
 -- originally from https://www.lua.org/gems/
 local function memoize (f)
