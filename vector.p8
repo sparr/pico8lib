@@ -2,7 +2,9 @@ pico-8 cartridge // http://www.pico-8.com
 version 18
 __lua__
 -- pico8lib vector library
--- by sparr
+-- by sparr and codekitchen
+
+-- mit license, details in license file
 
 -- a vector is a point or direction in 2d space
 -- represented by an x and y coordinate
@@ -126,12 +128,15 @@ vector = setmetatable({
 
  __call=function(t, o)
   o = o or {0,0}
-  return setmetatable({ x = o[1] or o.x, y = o[2] or o.y }, t)
+  return setmetatable({ x = o[1] or o.x or 0, y = o[2] or o.y or 0}, t)
  end
 
 })
 vector.__index = vector
 vector.mag = vector.__len
+
+local vector_directions_4 = {vector{1, 0}, vector{0, 1}, vector{-1, 0}, vector{0, -1}}
+local vector_directions_8 = {vector{1, 0}, vector{1, 1}, vector{0, 1}, vector{-1, 1}, vector{-1, 0}, vector{-1, -1}, vector{0, -1}, vector{1, -1}}
 
 ------------------------------------------------------------------------
 -- tests
