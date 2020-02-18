@@ -367,7 +367,7 @@ end
 function print_border_8(string, x, y, col, bcol)
  for dy = -1, 1 do
   -- for x = -1, 1, y == 0 and 2 or 1 do -- 10% faster, costs 8 tokens
-  for dx = -1, 1, y ==0  and 2 or 1 do
+  for dx = -1, 1 do
    ?string, x + dx, y + dy, bcol
   end
  end
