@@ -142,3 +142,76 @@ function shuffle(t)
     t[i], t[j] = t[j], t[i]
   end
 end
+
+------------------------------------------------------------------------
+-- sort an array in place
+-- second parameter optionally extracts or calculates a sort key from each item
+-- todo test
+function sort(t, keyfn)
+ keyfn = keyfn or function(v) return v end
+ local sortkeys = {}
+ for i = 1, #t do
+  sortkeys[i] = keyfn(t[i])
+ end
+ for i = 2, #t do
+  for j = i, 2, -1 do
+   if (sortkeys[j - 1] <= sortkeys[j]) break
+   sortkeys[j], sortkeys[j - 1] = sortkeys[j - 1], sortkeys[j]
+   t[j], t[j - 1] = t[j - 1], t[j]
+  end
+ end
+end
+
+------------------------------------------------------------------------
+-- filter a table, keeping only values that meet certain criteria
+-- return a new table with the same keys/indices kept from the original
+function filter(t, check)
+ o = {}
+ for k, v in pairs(t) do
+  if (check(v)) o[k] = v
+ end
+ return o
+end
+
+------------------------------------------------------------------------
+-- filter an array, keeping only values that meet certain criteria
+-- return a new array with sequential indices
+function filter_array(t, check)
+ o = {}
+ for n in all(t) do
+  if (check(v)) o[#o+1] = n
+ end
+ return o
+end
+
+------------------------------------------------------------------------
+-- determine if any value in a table is truthy or passes check function
+function any(t, check)
+ check = check or function(v) return v end
+ for k, v in pairs(t) do
+  if (check(v)) return true
+ end
+ return false -- optional if nil is acceptable
+end
+
+------------------------------------------------------------------------
+-- determine if every value in a table is truthy or passes check function
+function all(t, check)
+ check = check or function(v) return v end
+ for k, v in pairs(t) do
+  if (not check(v)) return false
+ end
+ return true
+end
+
+------------------------------------------------------------------------
+-- iterate an array in reverse
+-- used just like all()
+function all_reverse(t)
+ local i = #t
+ return function()
+  if (t==0) return nil
+  i -= 1
+  return t[i+1]
+ end
+end
