@@ -43,7 +43,7 @@ json = setmetatable({
   pos = pos or 1
   -- if(pos>#str) assert('reached unexpected end of input.')
   local char = sub(str, pos, pos)
-  if char_in_string(char, "{[") then
+  if table_delims[char] then
    local tbl, key = {}, true
    -- local delim_found = true
    pos += 1
@@ -70,14 +70,14 @@ json = setmetatable({
    until sub(str, pos, pos)=='"'
    local val = sub(str, ipos, pos - 1)
    return json.vals[val] or val, pos + 1
-  elseif char_in_string(char, "-0123456789") then
+  elseif tonum(char .. "0") then
    -- parse a number.
    local ipos = pos
    repeat
     pos += 1
     -- if(pos>#str) assert('end of input found while parsing string.')
-    -- support base 10, 16, and 2 numbers
-   until not char_in_string(sub(str, pos, pos), "-xb0123456789abcdef.")
+   until not char_in_string(sub(str, pos, pos), "-xb0123456789abcdef.") -- support base 10, 16, and 2 numbers
+   -- until not tonum(sub(str, pos, pos) .. "0") -- base 10 only 
    return tonum(sub(str, ipos, pos - 1)), pos
   elseif char == end_delim then
    -- end of an object or array.
@@ -89,7 +89,7 @@ json = setmetatable({
   else  -- parse true, false, null
    for lit_str, lit_val in pairs(json.literals) do
     local lit_end = pos + #lit_str - 1
-    if sub(str, pos, lit_end) == lit_str then return lit_val, lit_end + 1 end
+    if (sub(str, pos, lit_end) == lit_str) return lit_val, lit_end + 1
    end
    -- assert('invalid json token')
   end
