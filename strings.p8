@@ -5,6 +5,70 @@ __lua__
 -- by sparr
 
 ------------------------------------------------------------------------
+-- unambiguous string serialization of arbitrary objects
+-- alternate condensed strings included as comments
+local function repr(o)
+ local visited_tables = {} -- track visited tables to avoid infinite recursion
+ local visited_tables_num = 0
+ local visited_functions = {}
+ local visited_functions_num = 0
+ local function _repr(o)
+  if (o == true) return "<true>"
+  -- if (o == true) return "t"
+  if (o == false) return "<false>"
+  -- if (o == false) return "f"
+  if (o == nil) return "<nil>"
+  -- if (o == nil) return "n"
+  if (type(o) == "function") then
+   if (visited_functions[o]) return "<function[" .. visited_functions[o] .. "]>"
+   -- if (visited_functions[o]) return "<f[" .. visited_functions[o] .. "]>"
+   visited_functions_num += 1
+   visited_functions[o] = visited_functions_num
+   return "<function[" .. visited_functions_num .. "]>"
+   -- return "<f[" .. visited_functions_num .. "]>"
+  end
+  if (type(o) == "string") then
+   -- escape "s and \s in the string, and quote it
+   es = "\""
+   for i=1,#o do
+    local c = sub(o,i,i)
+    es = es .. (c == '"' or c == "\\" and "\\" or "") .. c
+   end
+   return es .."\""
+  end
+  if type(o) == "number" then
+   -- fall back on full 0xnnnn.nnnn representation if necessary for accuracy
+   local numstr = "" .. o
+   return tonum(numstr) == o and numstr or tostr(o,true)
+  end
+  if (type(o) == "table") then
+   local function tablerepr(t)
+    if (visited_tables[t]) return "<table[" .. visited_tables[t] .. "]>"
+    -- if (visited_tables[t]) return "<t[" .. visited_tables[t] .. "]>"
+    visited_tables_num += 1
+    visited_tables[t] = visited_tables_num
+    local head = "<table[" .. visited_tables_num .. "]{"
+    -- local head = "<t[" .. visited_tables_num .. "]{"
+    local arraykeys = {}
+    local r = head
+    for i = 1, #t do
+     r = r .. (i == 1 and "" or ",") .. _repr(t[i])
+     arraykeys[i] = true
+    end
+    for k,v in pairs(t) do
+     if not arraykeys[k] then
+      r = r .. (r == head and "" or ",") .. "[" .. _repr(k) .. "]=" .. _repr(v)
+     end
+    end
+    return r .. "}>"
+   end
+   return tablerepr(o)
+  end
+ end
+ return _repr(o)
+end
+
+------------------------------------------------------------------------
 -- replacement tostr() that serializes tables
 -- all versions ", ..." can be removed to save tokens if you never use tostr(number,true)
 local _tostr = tostr
