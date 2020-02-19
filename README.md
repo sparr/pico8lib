@@ -21,8 +21,9 @@ What you will not find here is code related to gameplay implementation, such as 
 * [`vector`](vector.p8) - 2d vectors
 * [`rational`](rational.p8) - rational numbers
 
-### Snippets
+### Other
 * [`snippets`](snippets.p8) - inline snippets to mix with your own code
+* [`boilerplate`](boilerplate.p8) - mostly empty pico8 cart with profiling and comments
 
 ## Conventions
 Code is not minified for character count; that is a job for a minifier if desired or necessary. I try to aim for 3-5 character identifiers in moderate to complex functions, 1-3 characters in simple functions.
