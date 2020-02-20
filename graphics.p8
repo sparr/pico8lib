@@ -374,6 +374,23 @@ function print_border_8(string, x, y, col, bcol)
  ?string, x, y, col
 end
 
+------------------------------------------------------------------------
+-- wrap any drawing function in a fillp()
+-- replace this:
+-- fillp(1234)rect(5,6,7,8,9)fillp()
+-- with this:
+-- drawp(1234,rect,5,6,7,8,9)
+-- saves 3 tokens, 7-11 bytes per call
+-- function is 14-17 tokens, 55-61 bytes
+-- break even after 5-9 calls
+function drawp(p,func,...)
+ -- fillp(p) save three tokens by not saving and restoring the previous pattern
+ p = fillp(p)
+ func(...)
+ -- fillp()
+ fillp(p)
+end
+
 __gfx__
 0000000088888777
 0000000088877866
