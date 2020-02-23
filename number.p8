@@ -8,6 +8,7 @@ const_number_minfrac = 0x0000.0001 -- 1/32768
 const_number_maxnum = 0x7fff.ffff -- 32677 + 32767/32768
 const_number_minnum = 0x8000.0000 -- -32768
 
+
 ------------------------------------------------------------------------
 -- random range functions
 -- originally inspired by https://www.lexaloffle.com/bbs/?pid=72829
@@ -33,6 +34,7 @@ end
 local function randfrac(n, x) -- (n ... x) for non-integer n and x
  return rnd(x - n + 0x.0001) + n
 
+
 ------------------------------------------------------------------------
 -- count the 1 bits in a number
 -- this version runs one loop per set bit, 26 tokens
@@ -55,6 +57,7 @@ local function popcount(v)
   return band((band(v + v * .0625, 0x0f0f.0f0f) * 0x0101.0101) * 256, 63)
 end
 
+
 ------------------------------------------------------------------------
 -- rotate an 8-bit integer n to the right by b bits
 local function rotr8(n, b)
@@ -65,6 +68,7 @@ local function rotl8(n, b)
  return band(bor(shl(n, b), shr(band(shl(n, b), 0xff00), 8)),0xff)
 end
 
+
 ------------------------------------------------------------------------
 -- flrceil(x,1) is flr(x), flrceil(x,-1) is ceil(x)
 local function flrceil(x, d)
@@ -72,17 +76,20 @@ local function flrceil(x, d)
  return d * flr(x*d)
 end
 
+
 ------------------------------------------------------------------------
 -- nearest integer toward zero
 local function tozero(n)
  return n > 0 and flr(n) or -flr(-n)
 end
 
+
 ------------------------------------------------------------------------
 -- nearest integer toward +/- infinity
 local function toinf(n)
  return n < 0 and flr(n) or -flr(-n)
 end
+
 
 ------------------------------------------------------------------------
 -- round a number to the nearest integer, 0.5 rounds up

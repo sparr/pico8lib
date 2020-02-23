@@ -99,6 +99,7 @@ json = setmetatable({
 
 json.literals = { ['true']=true, ['false']=false, ['null']=json.null }
 
+
 ------------------------------------------------------------------------
 -- tests
 assert(json'123' == 123)

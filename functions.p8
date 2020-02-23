@@ -4,9 +4,11 @@ __lua__
 -- pico8lib functions library
 -- by sparr
 
+
 ------------------------------------------------------------------------
 -- empty function, useful for callbacks and placeholders
 local function noop() end
+
 
 ------------------------------------------------------------------------
 -- create a memoized version of a function
@@ -24,6 +26,7 @@ local function memoize (f)
  end
 end
 
+
 ------------------------------------------------------------------------
 -- unpack list to multiple function parameters or return values
 -- example: a,b,c = unpack({1,2,3})
@@ -33,6 +36,7 @@ local function unpack(arr, i)
  return arr[i], unpack(arr, i + 1)
 end
  
+
 ------------------------------------------------------------------------
 -- try/catch/finally implemented with coroutine return codes
 -- from https://www.lexaloffle.com/bbs/?pid=72820

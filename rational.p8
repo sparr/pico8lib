@@ -157,6 +157,7 @@ rational.__index=rational
 rational.zero=rational(0)
 rational.one=rational(1)
 
+
 ------------------------------------------------------------------------
 -- tests
 -- todo

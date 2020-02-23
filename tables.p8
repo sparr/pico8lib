@@ -4,11 +4,13 @@ __lua__
 -- pico8lib tables library
 -- by sparr
 
+
 ------------------------------------------------------------------------
 -- get value from table by key, with default
 local function get(t, k, d)
  return t[k]~=nil and t[k] or d
 end
+
 
 ------------------------------------------------------------------------
 -- add value v to end of table t
@@ -16,6 +18,7 @@ end
 local function add_f(t, v)
  t[#t + 1] = v
 end
+
 
 ------------------------------------------------------------------------
 -- delete value v from table t, do not preserve order
@@ -25,6 +28,7 @@ local function del_r(t, v)
   if (t[i] == v) t[i], t[n] = t[n], nil return
  end
 end
+
 
 ------------------------------------------------------------------------
 -- delete index i from table t, preserve order
@@ -36,6 +40,7 @@ local function del_i(t, i)
  end
 end
 
+
 ------------------------------------------------------------------------
 -- delete index i from table t, do not preserve order
 local function del_ir(t, i)
@@ -45,6 +50,7 @@ local function del_ir(t, i)
  end
 end
 
+
 ------------------------------------------------------------------------
 -- delete and return the last item from table t
 local function pop(t)
@@ -53,6 +59,7 @@ local function pop(t)
  return v
 end
 local push = add_f
+
 
 ------------------------------------------------------------------------
 -- delete and return the first item from table t
@@ -65,6 +72,7 @@ function unshift(t)
  return v
 end
 
+
 ------------------------------------------------------------------------
 -- add value v to the beginning of table t
 function unshift(t, v)
@@ -73,6 +81,7 @@ function unshift(t, v)
  end
  t[1] = v
 end
+
 
 ------------------------------------------------------------------------
 -- insert value v to table t at index i
@@ -84,6 +93,7 @@ function insert(t, i, v)
  t[i] = v
 end
 
+
 ------------------------------------------------------------------------
 -- copy keys and values from src to dst
 -- also copy metatable if present in src
@@ -94,6 +104,7 @@ local function merge(dst, src)
  setmetatable(dst, getmetatable(src) or getmetatable(dst))
  return dst
 end
+
 
 ------------------------------------------------------------------------
 -- creates a new table copied from o, using merge()
@@ -119,6 +130,7 @@ function copy(o)
  return c
 end
 
+
 ------------------------------------------------------------------------
 -- adds values from src to end of dst, in order
 local function concat(dst, src)
@@ -128,11 +140,13 @@ local function concat(dst, src)
  end
 end
 
+
 ------------------------------------------------------------------------
 -- selects a random value from tbl
 function tblrand(tbl)
  return t[flr(rnd(#t)) + 1]
 end
+
 
 ------------------------------------------------------------------------
 -- randomize the order of a table using fisher-yates shuffle
@@ -142,6 +156,7 @@ function shuffle(t)
     t[i], t[j] = t[j], t[i]
   end
 end
+
 
 ------------------------------------------------------------------------
 -- sort an array in place
@@ -162,6 +177,7 @@ function sort(t, keyfn)
  end
 end
 
+
 ------------------------------------------------------------------------
 -- filter a table, keeping only values that meet certain criteria
 -- return a new table with the same keys/indices kept from the original
@@ -172,6 +188,7 @@ function filter(t, check)
  end
  return o
 end
+
 
 ------------------------------------------------------------------------
 -- filter an array, keeping only values that meet certain criteria
@@ -184,6 +201,7 @@ function filter_array(t, check)
  return o
 end
 
+
 ------------------------------------------------------------------------
 -- determine if any value in a table is truthy or passes check function
 function any(t, check)
@@ -194,6 +212,7 @@ function any(t, check)
  return false -- optional if nil is acceptable
 end
 
+
 ------------------------------------------------------------------------
 -- determine if every value in a table is truthy or passes check function
 function all(t, check)
@@ -203,6 +222,7 @@ function all(t, check)
  end
  return true
 end
+
 
 ------------------------------------------------------------------------
 -- iterate an array in reverse

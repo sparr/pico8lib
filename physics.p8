@@ -4,6 +4,7 @@ __lua__
 -- pico8lib physics library
 -- by sparr
 
+
 ------------------------------------------------------------------------
 -- check for collision/overlap of a point and a circle
 -- 44 tokens
@@ -18,6 +19,7 @@ local function collision_point_circle(px, py, cx, cy, cr)
  local dx , dy = px - cx, py - cy
  return dx * dx + dy * dy <= cr * cr
 end
+
 
 ------------------------------------------------------------------------
 -- distance from circle to line with optional width

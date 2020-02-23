@@ -4,6 +4,7 @@ __lua__
 -- pico8lib memory library
 -- by sparr
 
+
 ------------------------------------------------------------------------
 -- 75% the runtime of memcpy, len must be a multiple of 4
 local function memcpy4(dst, src, len)

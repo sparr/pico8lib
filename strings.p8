@@ -4,6 +4,7 @@ __lua__
 -- pico8lib strings library
 -- by sparr
 
+
 ------------------------------------------------------------------------
 -- unambiguous string serialization of arbitrary objects
 -- alternate condensed strings included as comments
@@ -68,6 +69,7 @@ local function repr(o)
  return _repr(o)
 end
 
+
 ------------------------------------------------------------------------
 -- replacement tostr() that serializes tables
 -- all versions ", ..." can be removed to save tokens if you never use tostr(number,true)
@@ -106,6 +108,7 @@ local function tostr(t, ...)
  return _tostr(t, ...)
 end
 
+
 ------------------------------------------------------------------------
 -- returns n*32768 as a string
 -- 0x0000.0001 is "1", 0x7fff.ffff is "2147483647", and 0x8000.0000 is "-2147483648"
@@ -119,6 +122,7 @@ local function int32_to_str(n)
  end
  return sign .. out
 end
+
 
 ------------------------------------------------------------------------
 -- formats a number as hexadecimal with no 0x prefix or zero padding
@@ -137,6 +141,7 @@ local function hex_unpadded(v, n)
   while sub(s, r, r) == "0" do r -= 1 end
   return (v and "-" or "") .. sub(s, l, r == 7 and 6 or r)
 end
+
 
 ------------------------------------------------------------------------
 -- turns "ab2c4de" into "abccdddde"
@@ -174,7 +179,8 @@ local function rle_decode(str)
  end
  return out
 end
- 
+
+
 ------------------------------------------------------------------------
 -- replace fnd with rep in str
 -- 58 tokens
@@ -205,6 +211,7 @@ local function replace(str, fnd, rep)
  return out
 end
 
+
 ------------------------------------------------------------------------
 -- check if a char exists in a string
 local function char_in_string(c, s)
@@ -213,6 +220,7 @@ local function char_in_string(c, s)
  end
  -- return false -- usually unnecessary
 end
+
 
 ------------------------------------------------------------------------
 -- wrap a long string to fit on the screen
@@ -240,6 +248,7 @@ local function wrap(str, m)
  return out
 end
 
+
 ------------------------------------------------------------------------
 -- split a string on a delimiter, return a list of strings
 -- split("abc,def,",",") returns {"abc","def",""}
@@ -259,7 +268,6 @@ end
 -- splitd(",a,b;c,d|e,f;","|",";",",") returns {{{"","a","b"},{"c","d"}},{{"e","f"},{}}}
 local function splitd(input, delim, ...)
  local out, pos = {}, 0
- -- print(type(input))
  if type(input) == "string" then
   for i = 1, #input do
    if sub(input, i, i) == delim then
@@ -277,6 +285,7 @@ local function splitd(input, delim, ...)
  return out
 end
 
+
 ------------------------------------------------------------------------
 -- center align string at given x coordinate
 -- x defaults to 64 (screen center)
@@ -292,6 +301,7 @@ local function str_center(str, x)
  end
  return (x or 64) - w
 end
+
 
 ------------------------------------------------------------------------
 -- substring function with length instead of end position

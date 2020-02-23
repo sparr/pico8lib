@@ -7,6 +7,7 @@ __lua__
 -- this code is meant to be copied inline, not necessarily used as functions,
 -- with your own own code inserted in the appropriate place
 
+
 ------------------------------------------------------------------------
 -- loop through eight neighboring coordinates, 21 tokens
 local function snippet_eight_neighbors()

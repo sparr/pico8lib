@@ -72,6 +72,7 @@ local function line_func(x1, y1, x2, y2, c, f)
  end
 end
 
+
 ------------------------------------------------------------------------
 -- draw a 4x4 sprite
 local function spr4(sn, x, y)
@@ -80,6 +81,7 @@ end
 local function spr4(sn, x, y, w, h, ...) -- supports w,h,flip_h,flip_v, but much slower (2.5x runtime)
  sspr(sn % 32 * 4, flr(sn / 32) * 4, (w or 1) * 4, (h or 1) * 4, x, y, (w or 1) * 4, (h or 1) * 4, ...)
 end
+
 
 ------------------------------------------------------------------------
 -- draw a circle of even diameter (2-16)
@@ -109,6 +111,7 @@ local function circeven(x, y, r, c)
  palt() -- optional if other code makes no expectations about transparency
 end
 
+
 ------------------------------------------------------------------------
 -- draw a small filled circle of even diameter (2-8)
 -- x,y is top left corner of circle bounding box
@@ -135,6 +138,7 @@ local function circevensmall(x, y, r, c)
  palt() -- optional if other code makes no expectations about transparency
 end
 
+
 ------------------------------------------------------------------------
 -- draw a small filled circle of even diameter (2-8)
 -- x,y is top left corner of circle bounding box
@@ -160,6 +164,7 @@ local function circfillevensmall(x, y, r, c)
  spr(1, x - 4 + r, y - 4 + r)
  palt() -- optional if other code makes no expectations about transparency
 end
+
 
 ------------------------------------------------------------------------
 local function flrceil(x, d) return d * flr(x*d) end
@@ -195,6 +200,7 @@ local function circinverse(x, y, r, c)
  end
 end
 
+
 ------------------------------------------------------------------------
 -- draws every pixel outside a given rectangle
 local function rectinverse(x, y, i, j, c)
@@ -215,7 +221,7 @@ local _fillp = fillp
 local function fillp(p, x, y)
     p, x, y = p or 0, x or 0, y or 0 -- remove[13,36] backward compatibility with fillp(p)
     local p16, x = flr(p), band(x, 3)
-    local f, p32 = flr(15 / shl(1, x)) * 0x1111, rotr(p16 + lshr(p16, 16), band(y, 3) * 4 + x) -- shl is more tokens than ^ but much faster
+    local f, p32 = flr(15 / shl(1, x)) * 0x1111, rotr(p16 + lshr(p16, 16), band(y, 3) * 4 + x) -- shl is more tokens than ^ but less "cpu" cost as of 0.1.12c
     return _fillp(p - p16 + flr(band(p32, f) + band(rotl(p32, 4), 0xffff - f)))
 end
 
@@ -304,6 +310,7 @@ function chromakey(drawfunc, x1, y1, x2, y2, c)
     clip(clip_x1, clip_y1, clip_x2 - clip_x1, clip_y2 - clip_y1)
 end
 
+
 ------------------------------------------------------------------------
 -- takes a string and width describing a map, two hex digits per tile
 -- draws the map, with other parameters same as map()
@@ -323,6 +330,7 @@ function mapstring(mapstr, mapw, celx, cely, sx, sy, celw, celh, layer)
  end
 end
 
+
 ------------------------------------------------------------------------
 -- takes a string and width describing a map, two hex digits per tile
 -- replaces existing map data, starting at celx,cely in the main map space
@@ -339,6 +347,7 @@ function string_to_map(mapstr, mapw, celx, cely)
  end
 end
 
+
 ------------------------------------------------------------------------
 -- print string with a shadow
 -- constant one pixel southeast shadow
@@ -351,6 +360,7 @@ function print_shadow(string, x, y, col, bcol, dx, dy)
  ?string, x + (dx or 1), y + (dy or 1), bcol
  ?string, x, y, col
 end
+
 
 ------------------------------------------------------------------------
 -- print string with an outline
@@ -373,6 +383,7 @@ function print_border_8(string, x, y, col, bcol)
  end
  ?string, x, y, col
 end
+
 
 ------------------------------------------------------------------------
 -- wrap any drawing function in a fillp()

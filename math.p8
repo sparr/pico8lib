@@ -4,11 +4,13 @@ __lua__
 -- pico8lib math library
 -- by sparr
 
+
 ------------------------------------------------------------------------
 -- lookup tables
 
 -- a^b will overflow when a>power_overflow[b]
 local power_overflow = {32767,181,31,13,7,5,4,3,3,2,2,2,2,2} -- ,1,1,1
+
 
 ------------------------------------------------------------------------
 -- greatest common divisor of two numbers
@@ -22,11 +24,13 @@ local function gcd(a, b)
  return b
 end
 
+
 ------------------------------------------------------------------------
 -- least common multiple of two numbers
 local function lcm(a, b)
  return a / gcd(a, b) * b
 end
+
 
 ------------------------------------------------------------------------
 -- calculate the nth root of x
@@ -78,6 +82,7 @@ local function dist(x1, y1, x2, y2)
  return sqrt(n * n + 1) * d
 end
 
+
 ------------------------------------------------------------------------
 -- distance squared between two points
 local function distsqr(x1, y1, x2, y2)
@@ -86,6 +91,7 @@ local function distsqr(x1, y1, x2, y2)
 end
 
 -- more complex distance and collision/overlap functions can be found in physics.p8
+
 
 ------------------------------------------------------------------------
 -- approximation of asin(d) for 0<=d<=.7071
@@ -97,6 +103,7 @@ local function asin_octant(d)
  return d * 0x.29cf + (d > 0x.61f8 and (d - 0x.61f8) * 0x.0785 or 0)
 end
 
+
 ------------------------------------------------------------------------
 -- linear interpolation between a and b
 -- (a,b,0) == a
@@ -105,6 +112,7 @@ end
 local function interp_linear(a, b, f) -- "lerp"
  return a + (b - a) * f
 end
+
 
 ------------------------------------------------------------------------
 -- inverse of linear interpolation between a and b
@@ -116,6 +124,7 @@ local function interp_linear_inverse(a, b, v)
  return (mid(a,v,b) - a) / (b - a)
 end
 
+
 ------------------------------------------------------------------------
 -- sine interpolation between a and b
 -- (a,b,0) == a
@@ -124,6 +133,7 @@ end
 local function interp_sine(a, b, f)
  return a + (b - a) * -(sin(f/4))
 end
+
 
 ------------------------------------------------------------------------
 -- smoothstep interpolation between a and b

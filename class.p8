@@ -4,6 +4,7 @@ __lua__
 -- pico8lib class library
 -- by sparr
 
+
 ------------------------------------------------------------------------
 -- create a new class from a parent class, with optional prototype
 function class(parent, proto)
