@@ -235,3 +235,13 @@ function all_reverse(t)
   return t[i+1]
  end
 end
+
+------------------------------------------------------------------------
+-- slice array from s to e (inclusive)
+function slice(t, s, e)
+ local o = {}
+ for k, v in pairs(t) do
+  if (k >= s and k <= e) o[#o + 1] = v
+ end
+ return o
+end
