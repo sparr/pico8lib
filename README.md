@@ -16,6 +16,7 @@ What you will not find here is code related to gameplay implementation, such as 
 * [`graphics`](graphics.p8) - Drawing and sprite manipulation
 * [`physics`](physics.p8) - Collision functions, etc
 * [`memory`](memory.p8) - Reading, writing, manipulating memory
+* [`log`](log.p8) - Write timestamped (local time) logs to STDOUT
 
 ### Classes
 * [`vector`](vector.p8) - 2d vectors
