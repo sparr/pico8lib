@@ -6,9 +6,9 @@ __lua__
 
 -- Depends on pico8lib/strings.p8
 
--- P8LIBLOGTZ configures the output to either use UTC or local time.
--- Valid values are "local" or "utc"
-local P8LIBLOGTZ = "local"
+-- P8LIBLOGUTC configures the output to either use UTC or local time.
+-- false (default) for local time, true for UTC
+local P8LIBLOGUTC = false
 
 -- P8LIBLOGLVL configures the logging functions to only output certain log
 -- levels.
@@ -21,11 +21,11 @@ local P8LIBLOGLVL = 3
 --- Log the passed in object to STDOUT
 -- The passed in object will be converted to a string and then logged with a
 -- timestamp.
--- @param level A level prefix to prepend to the message
+-- @param prefix A prefix to prepend to the message
 -- @param any The object to log
 -- @return nil
-local function log (level, any)
-   tz = P8LIBLOGTZ == "utc" and 80 or 90
+local function log (prefix, any)
+   tz = P8LIBLOGTZ and 80 or 90
    seconds = stat(tz+5)
    printh(stat(tz) .. "-" ..
           stat(tz+1) .. "-" ..
@@ -33,7 +33,7 @@ local function log (level, any)
           stat(tz+3) .. ":" ..
           stat(tz+4) .. ":" ..
           (seconds < 10 and "0" .. seconds or seconds)
-          .. " " .. level .. " - " .. tostr(any))
+          .. " " .. prefix .. " - " .. tostr(any))
 end
 
 
@@ -69,13 +69,13 @@ end
 -- save_file_exists = false
 -- fps = 30
 -- P8LIBLOGLVL = 3
--- P8LIBLOGTZ = "utc"
+-- P8LIBLOGTZ = true
 -- if (life == 0) log_err("Oh no! life is zero!")
 -- if (not save_file_exists) log_warn("No save file found.")
 -- log_info("FPS:" .. fps)
 
 -- P8LIBLOGLVL = 2
--- P8LIBLOGTZ = "local"
+-- P8LIBLOGTZ = false
 -- if (life == 0) log_err("Oh no! life is zero!")
 -- if (not save_file_exists) log_warn("No save file found.")
 -- log_info("FPS:" .. fps)
