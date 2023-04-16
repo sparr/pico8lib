@@ -6,6 +6,18 @@ __lua__
 
 -- Depends on pico8lib/strings.p8
 
+-- P8LIBLOGTZ configures the output to either use UTC or local time.
+-- Valid values are "local" or "utc"
+local P8LIBLOGTZ = "local"
+
+-- P8LIBLOGLVL configures the logging functions to only output certain log
+-- levels.
+-- 0 - disable logging
+-- 1 - errors only
+-- 2 - warnings and errors
+-- 3 - all logs (info, warnings, and errors)
+local P8LIBLOGLVL = 3
+
 --- Log the passed in object to STDOUT
 -- The passed in object will be converted to a string and then logged with a
 -- timestamp.
@@ -13,13 +25,15 @@ __lua__
 -- @param any The object to log
 -- @return nil
 local function log (level, any)
-   local message = stat(90)
-   message = message .. "-" .. stat(91)
-   message = message .. "-" .. stat(92)
-   message = message .. " " .. stat(93)
-   message = message .. ":" .. stat(94)
-   message = message .. ":" .. stat(95)
-   printh(message .. level .. " - " .. tostr(any))
+   tz = P8LIBLOGTZ == "utc" and 80 or 90
+   seconds = stat(tz+5)
+   printh(stat(tz) .. "-" ..
+          stat(tz+1) .. "-" ..
+          stat(tz+2) .. " " ..
+          stat(tz+3) .. ":" ..
+          stat(tz+4) .. ":" ..
+          (seconds < 10 and "0" .. seconds or seconds)
+          .. " " .. level .. " - " .. tostr(any))
 end
 
 
@@ -28,21 +42,51 @@ end
 -- @param any The object to log
 -- @return nil
 local function log_info (any)
-   log("INFO", any)
+   if (P8LIBLOGLVL >= 3) log("INF", any)
 end
+
 
 --- Log the passed in object to STDOUT with the WARN tag
 -- See the `log` function for details
 -- @param any The object to log
 -- @return nil
 local function log_warn (any)
-   log("WARN", any)
+   if (P8LIBLOGLVL >= 2) log("WAR", any)
 end
+
 
 --- Log the passed in object to STDOUT with the ERR tag
 -- See the `log` function for details
 -- @param any The object to log
 -- @return nil
 local function log_err (any)
-   log("ERR", any)
+   if (P8LIBLOGLVL >= 1) log("ERR", any)
 end
+
+
+--- Example usage
+-- life = 0
+-- save_file_exists = false
+-- fps = 30
+-- P8LIBLOGLVL = 3
+-- P8LIBLOGTZ = "utc"
+-- if (life == 0) log_err("Oh no! life is zero!")
+-- if (not save_file_exists) log_warn("No save file found.")
+-- log_info("FPS:" .. fps)
+
+-- P8LIBLOGLVL = 2
+-- P8LIBLOGTZ = "local"
+-- if (life == 0) log_err("Oh no! life is zero!")
+-- if (not save_file_exists) log_warn("No save file found.")
+-- log_info("FPS:" .. fps)
+
+--
+-- Example output
+-- $ pico8 -x log.p8 
+-- RUNNING: log.p8
+-- 2023-4-16 19:44:10 ERR - Oh no! life is zero!
+-- 2023-4-16 19:44:10 WAR - No save file found.
+-- 2023-4-16 19:44:10 INF - FPS:30
+-- 2023-4-16 12:44:10 ERR - Oh no! life is zero!
+-- 2023-4-16 12:44:10 WAR - No save file found.
+
