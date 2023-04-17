@@ -320,3 +320,11 @@ end
 local function ssub(str, idx, len)
  return sub(str, idx, idx + (len or 0))
 end
+
+
+------------------------------------------------------------------------
+-- Checks if a string starts with a given prefix
+-- returns true if it does, false otherwise
+local function starts_with(str, prefix)
+ return ssub(str, 0, #prefix) == prefix
+end
