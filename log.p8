@@ -25,7 +25,7 @@ local P8LIBLOGLVL = 3
 -- @param any The object to log
 -- @return nil
 local function log (prefix, any)
-   tz = P8LIBLOGTZ and 80 or 90
+   tz = P8LIBLOGUTC and 80 or 90
    seconds = stat(tz+5)
    printh(stat(tz) .. "-" ..
           stat(tz+1) .. "-" ..
@@ -69,13 +69,13 @@ end
 -- save_file_exists = false
 -- fps = 30
 -- P8LIBLOGLVL = 3
--- P8LIBLOGTZ = true
+-- P8LIBLOGUTC = true
 -- if (life == 0) log_err("Oh no! life is zero!")
 -- if (not save_file_exists) log_warn("No save file found.")
 -- log_info("FPS:" .. fps)
 
 -- P8LIBLOGLVL = 2
--- P8LIBLOGTZ = false
+-- P8LIBLOGUTC = false
 -- if (life == 0) log_err("Oh no! life is zero!")
 -- if (not save_file_exists) log_warn("No save file found.")
 -- log_info("FPS:" .. fps)
