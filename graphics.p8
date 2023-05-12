@@ -219,10 +219,10 @@ end
 -- heavily token optimized by sparr
 local _fillp = fillp
 local function fillp(p, x, y)
-    p, x, y = p or 0, x or 0, y or 0 -- remove[13,36] backward compatibility with fillp(p)
-    local p16, x = flr(p), band(x, 3)
-    local f, p32 = flr(15 / shl(1, x)) * 0x1111, rotr(p16 + lshr(p16, 16), band(y, 3) * 4 + x) -- shl is more tokens than ^ but less "cpu" cost as of 0.1.12c
-    return _fillp(p - p16 + flr(band(p32, f) + band(rotl(p32, 4), 0xffff - f)))
+ local p, x, y = p or 0, x or 0, y or 0 -- remove[13,36] backward compatibility with fillp(p)
+ local p16, x = flr(p), band(x, 3)
+ local f, p32 = flr(shr(15, x)) * 0x1111, rotr(p16 + lshr(p16, 16), band(y, 3) * 4 + x)
+ return _fillp(p - p16 + flr(band(p32, f) + band(rotl(p32, 4), 0xffff - f)))
 end
 
 
