@@ -244,14 +244,14 @@ local TestSuite = class(
    nil,
    {
       name = nil,
-      cases = {},
+      cases = nil,
    }
 )
 
-function TestSuite:__init  (name)
+function TestSuite:__init (name)
    self.name = name
+   self.cases = {}
 end
-
 
 --- Add a test case instance to the test suite
 -- @param test_case An instance of a subclass of TestCase
