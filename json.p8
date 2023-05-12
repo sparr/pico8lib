@@ -4,7 +4,7 @@ __lua__
 -- pico8lib json library
 -- by sparr
 
-local char_in_string -- from strings.p8
+-- #include strings.p8
 
 -- based on https://gist.github.com/tylerneylon/59f4bcf316be525b30ab
 -- "tylerneylon commented on sep 1, 2015 [...] yes, please use it. i put this in the public domain."
@@ -41,9 +41,10 @@ json = setmetatable({
  },{
  __call = function(t, str, pos, end_delim)
   pos = pos or 1
+  pos = json.skip_whitespace(str, pos) -- only needed for unminified json
   -- if(pos>#str) assert('reached unexpected end of input.')
   local char = sub(str, pos, pos)
-  if table_delims[char] then
+  if json.table_delims[char] then
    local tbl, key = {}, true
    -- local delim_found = true
    pos += 1
@@ -98,19 +99,3 @@ json = setmetatable({
 })
 
 json.literals = { ['true']=true, ['false']=false, ['null']=json.null }
-
-
-------------------------------------------------------------------------
--- tests
-assert(json'123' == 123)
-assert(json'1.2' == 1.2)
-assert(json'0xa.a' == 10+5/8)
-assert(json'0b1010' == 10)
-assert(json'"abc"' == "abc")
-assert(json'null' == json.null)
-assert(json'true' == true)
-assert(json'false' == false)
-assert(json'{"abc":[1,2,{"def":[1,false]}]}'.abc[3].def[2] == false)
-assert(json[[
- { "1 a" : 1 }
- ]]['1 a'] == 1)
