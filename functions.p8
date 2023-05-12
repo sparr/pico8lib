@@ -35,16 +35,6 @@ end
 
 
 ------------------------------------------------------------------------
--- unpack list to multiple function parameters or return values
--- example: a,b,c = unpack({1,2,3})
-local function unpack(arr, i)
- i = i or 1
- if (i >= #arr) return arr[i]
- return arr[i], unpack(arr, i + 1)
-end
- 
-
-------------------------------------------------------------------------
 -- try/catch/finally implemented with coroutine return codes
 -- from https://www.lexaloffle.com/bbs/?pid=72820
 -- "enjoy, and if you like it feel free to kick a buck to my patreon."
