@@ -19,6 +19,7 @@ local TestCase = class(
    }
 )
 
+--- TestCase naming convention: snake_case
 function TestCase:__init (name)
    self.name = name
 end
