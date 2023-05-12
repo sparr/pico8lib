@@ -262,9 +262,9 @@ end
 
 --- Run all of the test cases added to the test suite
 -- @return nil
-function TestSuite:run ()
+function TestSuite:run (quiet)
    for _, test_case in pairs(self.cases) do
-      test_case:run()
+      test_case:run(quiet)
    end
 end
 
