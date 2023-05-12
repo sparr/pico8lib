@@ -5,12 +5,10 @@ __lua__
 -- Unit tests for the test module
 -- by mindfilleter
 
--- Depends on pico8lib/[class.p8, log.p8, functions.p8, string.p8]
-
 -- to run the tests use `pico8 -x tests/test_test.p8`
 
-#include ../log.p8
 #include ../class.p8
+#include ../log.p8
 #include ../functions.p8
 #include ../strings.p8
 #include ../test.p8
