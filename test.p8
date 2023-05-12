@@ -237,7 +237,9 @@ function TestCase:assert_number(actual, message)
 end
 
 
---- The TestSuite class is a collection manager for test cases. Add test case instances to a TestSuite using `add_test_case`, then call the `run_suites` function to run the tests.
+--- The TestSuite class is a collection manager for test cases.
+-- Add test case instances to a TestSuite using `add_test_case`,
+-- then call the `run_suites` function to run the tests.
 local TestSuite = class(
    nil,
    {
