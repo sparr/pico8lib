@@ -268,7 +268,7 @@ function TestSuite:run (quiet)
    end
 end
 
-function TestSuite:_make_run_report ()
+function TestSuite:make_run_report ()
    local report = {tests_run=0, tests_failed=0}
    for _, test_case in pairs(self.cases) do
       report.tests_run = report.tests_run + test_case.tests_run
@@ -284,7 +284,7 @@ local function run_suites (suites)
    for _, suite in pairs(suites) do
       log_info("Running tests in suite " .. suite.name)
       suite:run()
-      local report = suite:_make_run_report()
+      local report = suite:make_run_report()
       log_info("Finished suite: Ran " .. report.tests_run .. " with " .. report.tests_failed .. " failures")
    end
 end
