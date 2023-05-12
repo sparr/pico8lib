@@ -41,23 +41,27 @@ function TestCase:_parse_error_message (e)
 end
 
 --- Call all of the test functions that start with "test_" and track failures.
-function TestCase:run ()
-   for key, value in pairs(self.__index) do
-      if type(value) == "function" and starts_with(key, "test_") then
-         try(
-            function ()
-               value(self)
-               log_info("TestCase:" .. self.name .. ":" .. key .. " ... PASS")
-            end,
-            function (e)
-               self.tests_failured = self.tests_failed + 1
-               log_err(self.name .. ":" .. key .. " " .. self:_parse_error_message(e))
-            end,
-            function ()
-               self.tests_run = self.tests_run + 1
-            end
-         )
+function TestCase:run (quiet)
+   tests = {}
+   for key, val in pairs(self) do
+      if type(val) == "function" and starts_with(key, "test_") then
+         tests[key] = val
       end
+   end
+   for test_name, test_func in pairs(tests) do
+      try(
+         function ()
+            test_func(self)
+            if not quiet then log_info("PASS: TestCase:" .. self.name .. ":" .. test_name) end
+         end,
+         function (e)
+            self.tests_failed = self.tests_failed + 1
+            if not quiet then log_err("FAIL: TestCase:" .. self.name .. ":" .. test_name .. " " .. self:_parse_error_message(e)) end
+         end,
+         function ()
+            self.tests_run = self.tests_run + 1
+         end
+      )
    end
 end
 
