@@ -11,7 +11,14 @@ local function noop() end
 
 
 ------------------------------------------------------------------------
--- create a memoized version of a function
+-- raises an error
+local function error(m)
+ assert(false, m)
+end
+
+
+------------------------------------------------------------------------
+-- create a memoized version of a single parameter function
 -- originally from https://www.lua.org/gems/
 local function memoize (f)
  local mem = {}
