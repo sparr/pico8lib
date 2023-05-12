@@ -116,4 +116,26 @@ end
 suite:add_test_case(ErrorHandling)
 
 
+-- Test suite test case
+local TestSuiteTest = TestCase("test_suite")
+
+function TestSuiteTest:test_report_counts ()
+   local test_suite = TestSuite("suite")
+   local TestSuiteTestCase = TestCase("testsuitetest")
+   function TestSuiteTestCase:test_assert_nil_pass ()
+      self:assert_nil(nil)
+   end
+   function TestSuiteTestCase:test_assert_nil_fail ()
+      self:assert_nil(1)
+   end
+   test_suite:add_test_case(TestSuiteTestCase)
+   test_suite:run(true) -- quiet
+   local report = test_suite:make_run_report()
+   self:assert_equal(report.tests_run, 2)
+   self:assert_equal(report.tests_failed, 1)
+end
+
+suite:add_test_case(TestSuiteTest)
+
+
 run_suites{suite}
