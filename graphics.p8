@@ -66,7 +66,7 @@ end
 
 ------------------------------------------------------------------------
 -- draw a 4x4 sprite
-local function spr4(sn, x, y)
+local function spr4_fast(sn, x, y)
  sspr(sn % 32 * 4, flr(sn / 32) * 4, 4, 4, x, y)
 end
 local function spr4(sn, x, y, w, h, ...) -- supports w,h,flip_h,flip_v, but much slower (2.5x runtime)
