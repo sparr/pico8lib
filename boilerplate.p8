@@ -47,13 +47,14 @@ function _draw()
  -------------------------
  _profile_draw = stat(1) - _profile_draw -- record total cpu usage of draw
  -- print profiling and performance information
- -- clobbers previous cursor and color
+ c = $0x5f24 -- preserve cursor and color
  cursor(_profile_x, _profile_y)
  color(_profile_color)
  print("time:" .. tostr(t()))
  print("updt:" .. tostr(_profile_update))
  print("draw:" .. tostr(_profile_draw))
  print(" fps:" .. tostr(stat(7)))
+ poke4(0x5f24, c) -- restore cursor and color
 end
 __gfx__
 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
