@@ -144,6 +144,16 @@ end
 
 
 ------------------------------------------------------------------------
+-- formats a number as binary
+local function binary(n)
+ local out = "0b"
+ for e=-15,16 do
+  out = out .. (band(lshl(n,e)==1) and "1" or "0")
+ end
+ return out
+end
+
+------------------------------------------------------------------------
 -- turns "ab2c4de" into "abccdddde"
 local function rle_decode(str)
  local out, count = "", ""
