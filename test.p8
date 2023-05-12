@@ -8,6 +8,7 @@ __lua__
 -- #include log.p8
 -- #include functions.p8
 -- #include strings.p8
+-- #include tables.p8
 
 --- The TestCase class represents a collection of tests to be run for a given context. Subclass TestCase and add functions starting with "test_" then add an instance to a TestSuite instance to run your tests. For an example of how do this, see the `Assertions` test case in `test/test_test.p8`.
 local TestCase = class(
@@ -42,16 +43,17 @@ end
 
 --- Call all of the test functions that start with "test_" and track failures.
 function TestCase:run (quiet)
-   tests = {}
+   test_names = {}
    for key, val in pairs(self) do
       if type(val) == "function" and starts_with(key, "test_") then
-         tests[key] = val
+         test_names[#test_names+1] = key
       end
    end
-   for test_name, test_func in pairs(tests) do
+   sort(test_names)
+   for _, test_name in ipairs(test_names) do
       try(
          function ()
-            test_func(self)
+            self[test_name](self)
             if not quiet then log_info("PASS: TestCase:" .. self.name .. ":" .. test_name) end
          end,
          function (e)
