@@ -17,11 +17,7 @@ __lua__
 local suite = TestSuite("test.p8")
 
 -- Assertions test case
-local Assertions = class(TestCase(), {})
-
-function Assertions:__init ()
-   TestCase.__init(self, "assertions")
-end
+local Assertions = TestCase("assertions")
 
 function Assertions:test_assert_nil_pass ()
    self:assert_nil(nil)
@@ -43,15 +39,11 @@ function Assertions:test_assert_not_nil_fail ()
    end, "[nil] is unexpectedly nil")
 end
 
-suite:add_test_case(Assertions())
+suite:add_test_case(Assertions)
 
 
 -- Equality test case
-local Equality = class(TestCase(), {})
-
-function Equality:__init ()
-   TestCase.__init(self, "equality")
-end
+local Equality = TestCase("equality")
 
 function Equality:test_assert_equal_pass ()
    self:assert_equal(1, 1)
@@ -73,15 +65,11 @@ function Equality:test_assert_not_equal_fail ()
    end, "1 == 1")
 end
 
-suite:add_test_case(Equality())
+suite:add_test_case(Equality)
 
 
 -- Type test case
-local Types = class(TestCase(), {})
-
-function Types:__init ()
-   TestCase.__init(self, "types")
-end
+local Types = TestCase("types")
 
 function Types:test_assert_boolean_pass ()
    self:assert_boolean(true)
@@ -113,15 +101,11 @@ function Types:test_assert_string_fail ()
    end, "nil is not a string")
 end
 
-suite:add_test_case(Types())
+suite:add_test_case(Types)
 
 
 -- Error handling test case
-local ErrorHandling = class(TestCase(), {})
-
-function ErrorHandling:__init ()
-   TestCase.__init(self, "error handling")
-end
+local ErrorHandling = TestCase("error_handling")
 
 function ErrorHandling:test_assert_throws_pass ()
    self:assert_throws(function ()
@@ -129,7 +113,7 @@ function ErrorHandling:test_assert_throws_pass ()
    end, "oops!")
 end
 
-suite:add_test_case(ErrorHandling())
+suite:add_test_case(ErrorHandling)
 
 
 run_suites{suite}
