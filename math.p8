@@ -13,10 +13,11 @@ local power_overflow = {32767,181,31,13,7,5,4,3,3,2,2,2,2,2} -- ,1,1,1
 
 
 ------------------------------------------------------------------------
--- greatest common divisor of two numbers
-local function gcd(a, b)
- return a==0 and b or gcd(b%a, a)
+-- greatest common divisor of two numbers, recursive
+local function gcd_recursive(a, b)
+ return a==0 and b or gcd_recursive(b%a, a)
 end
+-- greatest common divisor of two numbers, iterative
 local function gcd(a, b)
  while a~=0 do
   a, b = b%a, a
