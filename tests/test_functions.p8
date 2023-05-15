@@ -11,6 +11,7 @@ __lua__
 #include ../log.p8
 #include ../functions.p8
 #include ../strings.p8
+#include ../tables.p8
 #include ../test.p8
 
 
