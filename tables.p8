@@ -159,11 +159,22 @@ end
 
 
 ------------------------------------------------------------------------
--- sort an array in place
--- second parameter optionally extracts or calculates a sort key from each item
+-- bubble sort an array in place
 -- todo test
-function sort(t, keyfn)
- keyfn = keyfn or function(v) return v end
+function sort(t)
+ for i = 2, #t do
+  for j = i, 2, -1 do
+   if (t[j - 1] <= t[j]) break
+   t[j], t[j - 1] = t[j - 1], t[j]
+  end
+ end
+end
+
+------------------------------------------------------------------------
+-- bubble sort an array in place
+-- second parameter extracts or calculates a sort key from each item
+-- todo test
+function sort_func(t, keyfn)
  local sortkeys = {}
  for i = 1, #t do
   sortkeys[i] = keyfn(t[i])
@@ -179,19 +190,19 @@ end
 
 
 ------------------------------------------------------------------------
--- filter a table, keeping only values that meet certain criteria
+-- filter a table, keeping only key,value pairs that pass a check function
 -- return a new table with the same keys/indices kept from the original
 function filter(t, check)
  o = {}
  for k, v in pairs(t) do
-  if (check(v)) o[k] = v
+  if (check(k,v)) o[k] = v
  end
  return o
 end
 
 
 ------------------------------------------------------------------------
--- filter an array, keeping only values that meet certain criteria
+-- filter an array, keeping only values that pass check function
 -- return a new array with sequential indices
 function filter_array(t, check)
  o = {}
@@ -203,9 +214,18 @@ end
 
 
 ------------------------------------------------------------------------
--- determine if any value in a table is truthy or passes check function
-function any(t, check)
- check = check or function(v) return v end
+-- determine if any value in a table is truthy
+function any(t)
+ for k, v in pairs(t) do
+  if (v) return true
+ end
+ return false -- optional if nil is acceptable
+end
+
+
+------------------------------------------------------------------------
+-- determine if any value in a table passes check function
+function any_func(t, check)
  for k, v in pairs(t) do
   if (check(v)) return true
  end
@@ -214,9 +234,18 @@ end
 
 
 ------------------------------------------------------------------------
+-- determine if every value in a table is truthy
+function all(t)
+ for k, v in pairs(t) do
+  if (not v) return false
+ end
+ return true
+end
+
+
+------------------------------------------------------------------------
 -- determine if every value in a table is truthy or passes check function
-function all(t, check)
- check = check or function(v) return v end
+function all_func(t, check)
  for k, v in pairs(t) do
   if (not check(v)) return false
  end
