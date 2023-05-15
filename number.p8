@@ -5,8 +5,9 @@ __lua__
 -- by sparr
 
 const_number_minfrac = 0x0000.0001 -- 1/32768
-const_number_maxnum = 0x7fff.ffff -- 32677 + 32767/32768
-const_number_minnum = 0x8000.0000 -- -32768
+const_number_maxint  = 0x7fff      -- 32677
+const_number_maxnum  = 0x7fff.ffff -- 32677 + 32767/32768
+const_number_minnum  = 0x8000.0000 -- -32768
 
 
 ------------------------------------------------------------------------
