@@ -30,12 +30,12 @@ local function repr(o)
   end
   if (type(o) == "string") then
    -- escape "s and \s in the string, and quote it
-   es = "\""
+   es = '"'
    for i=1,#o do
     local c = sub(o,i,i)
     es = es .. (c == '"' or c == "\\" and "\\" or "") .. c
    end
-   return es .."\""
+   return es .. '"'
   end
   if type(o) == "number" then
    -- fall back on full 0xnnnn.nnnn representation if necessary for accuracy
@@ -127,7 +127,7 @@ end
 ------------------------------------------------------------------------
 -- formats a number as hexadecimal with no 0x prefix or zero padding
 -- originally from https://www.lexaloffle.com/bbs/?tid=30910
-local function hex_unpadded(v) 
+local function hex_unpadded(v)
   local s, l, r = tostr(v, true), 3, 11
   while sub(s, l, l) == "0" do l += 1 end
   while sub(s, r, r) == "0" do r -= 1 end
@@ -148,7 +148,7 @@ end
 local function binary(n)
  local out = "0b"
  for e=-15,16 do
-  out = out .. (band(lshl(n,e)==1) and "1" or "0")
+  out = out .. (((n << e) & 1 == 1) and "1" or "0")
  end
  return out
 end
