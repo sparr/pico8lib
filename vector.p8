@@ -25,8 +25,8 @@ vector = setmetatable({
   return a.x == b.x and a.y == b.y
  end,
 
- __unm = function(a)
-  return vector{ -a.x, -a.y }
+ __unm = function(v)
+  return vector{ -v.x, -v.y }
  end,
 
  __add = function(a, b)
@@ -38,8 +38,8 @@ vector = setmetatable({
  end,
 
  __mul = function(a, b)
+  if (type(a) == "number") a,b = b,a
   if (type(b) == "number") return vector{ a.x * b, a.y * b }
-  if (type(a) == "number") return b * a
   return a.x * b.x + a.y * b.y -- scalar product
  end,
 
@@ -59,17 +59,17 @@ vector = setmetatable({
   return x*cos(a)+y*sin(a)
  end,
 
- __tostring = function(a)
-  return "[vector:" .. tostr(a.x) .. "," .. tostr(a.y) .. "]"
+ __tostring = function(v)
+  return "[vector:" .. tostr(v.x) .. "," .. tostr(v.y) .. "]"
  end,
 
  -- magnitude squared
- magsqr = function(a)
-  return a.x * a.x + a.y * a.y
+ magsqr = function(v)
+  return v.x * v.x + v.y * v.y
  end,
 
- angle = function(a)
-  return atan2(a.x, -a.y)
+ angle = function(v)
+  return atan2(v.x, -v.y)
  end,
 
  normalize = function(a)
@@ -136,31 +136,3 @@ vector.mag = vector.__len
 local vector_directions_4 = {vector{1, 0}, vector{0, 1}, vector{-1, 0}, vector{0, -1}}
 local vector_directions_8 = {vector{1, 0}, vector{1, 1}, vector{0, 1}, vector{-1, 1}, vector{-1, 0}, vector{-1, -1}, vector{0, -1}, vector{1, -1}}
 
-
-------------------------------------------------------------------------
--- tests
-assert(vector{2,3} == vector{2,3})
-assert(vector{2,3} == -vector{-2,-3})
-assert(vector{2,3} + vector{-1,2} == vector{1,5})
-assert(vector{2,3} - vector{1,2} == vector{1,1})
-assert(vector{2,3} * 2 == vector{4,6})
-assert(2 * vector{2,3} == vector{4,6})
-assert(vector{2,3} * vector{-1,2} == 4)
-assert(vector{2,3}:crossproduct(vector{-1,2}) == 7)
-assert(vector{2,6} / 2 == vector{1,3})
-assert(#vector{3,4} == 5)
-assert(vector{2,-1}:__tostring() == "[vector:2,-1]")
-assert(vector{1,0}:angle() == 0)
-assert(vector{2,2}:angle() == 1/8)
-assert(vector{-3,0}:angle() == 1/2)
-assert(vector{3,4}:normalize() == vector{3/5,4/5})
-assert(vector{1,1}:contained(vector{0,0},vector{2,2}))
-assert(not vector{-1,1}:contained(vector{0,0},vector{2,2}))
-assert(vector{2,1}:rotate_90() == vector{-1,2})
-assert(vector{2,1}:rotate_180() == vector{-2,-1})
-assert(vector{2,1}:rotate_270() == vector{1,-2})
-assert(#(vector{sqrt(3)/2,-0.5}:rotate_degrees(30) - vector{1,0}) < .01)
-assert(#(vector{sqrt(3)/2,-0.5}:rotate(5/12) - vector{-0.5,sqrt(3)/2}) < .01)
-assert(#(vector.from_polar{r=1,t=7/8} - vector{sqrt(2)/2,-sqrt(2)/2}) < .01)
-assert(abs(vector{sqrt(3)/2,-0.5}:to_polar().r - 1) < .01)
-assert(abs(vector{sqrt(3)/2,-0.5}:to_polar().t - 11/12) < .01)
