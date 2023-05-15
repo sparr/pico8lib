@@ -8,7 +8,7 @@ __lua__
 -- rational number arithmetic operates on the two parts of the fraction separately
 -- rational numbers avoid floating point rounding errors in values like 1/3
 
-local function nthroot(n,x) return x^(1/n) end -- much better alternatives in math.p8
+if nthroot == nil then local function nthroot(n,x) return x^(1/n) end end -- much better alternatives in math.p8
 
 local rational
 rational = setmetatable({
@@ -21,7 +21,7 @@ rational = setmetatable({
   return a.n == b.n and a.d == b.d
  end,
 
- __lt = function(a, b) 
+ __lt = function(a, b)
   -- return #a<#b -- fast cheap imprecise
   if (type(a) == "number") return a < #b
   if (type(b) == "number") return #a < b
