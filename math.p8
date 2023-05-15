@@ -73,21 +73,35 @@ end
 
 
 ------------------------------------------------------------------------
--- distance between two points
--- copied from vector.p8
-local function dist(x1, y1, x2, y2)
- local x, y = abs(x2 - x1), abs(y2 - y1)
- if (x < 128 and y < 128) return sqrt(x * x + y * y) -- remove[25,54] slight decrease in accuracy
- local d = max(x, y)
- local n = x / d * y / d
- return sqrt(n * n + 1) * d
+-- distance functions partially thanks to https://www.lexaloffle.com/bbs/?pid=119363
+
+-- distance calculation
+-- uses dist_naive for small values, dist_trig for large
+-- tokens: 46
+function dist(x,y)
+ if (abs(x) < 128 and abs(y) < 128) return dist_naive(x,y)
+ return dist_trig(x,y)
 end
 
+-- naive distance calculation
+-- tokens: 15
+-- cycles: 9 + 28 = 37 (lua+sys)
+-- numerical issues: breaks down for dist*dist>=32768, can cause big problems
+function dist_naive(x,y)
+ return sqrt(x*x+y*y)
+end
 
-------------------------------------------------------------------------
--- distance squared between two points
-local function distsqr(x1, y1, x2, y2)
- local x, y = abs(x2 - x1), abs(y2 - y1)
+-- distance calculation using trig
+-- tokens: 23
+-- cycles: 21 + 0 = 21 (lua+sys)
+-- error in range (0,0)-(127,127): max 0.0017, avg 0.0004
+function dist_trig(x,y)
+ local a=atan2(x,y)
+ return x*cos(a)+y*sin(a)
+end
+
+-- distance squared
+local function dist_squared(x, y)
  return x * x + y * y
 end
 

@@ -51,14 +51,12 @@ vector = setmetatable({
   return vector{ a.x / b, a.y / b }
  end,
 
--- duplicated as dist() in math.p8
- __len = function(a)
-  -- return sqrt(a.x*a.x+a.y*a.y) -- potential overflow
-  local x, y = abs(a.x), abs(a.y)
-  if (x < 128 and y < 128) return sqrt(x * x + y * y) -- remove[25,54] slight decrease in accuracy
-  local d = max(x, y)
-  local n = x / d * a.y / d
-  return sqrt(n * n + 1) * d
+-- based on math.p8 dist()
+ __len = function(v)
+  local x, y = abs(v.x), abs(v.y)
+  if (x < 128 and y < 128) return sqrt(x*x+y*y)
+  local a=v:angle()
+  return x*cos(a)+y*sin(a)
  end,
 
  __tostring = function(a)
