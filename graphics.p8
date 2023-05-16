@@ -244,7 +244,7 @@ local function circinverse(x, y, r, c)
  while cy <= cx do
   if cy * cy + cx * cx > rs then
    -- only draw lines and decrement cx when cy has moved enough to get outside the circle (bresenham algorithm)
-   -- again -1 and +1 are used to draw mirror images   
+   -- again -1 and +1 are used to draw mirror images
    for dx = -1, 1, 2 do
     for dy = -1, 1, 2 do
      -- todo switch to line() if it ever benchmarks faster than rectfill here

@@ -38,7 +38,7 @@ end
 
 function TestCase:_parse_error_message (e)
    local parts = split(e, ":")
-   return sub(parts[#parts], 2)
+   return #parts == 1 and e or sub(parts[#parts], 2)
 end
 
 --- Call all of the test functions that start with "test_" and track failures.
