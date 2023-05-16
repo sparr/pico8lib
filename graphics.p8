@@ -4,9 +4,20 @@ __lua__
 -- pico8lib graphics library
 -- by sparr
 
+-- any function with a color parameter can add the following line
+-- to make the color optional and use the pen color by default:
+-- c = c or peek(24357) & 15
+
 
 ------------------------------------------------------------------------
 -- bresenham's line drawing algorithm
+
+--- draw a line from point 1 to point 2
+-- @tparam number x1 x coordinate of starting point
+-- @tparam number y1 y coordinate of starting point
+-- @tparam number x2 x coordinate of ending point
+-- @tparam number y2 y coordinate of ending point
+-- @tparam number c color
 local function line_(x1, y1, x2, y2, c)
  local dx, dy, sx, sy = abs(x2 - x1), -abs(y2 - y1), x1 < x2 and 1 or -1, y1 < y2 and 1 or -1
  local e = dx + dy
@@ -24,11 +35,20 @@ local function line_(x1, y1, x2, y2, c)
   pset(x1, y1, c)
  end
 end
--- fx fy are how many extra pixels right/down to make each pixel of the line
-local function line_fat(x1, y1, x2, y2, c, fx, fy)
+
+
+--- draw a fat line from point 1 to point 2
+-- @tparam number x1 x coordinate of starting point
+-- @tparam number y1 y coordinate of starting point
+-- @tparam number x2 x coordinate of ending point
+-- @tparam number y2 y coordinate of ending point
+-- @tparam number c color
+-- @tparam number fx width of line pixels (east of the original line)
+-- @tparam number fy height of line pixels (south of the original line)
+local function line_fat(x1, y1, x2, y2, fx, fy, c)
  local dx, dy, sx, sy = abs(x2 - x1), -abs(y2 - y1), x1 < x2 and 1 or -1, y1 < y2 and 1 or -1
  local e = dx + dy
- rectfill(x1, y1, x1 + fx, y1 + fy, c)
+ rectfill(x1, y1, x1 + fx - 1, y1 + fy - 1, c)
  while x1 ~= x2 or y1 ~= y2 do
   local t = 2 * e
   if t > dy then
@@ -39,14 +59,21 @@ local function line_fat(x1, y1, x2, y2, c, fx, fy)
    e = e + dx
    y1 = y1 + sy
   end
-  rectfill(x1, y1, x1 + fx, y1 + fy, c)
+  rectfill(x1, y1, x1 + fx - 1, y1 + fy - 1, c)
  end
 end
--- calls f() for each pixel of the line
+
+--- draw a line from point 1 to point 2 by calling a custom function
 -- line_func(...,pset) is equivalent to line_(...)
-local function line_func(x1, y1, x2, y2, c, f)
+-- @tparam number x1 x coordinate of starting point
+-- @tparam number y1 y coordinate of starting point
+-- @tparam number x2 x coordinate of ending point
+-- @tparam number y2 y coordinate of ending point
+-- @tparam number c color
+-- @tparam function f function to call for each pixel of the line
+local function line_func(x1, y1, x2, y2, f, c)
  local dx, dy, sx, sy = abs(x2 - x1), -abs(y2 - y1), x1 < x2 and 1 or -1, y1 < y2 and 1 or -1
- local p, e = 0, dx + dy
+ local p, e = 1, dx + dy
  f(x1, y1, c, p)
  while x1 ~= x2 or y1 ~= y2 do
   p += 1
@@ -64,77 +91,118 @@ local function line_func(x1, y1, x2, y2, c, f)
 end
 
 
-------------------------------------------------------------------------
--- draw a 4x4 sprite
-local function spr4_fast(sn, x, y)
- sspr(sn % 32 * 4, flr(sn / 32) * 4, 4, 4, x, y)
+--- draw a 4x4 sprite
+-- @tparam number sn sprite index
+-- @tparam number x x coordinate for sprite placement
+-- @tparam number y y coordinate for sprite placement
+local function spr4_fast(s, x, y)
+ sspr(s % 32 * 4, flr(s / 32) * 4, 4, 4, x, y)
 end
-local function spr4(sn, x, y, w, h, ...) -- supports w,h,flip_h,flip_v, but much slower (2.5x runtime)
- sspr(sn % 32 * 4, flr(sn / 32) * 4, (w or 1) * 4, (h or 1) * 4, x, y, (w or 1) * 4, (h or 1) * 4, ...)
+
+--- draw a 4x4 sprite with additional sspr() options
+-- 2.5x the runtime of spr4_fast()
+-- @tparam number s sprite index
+-- @tparam number x x coordinate for sprite placement
+-- @tparam number y y coordinate for sprite placement
+-- @tparam[opt=4] number w width to scale the sprite
+-- @tparam[opt=4] number h height to scale the sprite
+-- @tparam[opt=false] bool flip_h flip the sprite horizontally
+-- @tparam[opt=false] bool flip_v flip the sprite vertically
+local function spr4(s, x, y, w, h, ...)
+ sspr(s % 32 * 4, flr(s / 32) * 4, 4, 4, x, y, w or 4, h or 4, ...)
 end
 
 
-------------------------------------------------------------------------
--- draw a circle of even diameter (2-16)
--- x,y is top left corner of bounding box
--- r is radius, 1-8
--- c is color
+--- draw a circle of even diameter (2-16)
+-- @tparam number s sprite index
+-- @tparam number x x coordinate, top left corner of bounding box
+-- @tparam number y y coordinate, top left corner of bounding box
+-- @tparam number r radius (1-8)
+-- @tparam number c color
 -- necessary sprite:
--- 88888777
--- 88877866
--- 88786655
--- 87865544
--- 87658433
--- 78654322
--- 76543281
--- 76543210
-local function circeven(x, y, r, c)
- -- c = c or band(peek(24357), 15) -- make color optional
- for t = 0, 8 do
-  palt(t, r ~= t + 1)
- end
- pal(r - 1, c)
+-- 00000888
+-- 00088077
+-- 00807766
+-- 08076655
+-- 08760544
+-- 80765433
+-- 87654302
+-- 87654321
+local function circ_even(s, x, y, r, c)
+ -- if (r < 1 or r > 8) return -- [optional] safety
+ -- todo optional code to preserve pal/palt state
+ palt(0xFFFF ^^ 1<<(15-r))
+ pal(r, c)
  for i = 0, 1 do
   for j = 0, 1 do
-   spr(1, x + i * 8 - 8 + r, y + j * 8 - 8 + r, 1, 1, i > 0, j > 0)
+   spr(s, x + i * 8 - 8 + r, y + j * 8 - 8 + r, 1, 1, i > 0, j > 0)
   end
  end
- palt() -- optional if other code makes no expectations about transparency
+ pal() -- optional if other code makes no expectations about palette or transparency
 end
 
-
-------------------------------------------------------------------------
--- draw a small filled circle of even diameter (2-8)
--- x,y is top left corner of circle bounding box
--- r is radius, 1-4
--- c is color
+--- draw a filled circle of even diameter (2-16)
+-- @tparam number s sprite index
+-- @tparam number x x coordinate, top left corner of bounding
+-- @tparam number y y coordinate, top left corner of bounding
+-- @tparam number r radius (1-8)
+-- @tparam number c color
 -- necessary sprite:
--- 00444400
--- 04033040
--- 40322304
--- 43211234
--- 43211234
--- 40322304
--- 04033040
--- 00444400
-local function circevensmall(x, y, r, c)
- -- if (r < 1 or r > 4) return -- optional safety
- -- c = c or band(peek(24357), 15) -- make color optional
+-- 00000888
+-- 00088877
+-- 00887766
+-- 08876655
+-- 08766544
+-- 88765433
+-- 87654332
+-- 87654321
+local function circfill_even(s, x, y, r, c)
+ -- if (r < 1 or r > 8) return -- [optional] safety
  -- todo optional code to preserve pal/palt state
- for t = 0, 4 do
-  palt(t, r ~= t)
+ for t = 1, 8 do
+  palt(t, r < t)
+  pal(t, c)
  end
- pal(r, c)
- spr(1, x - 4 + r, y - 4 + r)
- palt() -- optional if other code makes no expectations about transparency
+ for i = 0, 1 do
+  for j = 0, 1 do
+   spr(s, x + i * 8 - 8 + r, y + j * 8 - 8 + r, 1, 1, i > 0, j > 0)
+  end
+ end
+ pal() -- optional if other code makes no expectations about palette or transparency
 end
 
 
-------------------------------------------------------------------------
--- draw a small filled circle of even diameter (2-8)
--- x,y is top left corner of circle bounding box
--- r is radius, 1-4
--- c is color
+--- draw a small circle of even diameter (2-8)
+-- @tparam number s sprite index
+-- @tparam number x x coordinate, top left corner of bounding
+-- @tparam number y y coordinate, top left corner of bounding
+-- @tparam number r radius (1-4)
+-- @tparam number c color
+-- necessary sprite:
+-- 00444400
+-- 04033040
+-- 40322304
+-- 43211234
+-- 43211234
+-- 40322304
+-- 04033040
+-- 00444400
+local function circ_even_small(s, x, y, r, c)
+ -- if (r < 1 or r > 4) return -- [optional] safety
+ -- todo optional code to preserve pal/palt state
+ palt(0xFFFF ^^ 1<<(15-r))
+ pal(r, c)
+ spr(s, x - 4 + r, y - 4 + r)
+ pal() -- optional if other code makes no expectations about transparency
+end
+
+
+--- draw a small filled circle of even diameter (2-8)
+-- @tparam number s sprite index
+-- @tparam number x x coordinate, top left corner of bounding
+-- @tparam number y y coordinate, top left corner of bounding
+-- @tparam number r radius (1-4)
+-- @tparam number c color
 -- necessary sprite:
 -- 00444400
 -- 04433440
@@ -144,16 +212,15 @@ end
 -- 44322344
 -- 04433440
 -- 00444400
-local function circfillevensmall(x, y, r, c)
- -- if (r < 1 or r > 4) return -- optional safety
- -- c = c or band(peek(24357), 15) -- make color optional
+local function circfill_even_small(s, x, y, r, c)
+ -- if (r < 1 or r > 4) return -- [optional] safety
  -- todo optional code to preserve pal/palt state
  for t = 1, 4 do
   palt(t, r < t)
-  pal(r, c)
+  pal(t, c)
  end
- spr(1, x - 4 + r, y - 4 + r)
- palt() -- optional if other code makes no expectations about transparency
+ spr(s, x - 4 + r, y - 4 + r)
+ pal() -- optional if other code makes no expectations about transparency
 end
 
 
@@ -394,11 +461,11 @@ function drawp(p,func,...)
 end
 
 __gfx__
-0000000088888777
-0000000088877866
-0000000088786655
-0000000087865544
-0000000087658433
-0000000078654322
-0000000076543281
-0000000076543210
+0000000000000888000008880044440000444400
+0000000000088077000888770433334004333340
+0000000000807766008877664302203443322334
+0000000008076655088766554321123443211234
+0000000008760544087665444321123443211234
+0000000080765433887654334302203443322334
+0000000087654302876543320433334004333340
+0000000087654321876543210044440000444400

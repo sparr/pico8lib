@@ -5,8 +5,10 @@ __lua__
 -- by sparr
 
 
-------------------------------------------------------------------------
--- create a new class from a parent class, with optional prototype
+--- create a new class
+-- @tparam class parent the parent of this new class
+-- @tparam[opt] table proto the prototype (default keys/values) for this new class 
+-- @return class the new class
 function class(parent, proto)
  proto = setmetatable(proto or {}, {
   __index = parent,
