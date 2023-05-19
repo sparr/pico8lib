@@ -13,84 +13,48 @@ end
 
 
 ------------------------------------------------------------------------
--- add value v to end of table t
+-- add value v to end of array t
 -- supposedly faster but less safe than add(t,v)
-local function add_f(t, v)
+local function add_(t, v)
  t[#t + 1] = v
 end
 
 
 ------------------------------------------------------------------------
--- delete value v from table t, do not preserve order
+-- delete value v from array t, do not preserve order
 local function del_r(t, v)
- local n = #t -- inline[1,12]
- for i = 1, n do
-  if (t[i] == v) t[i], t[n] = t[n], nil return
+ for i = 1, #t do
+  if (t[i] == v) t[i], t[#t] = t[#t], nil return
  end
 end
 
 
 ------------------------------------------------------------------------
--- delete index i from table t, preserve order
-local function del_i(t, i)
- local n = #t -- inline[1,14]
- if (i > 0 and i <= n) then -- remove[10,33]
-  for j = i, n - 1 do t[j] = t[j + 1] end
-  t[n] = nil
+-- delete index i from array t, do not preserve order
+local function deli_r(t, i)
+ if (i > 0 and i <= #t) then -- remove[10,33]
+  t[i], t[#t] = t[#t]
  end
 end
 
 
 ------------------------------------------------------------------------
--- delete index i from table t, do not preserve order
-local function del_ir(t, i)
- local n = #t -- inline[1,14]
- if (i > 0 and i <= n) then -- remove[10,33]
-  t[i], t[n] = t[n]
- end
-end
-
-
-------------------------------------------------------------------------
--- delete and return the last item from table t
-local function pop(t)
- local v = t[#t]
- t[#t] = nil
- return v
-end
+-- aliases to use table as stack
+local pop = deli
 local push = add_f
 
 
 ------------------------------------------------------------------------
--- delete and return the first item from table t
-function unshift(t)
- local v = t[1]
- for i = 2, #t do
-  t[i - 1] = t[i]
- end
- t[#t] = nil
- return v
+-- delete and return the first item from array t
+function shift(t)
+ return deli(t, 1)
 end
 
 
 ------------------------------------------------------------------------
--- add value v to the beginning of table t
+-- add value v to the beginning of array t
 function unshift(t, v)
- for i = #t, 1, -1 do
-  t[i + 1] = t[i]
- end
- t[1] = v
-end
-
-
-------------------------------------------------------------------------
--- insert value v to table t at index i
-function insert(t, i, v)
- v, i = i and v or i, v and i or #t + 1 -- remove[7,17] make i mandatory
- for n = #t, i, -1 do
-  t[i + 1] = t[i]
- end
- t[i] = v
+ return add(t,v,1)
 end
 
 
@@ -130,6 +94,23 @@ function copy(o)
  return c
 end
 
+--- recursive/deep comparison of two tables
+-- @tparam table a
+-- @tparam table b
+local function table_compare( a, b )
+ for k, v in pairs( a ) do
+  if type(v) == "table" and type(b[k]) == "table" then
+   if ( not table.compare( v, b[k] ) ) return false
+  else
+   if ( v ~= b[k] ) return false
+  end
+ end
+ for k, v in pairs( b ) do
+  if ( a[k] == nil ) return false
+ end
+ return true
+end
+
 
 ------------------------------------------------------------------------
 -- adds values from src to end of dst, in order
@@ -160,12 +141,10 @@ end
 
 ------------------------------------------------------------------------
 -- bubble sort an array in place
--- todo test
-function sort(t)
- for i = 2, #t do
-  for j = i, 2, -1 do
-   if (t[j - 1] <= t[j]) break
-   t[j], t[j - 1] = t[j - 1], t[j]
+function sort_bubble(t)
+ for i,a in inext,t do
+  for j,b in inext,t do
+   if (a<b) a,t[i],t[j]=b,b,a
   end
  end
 end
@@ -173,8 +152,7 @@ end
 ------------------------------------------------------------------------
 -- bubble sort an array in place
 -- second parameter extracts or calculates a sort key from each item
--- todo test
-function sort_func(t, keyfn)
+function sort_bubble_func(t, keyfn)
  local sortkeys = {}
  for i = 1, #t do
   sortkeys[i] = keyfn(t[i])
@@ -188,6 +166,44 @@ function sort_func(t, keyfn)
  end
 end
 
+------------------------------------------------------------------------
+-- bubble sort an array in place
+-- second parameter extracts or calculates a sort key from each item
+-- second parameter is called multiple times per item
+function sort_bubble_func_unsafe(t, keyfn)
+ for i = 2, #t do
+  for j = i, 2, -1 do
+   if (keyfn(t[j-1]) <= keyfn(t[j])) break
+   t[j], t[j - 1] = t[j - 1], t[j]
+  end
+ end
+end
+
+--- modified quick sort an array in place
+-- @tparam table t the table to sort
+-- @tparam[opt] number a starting index of slice to sort
+-- @tparam[opt] number b ending index of slice to sort
+-- quicksort chooses a pivot value, rearranges the table into {vals<=pivot, pivot, vals>=pivot}, recurses on both sides
+function sort_quick(t, a, b)
+ a, b = a or 1, b or #t
+ if (a>=b) return
+ -- p points to the pivot, initially the first item
+ -- this has poor performance for already-sorted lists but reduces the token count of the algorithm
+ -- r points to the value to be compared to the pivot, initially the last item
+ local p,r = a,b
+ while p < r do
+  -- if the value being compared is already in the right place then
+  -- leave it there and move the comparison pointer to the left.
+  -- otherwise move the pivot value one space to the right,
+  -- move the value from that spot to the comparison location,
+  -- and move the value being compared to where the pivot was
+  if (t[p]<t[r]) r-=1 else t[p],t[p+1],t[r]=t[r],t[p],t[p+1] p+=1
+ end
+ sort_quick(t,a,p-1)
+ sort_quick(t,p+1,b)
+end
+
+local sort = sort_quick
 
 ------------------------------------------------------------------------
 -- filter a table, keeping only key,value pairs that pass a check function
