@@ -2,6 +2,7 @@
 --- Mathematical operations, mostly on numbers
 -- @author by sparr
 
+
 local power_overflow = {32767,181,31,13,7,5,4,3,3,2,2,2,2,2} -- ,1,1,1
 
 --- Return the greatest common divisor of two numbers
@@ -37,6 +38,7 @@ end
 --- Calculate the nth root of x
 -- nthroot(3,8)==2 because 2^3==8
 -- all versions start with a guess based on the built in ^ operator
+
 -- this version performs newton's method until a convergent result or short loop is found
 -- very accurate
 local function nthroot(n, x)

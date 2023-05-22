@@ -22,7 +22,7 @@ local rational = setmetatable({
   return a.n == b.n and a.d == b.d
  end,
 
- __lt = function(a, b) 
+ __lt = function(a, b)
   -- return #a<#b -- fast cheap imprecise
   if (type(a) == "number") return a < #b
   if (type(b) == "number") return #a < b
@@ -154,6 +154,11 @@ local rational = setmetatable({
 })
 rational.__index=rational
 
-rational.zero = rational(0)
-rational.one = rational(1)
+-- useful constants
+rational.zero=rational(0)
+rational.one=rational(1)
 
+
+------------------------------------------------------------------------
+-- tests
+-- todo

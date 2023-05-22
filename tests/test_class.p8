@@ -11,6 +11,7 @@ __lua__
 #include ../functions.p8
 #include ../log.p8
 #include ../strings.p8
+#include ../tables.p8
 #include ../test.p8
 
 local suite = TestSuite("class.p8")
