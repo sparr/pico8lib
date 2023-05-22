@@ -1,0 +1,190 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>pico8lib</title>
+    <link rel="stylesheet" href="../ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>pico8lib</h1>
+
+
+<ul>
+  <li><a href="../index.html">Index</a></li>
+</ul>
+
+
+
+<h2>Examples</h2>
+<ul class="nowrap">
+  <li><a href="../examples/test_class.p8.html">test_class.p8</a></li>
+  <li><strong>test_functions.p8</strong></li>
+  <li><a href="../examples/test_json.p8.html">test_json.p8</a></li>
+  <li><a href="../examples/test_test.p8.html">test_test.p8</a></li>
+</ul>
+<h2>Modules</h2>
+<ul class="nowrap">
+  <li><a href="../modules/log.html">log</a></li>
+  <li><a href="../modules/test.html">test</a></li>
+</ul>
+<h2>Topics</h2>
+<ul class="">
+  <li><a href="../topics/README.md.html">README</a></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+    <h2>test_functions.p8</h2>
+<pre>
+pico-<span class="number">8</span> cartridge // http://www.pico-<span class="number">8.</span>com
+version <span class="number">18</span>
+__lua__
+
+<span class="comment">-- Unit tests for the functions module
+</span><span class="comment">-- by sparr
+</span>
+<span class="comment">-- to run the tests use <code>pico8 -x tests/test_functions.p8</code>
+</span>
+#include ../class.p8
+#include ../log.p8
+#include ../functions.p8
+#include ../strings.p8
+#include ../test.p8
+
+
+<span class="keyword">local</span> suite = <span class="function-name">TestSuite</span>(<span class="string">"functions.p8"</span>)
+
+<span class="comment">-- Memoize test case
+</span><span class="keyword">local</span> Memoize = <span class="function-name">TestCase</span>(<span class="string">"memoize"</span>)
+
+<span class="keyword">function</span> Memoize:<span class="function-name">test_memoize_hit</span> ()
+ <span class="keyword">local</span> canary = <span class="number">0</span>
+ <span class="keyword">local</span> r
+ <span class="keyword">function</span> <span class="function-name">f</span>(a)
+  canary = canary + <span class="number">1</span>
+  <span class="keyword">return</span> a + <span class="number">1</span>
+ <span class="keyword">end</span>
+ m = <span class="function-name">memoize</span>(f)
+ self:<span class="function-name">assert_equal</span>(canary, <span class="number">0</span>)
+ r = <span class="function-name">m</span>(<span class="number">1</span>)
+ self:<span class="function-name">assert_equal</span>(r, <span class="number">2</span>)
+ self:<span class="function-name">assert_equal</span>(canary, <span class="number">1</span>)
+ r = <span class="function-name">m</span>(<span class="number">1</span>)
+ self:<span class="function-name">assert_equal</span>(r, <span class="number">2</span>)
+ self:<span class="function-name">assert_equal</span>(canary, <span class="number">1</span>)
+<span class="keyword">end</span>
+
+<span class="keyword">function</span> Memoize:<span class="function-name">test_memoize_miss</span> ()
+ <span class="keyword">local</span> canary = <span class="number">0</span>
+ <span class="keyword">local</span> r
+ <span class="keyword">function</span> <span class="function-name">f</span>(a)
+  canary = canary + <span class="number">1</span>
+  <span class="keyword">return</span> a + <span class="number">1</span>
+ <span class="keyword">end</span>
+ m = <span class="function-name">memoize</span>(f)
+ self:<span class="function-name">assert_equal</span>(canary, <span class="number">0</span>)
+ r = <span class="function-name">m</span>(<span class="number">1</span>)
+ self:<span class="function-name">assert_equal</span>(r, <span class="number">2</span>)
+ self:<span class="function-name">assert_equal</span>(canary, <span class="number">1</span>)
+ r = <span class="function-name">m</span>(<span class="number">2</span>)
+ self:<span class="function-name">assert_equal</span>(r, <span class="number">3</span>)
+ self:<span class="function-name">assert_equal</span>(canary, <span class="number">2</span>)
+<span class="keyword">end</span>
+
+suite:<span class="function-name">add_test_case</span>(Memoize)
+
+
+<span class="comment">-- Try test case
+</span><span class="keyword">local</span> Try = <span class="function-name">TestCase</span>(<span class="string">"try"</span>)
+
+<span class="keyword">function</span> Try:<span class="function-name">good</span> (t)
+ <span class="keyword">return</span> <span class="keyword">function</span> ()
+  t[<span class="number">1</span>] = <span class="keyword">true</span>
+ <span class="keyword">end</span>
+<span class="keyword">end</span>
+
+<span class="keyword">function</span> Try:<span class="function-name">bad</span> (t)
+ <span class="keyword">return</span> <span class="keyword">function</span> ()
+  t[<span class="number">1</span>] = <span class="keyword">true</span>
+  <span class="global">error</span>()
+ <span class="keyword">end</span>
+<span class="keyword">end</span>
+
+<span class="keyword">function</span> Try:<span class="function-name">test_try_success</span> ()
+ <span class="keyword">local</span> t = {}
+ <span class="keyword">local</span> c = {}
+ <span class="keyword">local</span> f = {}
+ <span class="function-name">try</span>(self:<span class="function-name">good</span>(t), self:<span class="function-name">bad</span>(c), self:<span class="function-name">good</span>(f))
+ self:<span class="function-name">assert_equal</span>(t[<span class="number">1</span>], <span class="keyword">true</span>)
+ self:<span class="function-name">assert_nil</span>(c[<span class="number">1</span>], <span class="keyword">true</span>)
+ self:<span class="function-name">assert_equal</span>(f[<span class="number">1</span>], <span class="keyword">true</span>)
+<span class="keyword">end</span>
+
+<span class="keyword">function</span> Try:<span class="function-name">test_try_error_in_try</span> ()
+ <span class="keyword">local</span> t = {}
+ <span class="keyword">local</span> c = {}
+ <span class="keyword">local</span> f = {}
+ <span class="function-name">try</span>(self:<span class="function-name">bad</span>(t), self:<span class="function-name">good</span>(c), self:<span class="function-name">good</span>(f))
+ self:<span class="function-name">assert_equal</span>(t[<span class="number">1</span>], <span class="keyword">true</span>)
+ self:<span class="function-name">assert_equal</span>(c[<span class="number">1</span>], <span class="keyword">true</span>)
+ self:<span class="function-name">assert_equal</span>(f[<span class="number">1</span>], <span class="keyword">true</span>)
+<span class="keyword">end</span>
+
+<span class="keyword">function</span> Try:<span class="function-name">test_try_error_in_catch</span> ()
+ <span class="keyword">local</span> t = {}
+ <span class="keyword">local</span> c = {}
+ <span class="keyword">local</span> f = {}
+ self:<span class="function-name">assert_throws</span>(<span class="keyword">function</span> ()
+  <span class="function-name">try</span>(self:<span class="function-name">bad</span>(t), self:<span class="function-name">bad</span>(c), self:<span class="function-name">good</span>(f))
+ <span class="keyword">end</span>, <span class="string">"assertion failed!"</span>)
+ self:<span class="function-name">assert_equal</span>(t[<span class="number">1</span>], <span class="keyword">true</span>)
+ self:<span class="function-name">assert_equal</span>(c[<span class="number">1</span>], <span class="keyword">true</span>)
+ self:<span class="function-name">assert_nil</span>(f[<span class="number">1</span>])
+<span class="keyword">end</span>
+
+<span class="keyword">function</span> Try:<span class="function-name">test_try_error_in_finally</span> ()
+ <span class="keyword">local</span> t = {}
+ <span class="keyword">local</span> c = {}
+ <span class="keyword">local</span> f = {}
+ self:<span class="function-name">assert_throws</span>(<span class="keyword">function</span> ()
+  <span class="function-name">try</span>(self:<span class="function-name">good</span>(t), self:<span class="function-name">good</span>(c), self:<span class="function-name">bad</span>(f))
+ <span class="keyword">end</span>, <span class="string">"assertion failed!"</span>)
+ self:<span class="function-name">assert_equal</span>(t[<span class="number">1</span>], <span class="keyword">true</span>)
+ self:<span class="function-name">assert_nil</span>(c[<span class="number">1</span>], <span class="keyword">true</span>)
+ self:<span class="function-name">assert_equal</span>(f[<span class="number">1</span>], <span class="keyword">true</span>)
+<span class="keyword">end</span>
+
+suite:<span class="function-name">add_test_case</span>(Try)
+
+<span class="function-name">run_suites</span>{suite}</pre>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/lunarmodules/LDoc">LDoc 1.5.0</a></i>
+<i style="float:right;">Last updated 2023-05-22 13:25:58 </i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>
