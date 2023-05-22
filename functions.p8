@@ -1,17 +1,15 @@
-pico-8 cartridge // http://www.pico-8.com
-version 18
-__lua__
--- pico8lib functions library
--- by sparr
+--- @module functions
+--- Manipulating and creating functions
+-- @author sparr
 
-
-------------------------------------------------------------------------
--- empty function, useful for callbacks and placeholders
+--- Empty function, useful for callbacks and placeholders
+-- @return null
 local function noop() end
 
 
-------------------------------------------------------------------------
--- raises an error
+--- Raises an error with the given message
+-- @param m The error message (string) to output
+-- @return null
 local function error(m)
  assert(false, m)
 end

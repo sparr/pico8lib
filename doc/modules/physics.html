@@ -33,7 +33,7 @@
 
 <h2>Contents</h2>
 <ul>
-<li><a href="#Fields">Fields</a></li>
+<li><a href="#Functions">Functions</a></li>
 </ul>
 
 
@@ -42,12 +42,12 @@
   <li><a href="../modules/class.html">class</a></li>
   <li><a href="../modules/functions.html">functions</a></li>
   <li><a href="../modules/graphics.html">graphics</a></li>
-  <li><strong>json</strong></li>
+  <li><a href="../modules/json.html">json</a></li>
   <li><a href="../modules/log.html">log</a></li>
   <li><a href="../modules/math.html">math</a></li>
   <li><a href="../modules/memory.html">memory</a></li>
   <li><a href="../modules/number.html">number</a></li>
-  <li><a href="../modules/physics.html">physics</a></li>
+  <li><strong>physics</strong></li>
   <li><a href="../modules/rational.html">rational</a></li>
   <li><a href="../modules/strings.html">strings</a></li>
   <li><a href="../modules/tables.html">tables</a></li>
@@ -71,23 +71,21 @@
 
 <div id="content">
 
-<h1>Module <code>json</code></h1>
-<p>JSON(ish) parser</p>
+<h1>Module <code>physics</code></h1>
+<p>check for collision/overlap of a point and a circle
+ 44 tokens</p>
 <p>
 
 </p>
-    <h3>Info:</h3>
-    <ul>
-        <li><strong>Author</strong>: sparr</li>
-    </ul>
 
 
-<h2><a href="#Fields">Fields</a></h2>
+<h2><a href="#Functions">Functions</a></h2>
 <table class="function_list">
 	<tr>
-	<td class="name" nowrap><a href="#json">json</a></td>
-	<td class="summary">json namespace object
- TODO: The functions need to be brought up to the module level to match the style of the rest of the libraries</td>
+	<td class="name" nowrap><a href="#dist_circ_line_w">dist_circ_line_w (x, y, r, x0, y0, x1, y1, w)</a></td>
+	<td class="summary">distance from circle to line with optional width
+ wide line includes a circular cap at each end
+ negative distance indicates depth of overlap</td>
 	</tr>
 </table>
 
@@ -95,18 +93,62 @@
 <br/>
 
 
-    <h2 class="section-header "><a name="Fields"></a>Fields</h2>
+    <h2 class="section-header "><a name="Functions"></a>Functions</h2>
 
     <dl class="function">
     <dt>
-    <a name = "json"></a>
-    <strong>json</strong>
+    <a name = "dist_circ_line_w"></a>
+    <strong>dist_circ_line_w (x, y, r, x0, y0, x1, y1, w)</strong>
     </dt>
     <dd>
-    json namespace object
- TODO: The functions need to be brought up to the module level to match the style of the rest of the libraries
+    distance from circle to line with optional width
+ wide line includes a circular cap at each end
+ negative distance indicates depth of overlap
 
 
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">x</span>
+
+
+
+        </li>
+        <li><span class="parameter">y</span>
+
+
+
+        </li>
+        <li><span class="parameter">r</span>
+
+
+
+        </li>
+        <li><span class="parameter">x0</span>
+
+
+
+        </li>
+        <li><span class="parameter">y0</span>
+
+
+
+        </li>
+        <li><span class="parameter">x1</span>
+
+
+
+        </li>
+        <li><span class="parameter">y1</span>
+
+
+
+        </li>
+        <li><span class="parameter">w</span>
+
+
+
+        </li>
+    </ul>
 
 
 

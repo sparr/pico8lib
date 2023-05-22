@@ -1,0 +1,512 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>pico8lib</title>
+    <link rel="stylesheet" href="../ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>pico8lib</h1>
+
+
+<ul>
+  <li><a href="../index.html">Index</a></li>
+</ul>
+
+<h2>Contents</h2>
+<ul>
+<li><a href="#Fields">Fields</a></li>
+<li><a href="#Local_Functions">Local Functions</a></li>
+</ul>
+
+
+<h2>Modules</h2>
+<ul class="nowrap">
+  <li><a href="../modules/class.html">class</a></li>
+  <li><a href="../modules/functions.html">functions</a></li>
+  <li><a href="../modules/graphics.html">graphics</a></li>
+  <li><a href="../modules/json.html">json</a></li>
+  <li><a href="../modules/log.html">log</a></li>
+  <li><a href="../modules/math.html">math</a></li>
+  <li><a href="../modules/memory.html">memory</a></li>
+  <li><a href="../modules/number.html">number</a></li>
+  <li><a href="../modules/physics.html">physics</a></li>
+  <li><a href="../modules/rational.html">rational</a></li>
+  <li><strong>strings</strong></li>
+  <li><a href="../modules/tables.html">tables</a></li>
+  <li><a href="../modules/test.html">test</a></li>
+  <li><a href="../modules/vector.html">vector</a></li>
+</ul>
+<h2>Topics</h2>
+<ul class="">
+  <li><a href="../topics/README.md.html">README</a></li>
+</ul>
+<h2>Examples</h2>
+<ul class="nowrap">
+  <li><a href="../examples/snippets.p8.html">snippets.p8</a></li>
+  <li><a href="../examples/test_class.p8.html">test_class.p8</a></li>
+  <li><a href="../examples/test_functions.p8.html">test_functions.p8</a></li>
+  <li><a href="../examples/test_json.p8.html">test_json.p8</a></li>
+  <li><a href="../examples/test_test.p8.html">test_test.p8</a></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+<h1>Module <code>strings</code></h1>
+<p>Manipulating and creating strings</p>
+<p>
+
+</p>
+    <h3>Info:</h3>
+    <ul>
+        <li><strong>Author</strong>: sparr</li>
+    </ul>
+
+
+<h2><a href="#Fields">Fields</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#_tostr">_tostr</a></td>
+	<td class="summary">replacement tostr() that serializes tables
+ all versions ", ..." can be removed to save tokens if you never use tostr(number,true)</td>
+	</tr>
+</table>
+<h2><a href="#Local_Functions">Local Functions</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#repr">repr (o)</a></td>
+	<td class="summary">Unambiguous string serialization of arbitrary objects
+ alternate condensed strings included as comments</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#int32_to_str">int32_to_str (n)</a></td>
+	<td class="summary">returns n*32768 as a string
+ 0x0000.0001 is "1", 0x7fff.ffff is "2147483647", and 0x8000.0000 is "-2147483648"</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#hex_unpadded">hex_unpadded (v)</a></td>
+	<td class="summary">formats a number as hexadecimal with no 0x prefix or zero padding
+ originally from https://www.lexaloffle.com/bbs/?tid=30910</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#binary">binary (n)</a></td>
+	<td class="summary">formats a number as binary</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#rle_decode">rle_decode (str)</a></td>
+	<td class="summary">turns "ab2c4de" into "abccdddde"</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#replace">replace (str, fnd, rep)</a></td>
+	<td class="summary">replace fnd with rep in str
+ 58 tokens
+ originally from https://www.lexaloffle.com/bbs/?pid=72818
+ "yes.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#char_in_string">char_in_string (c, s)</a></td>
+	<td class="summary">check if a char exists in a string</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#wrap">wrap (str)</a></td>
+	<td class="summary">wrap a long string to fit on the screen</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#split">split (str, delim)</a></td>
+	<td class="summary">split a string on a delimiter, return a list of strings
+ split("abc,def,",",") returns {"abc","def",""}</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#str_center">str_center (str, x)</a></td>
+	<td class="summary">center align string at given x coordinate
+ x defaults to 64 (screen center)</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#ssub">ssub (str, idx, len)</a></td>
+	<td class="summary">substring function with length instead of end position
+ ssub(a,b) == sub(a,b,b)
+ ssub(a,b,c) == sub(a,b,b+c)</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#starts_with">starts_with (str, prefix)</a></td>
+	<td class="summary">Checks if a string starts with a given prefix
+ returns true if it does, false otherwise</td>
+	</tr>
+</table>
+
+<br/>
+<br/>
+
+
+    <h2 class="section-header "><a name="Fields"></a>Fields</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "_tostr"></a>
+    <strong>_tostr</strong>
+    </dt>
+    <dd>
+    replacement tostr() that serializes tables
+ all versions ", ..." can be removed to save tokens if you never use tostr(number,true)
+
+
+
+
+
+
+
+</dd>
+</dl>
+    <h2 class="section-header "><a name="Local_Functions"></a>Local Functions</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "repr"></a>
+    <strong>repr (o)</strong>
+    </dt>
+    <dd>
+    Unambiguous string serialization of arbitrary objects
+ alternate condensed strings included as comments
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">o</span>
+         The object to serialize
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        A string representation of <code>o</code>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "int32_to_str"></a>
+    <strong>int32_to_str (n)</strong>
+    </dt>
+    <dd>
+    returns n*32768 as a string
+ 0x0000.0001 is "1", 0x7fff.ffff is "2147483647", and 0x8000.0000 is "-2147483648"
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">n</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "hex_unpadded"></a>
+    <strong>hex_unpadded (v)</strong>
+    </dt>
+    <dd>
+    formats a number as hexadecimal with no 0x prefix or zero padding
+ originally from https://www.lexaloffle.com/bbs/?tid=30910
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">v</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "binary"></a>
+    <strong>binary (n)</strong>
+    </dt>
+    <dd>
+    formats a number as binary
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">n</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "rle_decode"></a>
+    <strong>rle_decode (str)</strong>
+    </dt>
+    <dd>
+    turns "ab2c4de" into "abccdddde"
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">str</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "replace"></a>
+    <strong>replace (str, fnd, rep)</strong>
+    </dt>
+    <dd>
+    replace fnd with rep in str
+ 58 tokens
+ originally from https://www.lexaloffle.com/bbs/?pid=72818
+ "yes.  please use it!" - shiftalow [2020-02-07 02:19]
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">str</span>
+
+
+
+        </li>
+        <li><span class="parameter">fnd</span>
+
+
+
+        </li>
+        <li><span class="parameter">rep</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "char_in_string"></a>
+    <strong>char_in_string (c, s)</strong>
+    </dt>
+    <dd>
+    check if a char exists in a string
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">c</span>
+
+
+
+        </li>
+        <li><span class="parameter">s</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "wrap"></a>
+    <strong>wrap (str)</strong>
+    </dt>
+    <dd>
+    wrap a long string to fit on the screen
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">str</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "split"></a>
+    <strong>split (str, delim)</strong>
+    </dt>
+    <dd>
+    split a string on a delimiter, return a list of strings
+ split("abc,def,",",") returns {"abc","def",""}
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">str</span>
+
+
+
+        </li>
+        <li><span class="parameter">delim</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "str_center"></a>
+    <strong>str_center (str, x)</strong>
+    </dt>
+    <dd>
+    center align string at given x coordinate
+ x defaults to 64 (screen center)
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">str</span>
+
+
+
+        </li>
+        <li><span class="parameter">x</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "ssub"></a>
+    <strong>ssub (str, idx, len)</strong>
+    </dt>
+    <dd>
+    substring function with length instead of end position
+ ssub(a,b) == sub(a,b,b)
+ ssub(a,b,c) == sub(a,b,b+c)
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">str</span>
+
+
+
+        </li>
+        <li><span class="parameter">idx</span>
+
+
+
+        </li>
+        <li><span class="parameter">len</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "starts_with"></a>
+    <strong>starts_with (str, prefix)</strong>
+    </dt>
+    <dd>
+    Checks if a string starts with a given prefix
+ returns true if it does, false otherwise
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">str</span>
+
+
+
+        </li>
+        <li><span class="parameter">prefix</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/lunarmodules/LDoc">LDoc 1.5.0</a></i>
+<i style="float:right;">Last updated 2023-05-22 14:29:50 </i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>

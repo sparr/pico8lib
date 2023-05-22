@@ -1,8 +1,7 @@
-pico-8 cartridge // http://www.pico-8.com
-version 18
-__lua__
--- pico8lib vector library
--- by sparr and codekitchen
+--- @module vector
+--- pico8lib vector library
+-- @author sparr
+-- @author codekitchen
 
 -- mit license, details in license file
 
@@ -19,6 +18,7 @@ __lua__
 -- some code from https://github.com/codekitchen/pico-8-circuits
 
 local vector
+
 vector = setmetatable({
 
  __eq = function(a, b)
@@ -103,6 +103,7 @@ vector = setmetatable({
   return vector{a.y, -a.x}
  end,
 
+ --- Rotate a vector a certain number of degrees
  rotate_degrees = function(a, angle)
   return a:rotate(angle / 360)
  end,
@@ -139,8 +140,6 @@ local vector_directions_4 = {vector{1, 0}, vector{0, 1}, vector{-1, 0}, vector{0
 local vector_directions_8 = {vector{1, 0}, vector{1, 1}, vector{0, 1}, vector{-1, 1}, vector{-1, 0}, vector{-1, -1}, vector{0, -1}, vector{1, -1}}
 
 
-------------------------------------------------------------------------
--- tests
 assert(vector{2,3} == vector{2,3})
 assert(vector{2,3} == -vector{-2,-3})
 assert(vector{2,3} + vector{-1,2} == vector{1,5})

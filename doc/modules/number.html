@@ -1,0 +1,302 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>pico8lib</title>
+    <link rel="stylesheet" href="../ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>pico8lib</h1>
+
+
+<ul>
+  <li><a href="../index.html">Index</a></li>
+</ul>
+
+<h2>Contents</h2>
+<ul>
+<li><a href="#Local_Functions">Local Functions</a></li>
+</ul>
+
+
+<h2>Modules</h2>
+<ul class="nowrap">
+  <li><a href="../modules/class.html">class</a></li>
+  <li><a href="../modules/functions.html">functions</a></li>
+  <li><a href="../modules/graphics.html">graphics</a></li>
+  <li><a href="../modules/json.html">json</a></li>
+  <li><a href="../modules/log.html">log</a></li>
+  <li><a href="../modules/math.html">math</a></li>
+  <li><a href="../modules/memory.html">memory</a></li>
+  <li><strong>number</strong></li>
+  <li><a href="../modules/physics.html">physics</a></li>
+  <li><a href="../modules/rational.html">rational</a></li>
+  <li><a href="../modules/strings.html">strings</a></li>
+  <li><a href="../modules/tables.html">tables</a></li>
+  <li><a href="../modules/test.html">test</a></li>
+  <li><a href="../modules/vector.html">vector</a></li>
+</ul>
+<h2>Topics</h2>
+<ul class="">
+  <li><a href="../topics/README.md.html">README</a></li>
+</ul>
+<h2>Examples</h2>
+<ul class="nowrap">
+  <li><a href="../examples/snippets.p8.html">snippets.p8</a></li>
+  <li><a href="../examples/test_class.p8.html">test_class.p8</a></li>
+  <li><a href="../examples/test_functions.p8.html">test_functions.p8</a></li>
+  <li><a href="../examples/test_json.p8.html">test_json.p8</a></li>
+  <li><a href="../examples/test_test.p8.html">test_test.p8</a></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+<h1>Module <code>number</code></h1>
+<p>Non-mathematical manipulation of number
+ by sparr</p>
+<p>
+
+</p>
+
+
+<h2><a href="#Local_Functions">Local Functions</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#rand">rand (x)</a></td>
+	<td class="summary">random range functions
+ originally inspired by https://www.lexaloffle.com/bbs/?pid=72829
+ todo tests</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#popcount">popcount (n)</a></td>
+	<td class="summary">count the 1 bits in a number
+ this version runs one loop per set bit, 26 tokens
+ algorithm from https://graphics.stanford.edu/~seander/bithacks.html</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#rotr8">rotr8 (n, b)</a></td>
+	<td class="summary">rotate an 8-bit integer n to the right by b bits</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#flrceil">flrceil (x, d)</a></td>
+	<td class="summary">flrceil(x,1) is flr(x), flrceil(x,-1) is ceil(x)</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#tozero">tozero (n)</a></td>
+	<td class="summary">nearest integer toward zero</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#toinf">toinf (n)</a></td>
+	<td class="summary">nearest integer toward +/- infinity</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#round">round (n)</a></td>
+	<td class="summary">round a number to the nearest integer, 0.5 rounds up</td>
+	</tr>
+</table>
+
+<br/>
+<br/>
+
+
+    <h2 class="section-header "><a name="Local_Functions"></a>Local Functions</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "rand"></a>
+    <strong>rand (x)</strong>
+    </dt>
+    <dd>
+    random range functions
+ originally inspired by https://www.lexaloffle.com/bbs/?pid=72829
+ todo tests
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">x</span>
+        (0 ... x-1), such as for pixel or grid offsets
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "popcount"></a>
+    <strong>popcount (n)</strong>
+    </dt>
+    <dd>
+    count the 1 bits in a number
+ this version runs one loop per set bit, 26 tokens
+ algorithm from https://graphics.stanford.edu/~seander/bithacks.html
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">n</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "rotr8"></a>
+    <strong>rotr8 (n, b)</strong>
+    </dt>
+    <dd>
+    rotate an 8-bit integer n to the right by b bits
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">n</span>
+
+
+
+        </li>
+        <li><span class="parameter">b</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "flrceil"></a>
+    <strong>flrceil (x, d)</strong>
+    </dt>
+    <dd>
+    flrceil(x,1) is flr(x), flrceil(x,-1) is ceil(x)
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">x</span>
+
+
+
+        </li>
+        <li><span class="parameter">d</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "tozero"></a>
+    <strong>tozero (n)</strong>
+    </dt>
+    <dd>
+    nearest integer toward zero
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">n</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "toinf"></a>
+    <strong>toinf (n)</strong>
+    </dt>
+    <dd>
+    nearest integer toward +/- infinity
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">n</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "round"></a>
+    <strong>round (n)</strong>
+    </dt>
+    <dd>
+    round a number to the nearest integer, 0.5 rounds up
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">n</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/lunarmodules/LDoc">LDoc 1.5.0</a></i>
+<i style="float:right;">Last updated 2023-05-22 14:29:50 </i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>

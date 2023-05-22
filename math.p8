@@ -1,23 +1,26 @@
-pico-8 cartridge // http://www.pico-8.com
-version 18
-__lua__
--- pico8lib math library
--- by sparr
+--- @module math
+--- Mathematical operations, mostly on numbers
+-- @author by sparr
 
-
-------------------------------------------------------------------------
--- lookup tables
-
--- a^b will overflow when a>power_overflow[b]
 local power_overflow = {32767,181,31,13,7,5,4,3,3,2,2,2,2,2} -- ,1,1,1
 
-
-------------------------------------------------------------------------
--- greatest common divisor of two numbers
-local function gcd(a, b)
+--- Return the greatest common divisor of two numbers
+-- This is the first of two available implementations
+-- @see gcd2
+-- @param a The first number
+-- @param b The second number
+-- @return The greatest common divisor, or zero
+local function gcd1(a, b)
  return a==0 and b or gcd(b%a, a)
 end
-local function gcd(a, b)
+
+--- Return the greatest common divisor of two numbers
+-- This is the second of two available implementations
+-- @see gcd1
+-- @param a The first number
+-- @param b The second number
+-- @return The greatest common divisor, or zero
+local function gcd2(a, b)
  while a~=0 do
   a, b = b%a, a
  end
@@ -31,12 +34,9 @@ local function lcm(a, b)
  return a / gcd(a, b) * b
 end
 
-
-------------------------------------------------------------------------
--- calculate the nth root of x
+--- Calculate the nth root of x
 -- nthroot(3,8)==2 because 2^3==8
 -- all versions start with a guess based on the built in ^ operator
-
 -- this version performs newton's method until a convergent result or short loop is found
 -- very accurate
 local function nthroot(n, x)

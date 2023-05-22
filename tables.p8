@@ -1,12 +1,12 @@
-pico-8 cartridge // http://www.pico-8.com
-version 18
-__lua__
--- pico8lib tables library
--- by sparr
+--- @module tables
+-- Manipulating and creating tables
+-- @author sparr
 
-
-------------------------------------------------------------------------
--- get value from table by key, with default
+--- Get value from table by key, with default
+-- @param t The table to reference
+-- @param k The key to access
+-- @param d A default valueu to return if the key is not present in the table
+-- @return Either the associated value or the default
 local function get(t, k, d)
  return t[k]~=nil and t[k] or d
 end

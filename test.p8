@@ -1,5 +1,6 @@
--- pico8lib unit test library
--- by mindfilleter
+--- @module test
+--- pico8lib unit test library
+-- @author mindfilleter
 
 -- #include class.p8
 -- #include log.p8

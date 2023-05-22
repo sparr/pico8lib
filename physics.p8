@@ -1,9 +1,6 @@
-pico-8 cartridge // http://www.pico-8.com
-version 18
-__lua__
--- pico8lib physics library
--- by sparr
-
+--- @module physics
+-- Collision functions, etc
+-- @author sparr
 
 ------------------------------------------------------------------------
 -- check for collision/overlap of a point and a circle

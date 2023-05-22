@@ -31,18 +31,22 @@
   <li><a href="../index.html">Index</a></li>
 </ul>
 
-<h2>Contents</h2>
-<ul>
-<li><a href="#Fields">Fields</a></li>
+
+
+<h2>Examples</h2>
+<ul class="nowrap">
+  <li><strong>snippets.p8</strong></li>
+  <li><a href="../examples/test_class.p8.html">test_class.p8</a></li>
+  <li><a href="../examples/test_functions.p8.html">test_functions.p8</a></li>
+  <li><a href="../examples/test_json.p8.html">test_json.p8</a></li>
+  <li><a href="../examples/test_test.p8.html">test_test.p8</a></li>
 </ul>
-
-
 <h2>Modules</h2>
 <ul class="nowrap">
   <li><a href="../modules/class.html">class</a></li>
   <li><a href="../modules/functions.html">functions</a></li>
   <li><a href="../modules/graphics.html">graphics</a></li>
-  <li><strong>json</strong></li>
+  <li><a href="../modules/json.html">json</a></li>
   <li><a href="../modules/log.html">log</a></li>
   <li><a href="../modules/math.html">math</a></li>
   <li><a href="../modules/memory.html">memory</a></li>
@@ -58,62 +62,26 @@
 <ul class="">
   <li><a href="../topics/README.md.html">README</a></li>
 </ul>
-<h2>Examples</h2>
-<ul class="nowrap">
-  <li><a href="../examples/snippets.p8.html">snippets.p8</a></li>
-  <li><a href="../examples/test_class.p8.html">test_class.p8</a></li>
-  <li><a href="../examples/test_functions.p8.html">test_functions.p8</a></li>
-  <li><a href="../examples/test_json.p8.html">test_json.p8</a></li>
-  <li><a href="../examples/test_test.p8.html">test_test.p8</a></li>
-</ul>
 
 </div>
 
 <div id="content">
 
-<h1>Module <code>json</code></h1>
-<p>JSON(ish) parser</p>
-<p>
-
-</p>
-    <h3>Info:</h3>
-    <ul>
-        <li><strong>Author</strong>: sparr</li>
-    </ul>
-
-
-<h2><a href="#Fields">Fields</a></h2>
-<table class="function_list">
-	<tr>
-	<td class="name" nowrap><a href="#json">json</a></td>
-	<td class="summary">json namespace object
- TODO: The functions need to be brought up to the module level to match the style of the rest of the libraries</td>
-	</tr>
-</table>
-
-<br/>
-<br/>
-
-
-    <h2 class="section-header "><a name="Fields"></a>Fields</h2>
-
-    <dl class="function">
-    <dt>
-    <a name = "json"></a>
-    <strong>json</strong>
-    </dt>
-    <dd>
-    json namespace object
- TODO: The functions need to be brought up to the module level to match the style of the rest of the libraries
-
-
-
-
-
-
-
-</dd>
-</dl>
+    <h2>snippets.p8</h2>
+<pre>
+<span class="comment">-- pico8lib snippets library
+</span><span class="comment">-- by sparr
+</span>
+<span class="comment">-- this code is meant to be copied inline, not necessarily used as functions,
+</span><span class="comment">-- with your own own code inserted in the appropriate place
+</span>
+<span class="keyword">local</span> <span class="keyword">function</span> <span class="function-name">snippet_eight_neighbors</span>()
+ <span class="keyword">for</span> y = -<span class="number">1</span>, <span class="number">1</span> <span class="keyword">do</span>
+  <span class="keyword">for</span> x = -<span class="number">1</span>, <span class="number">1</span>, y==<span class="number">0</span> <span class="keyword">and</span> <span class="number">2</span> <span class="keyword">or</span> <span class="number">1</span> <span class="keyword">do</span>
+   <span class="comment">-- insert code here using x and y as offsets
+</span>  <span class="keyword">end</span>
+ <span class="keyword">end</span>
+<span class="keyword">end</span></pre>
 
 
 </div> <!-- id="content" -->
