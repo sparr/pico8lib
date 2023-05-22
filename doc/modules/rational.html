@@ -33,7 +33,7 @@
 
 <h2>Contents</h2>
 <ul>
-<li><a href="#Fields">Fields</a></li>
+<li><a href="#Local_Functions">Local Functions</a></li>
 </ul>
 
 
@@ -42,13 +42,13 @@
   <li><a href="../modules/class.html">class</a></li>
   <li><a href="../modules/functions.html">functions</a></li>
   <li><a href="../modules/graphics.html">graphics</a></li>
-  <li><strong>json</strong></li>
+  <li><a href="../modules/json.html">json</a></li>
   <li><a href="../modules/log.html">log</a></li>
   <li><a href="../modules/math.html">math</a></li>
   <li><a href="../modules/memory.html">memory</a></li>
   <li><a href="../modules/number.html">number</a></li>
   <li><a href="../modules/physics.html">physics</a></li>
-  <li><a href="../modules/rational.html">rational</a></li>
+  <li><strong>rational</strong></li>
   <li><a href="../modules/strings.html">strings</a></li>
   <li><a href="../modules/tables.html">tables</a></li>
   <li><a href="../modules/test.html">test</a></li>
@@ -71,8 +71,8 @@
 
 <div id="content">
 
-<h1>Module <code>json</code></h1>
-<p>JSON(ish) parser</p>
+<h1>Module <code>rational</code></h1>
+<p>Rational numbers</p>
 <p>
 
 </p>
@@ -82,12 +82,11 @@
     </ul>
 
 
-<h2><a href="#Fields">Fields</a></h2>
+<h2><a href="#Local_Functions">Local Functions</a></h2>
 <table class="function_list">
 	<tr>
-	<td class="name" nowrap><a href="#json">json</a></td>
-	<td class="summary">json namespace object
- TODO: The functions need to be brought up to the module level to match the style of the rest of the libraries</td>
+	<td class="name" nowrap><a href="#nthroot">nthroot (n, x)</a></td>
+	<td class="summary">Return the xth root of n</td>
 	</tr>
 </table>
 
@@ -95,19 +94,32 @@
 <br/>
 
 
-    <h2 class="section-header "><a name="Fields"></a>Fields</h2>
+    <h2 class="section-header "><a name="Local_Functions"></a>Local Functions</h2>
 
     <dl class="function">
     <dt>
-    <a name = "json"></a>
-    <strong>json</strong>
+    <a name = "nthroot"></a>
+    <strong>nthroot (n, x)</strong>
     </dt>
     <dd>
-    json namespace object
- TODO: The functions need to be brought up to the module level to match the style of the rest of the libraries
+    Return the xth root of n
 
 
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">n</span>
+         The number to take the root of
+        </li>
+        <li><span class="parameter">x</span>
+         The root value
+        </li>
+    </ul>
 
+    <h3>Returns:</h3>
+    <ol>
+
+        The <code>x</code>th root of <code>n</code>
+    </ol>
 
 
 

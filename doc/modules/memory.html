@@ -33,7 +33,7 @@
 
 <h2>Contents</h2>
 <ul>
-<li><a href="#Fields">Fields</a></li>
+<li><a href="#Local_Functions">Local Functions</a></li>
 </ul>
 
 
@@ -42,10 +42,10 @@
   <li><a href="../modules/class.html">class</a></li>
   <li><a href="../modules/functions.html">functions</a></li>
   <li><a href="../modules/graphics.html">graphics</a></li>
-  <li><strong>json</strong></li>
+  <li><a href="../modules/json.html">json</a></li>
   <li><a href="../modules/log.html">log</a></li>
   <li><a href="../modules/math.html">math</a></li>
-  <li><a href="../modules/memory.html">memory</a></li>
+  <li><strong>memory</strong></li>
   <li><a href="../modules/number.html">number</a></li>
   <li><a href="../modules/physics.html">physics</a></li>
   <li><a href="../modules/rational.html">rational</a></li>
@@ -71,8 +71,8 @@
 
 <div id="content">
 
-<h1>Module <code>json</code></h1>
-<p>JSON(ish) parser</p>
+<h1>Module <code>memory</code></h1>
+<p>Reading, writing, manipulating memory</p>
 <p>
 
 </p>
@@ -82,12 +82,12 @@
     </ul>
 
 
-<h2><a href="#Fields">Fields</a></h2>
+<h2><a href="#Local_Functions">Local Functions</a></h2>
 <table class="function_list">
 	<tr>
-	<td class="name" nowrap><a href="#json">json</a></td>
-	<td class="summary">json namespace object
- TODO: The functions need to be brought up to the module level to match the style of the rest of the libraries</td>
+	<td class="name" nowrap><a href="#memcpy4">memcpy4 (dst, src, len)</a></td>
+	<td class="summary">Efficiently copy a block of memory from <code>src</code> to <code>dst</code>
+ 75% the runtime of memcpy, len must be a multiple of 4</td>
 	</tr>
 </table>
 
@@ -95,19 +95,36 @@
 <br/>
 
 
-    <h2 class="section-header "><a name="Fields"></a>Fields</h2>
+    <h2 class="section-header "><a name="Local_Functions"></a>Local Functions</h2>
 
     <dl class="function">
     <dt>
-    <a name = "json"></a>
-    <strong>json</strong>
+    <a name = "memcpy4"></a>
+    <strong>memcpy4 (dst, src, len)</strong>
     </dt>
     <dd>
-    json namespace object
- TODO: The functions need to be brought up to the module level to match the style of the rest of the libraries
+    Efficiently copy a block of memory from <code>src</code> to <code>dst</code>
+ 75% the runtime of memcpy, len must be a multiple of 4
 
 
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">dst</span>
+         The offset to copy to
+        </li>
+        <li><span class="parameter">src</span>
+         The offset to copy from
+        </li>
+        <li><span class="parameter">len</span>
+         The number of bytes to copy
+        </li>
+    </ul>
 
+    <h3>Returns:</h3>
+    <ol>
+
+        null
+    </ol>
 
 
 

@@ -1,23 +1,20 @@
-pico-8 cartridge // http://www.pico-8.com
-version 18
-__lua__
--- pico8lib graphics library
--- by sparr
+--- @module graphics
+--- Drawing and sprite manipulation
+-- @author by sparr
+
 
 -- any function with a color parameter can add the following line
 -- to make the color optional and use the pen color by default:
 -- c = c or peek(24357) & 15
 
 
-------------------------------------------------------------------------
--- bresenham's line drawing algorithm
-
---- draw a line from point 1 to point 2
--- @tparam number x1 x coordinate of starting point
--- @tparam number y1 y coordinate of starting point
--- @tparam number x2 x coordinate of ending point
--- @tparam number y2 y coordinate of ending point
--- @tparam number c color
+--- Draw a line connecting two points
+-- uses Bresenham's line drawing algorithm
+-- @tparam number x1 X coordinate of starting point of the line
+-- @tparam number y1 Y coordinate of starting point of the line
+-- @tparam number x2 X coordinate of ending point of the line
+-- @tparam number y2 Y coordinate of ending point of the line
+-- @tparam number c Color of the line
 local function line_(x1, y1, x2, y2, c)
  local dx, dy, sx, sy = abs(x2 - x1), -abs(y2 - y1), x1 < x2 and 1 or -1, y1 < y2 and 1 or -1
  local e = dx + dy
@@ -37,7 +34,8 @@ local function line_(x1, y1, x2, y2, c)
 end
 
 
---- draw a fat line from point 1 to point 2
+--- Draw a fat line connecting two points
+-- uses Bresenham's line drawing algorithm and rectfill
 -- @tparam number x1 x coordinate of starting point
 -- @tparam number y1 y coordinate of starting point
 -- @tparam number x2 x coordinate of ending point
@@ -63,7 +61,9 @@ local function line_fat(x1, y1, x2, y2, fx, fy, c)
  end
 end
 
---- draw a line from point 1 to point 2 by calling a custom function
+
+--- Draw a line connecting two points using a custom draw function
+-- uses Bresenham's line drawing algorithm and the custom function for each point on the line
 -- line_func(...,pset) is equivalent to line_(...)
 -- @tparam number x1 x coordinate of starting point
 -- @tparam number y1 y coordinate of starting point

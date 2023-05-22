@@ -1,6 +1,7 @@
--- pico8lib json library
--- by sparr
--- @module json
+--- @module json
+--- JSON(ish) parser
+-- @author sparr
+
 -- #include strings.p8
 
 -- based on https://gist.github.com/tylerneylon/59f4bcf316be525b30ab
@@ -8,9 +9,9 @@
 
 -- error checking is available but commented out, useful for debugging bad hand-crafted json
 
-local json
-
-json = setmetatable({
+--- json namespace object
+-- TODO: The functions need to be brought up to the module level to match the style of the rest of the libraries
+local json = setmetatable({
 
   null = {}, -- to uniquely identify json null values
 

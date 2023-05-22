@@ -1,26 +1,23 @@
-pico-8 cartridge // http://www.pico-8.com
-version 18
-__lua__
--- pico8lib tables library
--- by sparr
-
+--- @module tables
+-- Manipulating and creating tables
+-- @author sparr
 
 ------------------------------------------------------------------------
 -- Functions that operate on one table and one key and/or value
 
---- get value from table by key, with optional default for missing value
--- @tparam table t
--- @param k key
--- @param d default value
--- @return value if found, default otherwise
+--- Get value from table by key, with default
+-- @tparam table t The table to reference
+-- @param k The key to access
+-- @param[opt] d A default value to return if the key is not present in the table
+-- @return Either the associated value or the default
 local function get(t, k, d)
  return t[k]~=nil and t[k] or d
 end
 
 --- add value to end of array
+-- supposedly faster but less safe than add(a,v)
 -- @tparam array a
 -- @param v value to add
--- supposedly faster but less safe than add(a,v)
 local function add_(a, v)
  a[#a + 1] = v
 end
