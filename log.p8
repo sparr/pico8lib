@@ -1,10 +1,8 @@
-pico-8 cartridge // http://www.pico-8.com
-version 18
-__lua__
 -- pico8lib logging library
 -- by mindfilleter
 
 -- #include strings.p8
+-- @module log
 
 -- P8LIBLOGUTC configures the output to either use UTC or local time.
 -- false (default) for local time, true for UTC

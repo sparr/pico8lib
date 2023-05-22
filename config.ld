@@ -5,13 +5,12 @@ description = "best-of-breed examples of common library functions"
 readme = "README.md"
 
 -- Output Options
--- backtick_references = true
-
+backtick_references = true
 all = true
-file = {"test.p8"}
-format = "markdown"
+file = {"."}
+format = "html"
 dir = "doc"
-ext = "md"
+ext = "html"
 boilerplate = true
 template = "!"
 
