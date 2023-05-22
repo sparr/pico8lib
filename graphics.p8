@@ -40,9 +40,9 @@ end
 -- @tparam number y1 y coordinate of starting point
 -- @tparam number x2 x coordinate of ending point
 -- @tparam number y2 y coordinate of ending point
--- @tparam number c color
 -- @tparam number fx width of line pixels (east of the original line)
 -- @tparam number fy height of line pixels (south of the original line)
+-- @tparam number c color
 local function line_fat(x1, y1, x2, y2, fx, fy, c)
  local dx, dy, sx, sy = abs(x2 - x1), -abs(y2 - y1), x1 < x2 and 1 or -1, y1 < y2 and 1 or -1
  local e = dx + dy
@@ -69,8 +69,8 @@ end
 -- @tparam number y1 y coordinate of starting point
 -- @tparam number x2 x coordinate of ending point
 -- @tparam number y2 y coordinate of ending point
--- @tparam number c color
 -- @tparam function f function to call for each pixel of the line
+-- @tparam number c color
 local function line_func(x1, y1, x2, y2, f, c)
  local dx, dy, sx, sy = abs(x2 - x1), -abs(y2 - y1), x1 < x2 and 1 or -1, y1 < y2 and 1 or -1
  local p, e = 1, dx + dy
@@ -92,7 +92,7 @@ end
 
 
 --- draw a 4x4 sprite
--- @tparam number sn sprite index
+-- @tparam number s sprite index
 -- @tparam number x x coordinate for sprite placement
 -- @tparam number y y coordinate for sprite placement
 local function spr4_fast(s, x, y)
