@@ -1,0 +1,811 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>pico8lib</title>
+    <link rel="stylesheet" href="../ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>pico8lib</h1>
+
+
+<ul>
+  <li><a href="../index.html">Index</a></li>
+</ul>
+
+<h2>Contents</h2>
+<ul>
+<li><a href="#Functions">Functions</a></li>
+<li><a href="#Fields">Fields</a></li>
+<li><a href="#Local_Functions">Local Functions</a></li>
+</ul>
+
+
+<h2>Modules</h2>
+<ul class="nowrap">
+  <li><a href="../modules/log.html">log</a></li>
+  <li><strong>test</strong></li>
+</ul>
+<h2>Topics</h2>
+<ul class="">
+  <li><a href="../topics/README.md.html">README</a></li>
+</ul>
+<h2>Examples</h2>
+<ul class="nowrap">
+  <li><a href="../examples/test_class.p8.html">test_class.p8</a></li>
+  <li><a href="../examples/test_functions.p8.html">test_functions.p8</a></li>
+  <li><a href="../examples/test_json.p8.html">test_json.p8</a></li>
+  <li><a href="../examples/test_test.p8.html">test_test.p8</a></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+<h1>Module <code>test</code></h1>
+<p>The TestCase class represents a collection of tests to be run for a given context.</p>
+<p> Subclass TestCase and add functions starting with "test_" then add an instance to a TestSuite instance to run your tests. For an example of how do this, see the <code>Assertions</code> test case in <code>test/test_test.p8</code>.</p>
+
+
+<h2><a href="#Functions">Functions</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#TestCase:__init">TestCase:__init (name)</a></td>
+	<td class="summary">TestCase naming convention: snake_case</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#TestCase:setup">TestCase:setup ()</a></td>
+	<td class="summary">setup is run before each test function is executed.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#TestCase:teardown">TestCase:teardown ()</a></td>
+	<td class="summary">teardown is run after each test function is executed.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#TestCase:run">TestCase:run (quiet)</a></td>
+	<td class="summary">Call all of the test functions that start with "test_" and track failures.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#TestCase:assert_throws">TestCase:assert_throws (fn, expected_message)</a></td>
+	<td class="summary">Call the function fn and assert that an exception is thrown with
+ the given <code>expected message</code>
+ See <code>test/test_test.p8</code> for examples of how to use this assertion</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#TestCase:assert_nil">TestCase:assert_nil (any, message)</a></td>
+	<td class="summary">Assert that <code>any</code> is nil</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#TestCase:assert_not_nil">TestCase:assert_not_nil (any, message)</a></td>
+	<td class="summary">Assert that <code>any</code> is not nil</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#TestCase:assert_true">TestCase:assert_true (any, message)</a></td>
+	<td class="summary">Assert that <code>any</code> is true</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#TestCase:assert_false">TestCase:assert_false (any, message)</a></td>
+	<td class="summary">Assert that <code>any</code> is false</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#TestCase:assert_equal">TestCase:assert_equal (a, b, message)</a></td>
+	<td class="summary">Assert that <code>a</code> is equal to <code>b</code></td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#TestCase:assert_almost_equal">TestCase:assert_almost_equal (a, b, tolerance, message)</a></td>
+	<td class="summary">Assert that <code>a</code> is almost equal to <code>b</code>, useful for comparing floating points.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#TestCase:assert_not_equal">TestCase:assert_not_equal (a, b, message)</a></td>
+	<td class="summary">Assert that <code>a</code> is not equal to <code>b</code></td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#TestCase:assert_less_than">TestCase:assert_less_than (a, b, message)</a></td>
+	<td class="summary">Assert that <code>a</code> is less than <code>b</code></td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#TestCase:assert_less_than_or_equal">TestCase:assert_less_than_or_equal (a, b, message)</a></td>
+	<td class="summary">Assert that <code>a</code> is less than or equal to <code>b</code></td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#TestCase:assert_greater_than">TestCase:assert_greater_than (a, b, message)</a></td>
+	<td class="summary">Assert that <code>a</code> is greater than <code>b</code></td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#TestCase:assert_greater_than_or_equal">TestCase:assert_greater_than_or_equal (a, b, message)</a></td>
+	<td class="summary">Assert that <code>a</code> is greater than or equal to <code>b</code></td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#TestCase:assert_boolean">TestCase:assert_boolean (actual, message)</a></td>
+	<td class="summary">Assert that 'actual' is a boolean value</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#TestCase:assert_string">TestCase:assert_string (actual, message)</a></td>
+	<td class="summary">Assert that 'actual' is a string value</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#TestCase:assert_number">TestCase:assert_number (actual, message)</a></td>
+	<td class="summary">Assert that 'actual' is a number value</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#TestSuite:add_test_case">TestSuite:add_test_case (test_case)</a></td>
+	<td class="summary">Add a test case instance to the test suite</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#TestSuite:run">TestSuite:run (quiet)</a></td>
+	<td class="summary">Run all of the test cases added to the test suite</td>
+	</tr>
+</table>
+<h2><a href="#Fields">Fields</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#TestSuite">TestSuite</a></td>
+	<td class="summary">The TestSuite class is a collection manager for test cases.</td>
+	</tr>
+</table>
+<h2><a href="#Local_Functions">Local Functions</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#run_suites">run_suites (suites)</a></td>
+	<td class="summary">A helper function that runs an array of suites, builds a run report and logs the report to STDOUT</td>
+	</tr>
+</table>
+
+<br/>
+<br/>
+
+
+    <h2 class="section-header "><a name="Functions"></a>Functions</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "TestCase:__init"></a>
+    <strong>TestCase:__init (name)</strong>
+    </dt>
+    <dd>
+    TestCase naming convention: snake_case
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">name</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "TestCase:setup"></a>
+    <strong>TestCase:setup ()</strong>
+    </dt>
+    <dd>
+    setup is run before each test function is executed.  It exists as a hook to setup state relevant to the test on the TestCase instance. Override this method as needed in your TestCase subclass.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "TestCase:teardown"></a>
+    <strong>TestCase:teardown ()</strong>
+    </dt>
+    <dd>
+    teardown is run after each test function is executed.  It exists as a hook to reset state relevant to the test on the TestCase instance. Override this method as needed in your TestCase subclass.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "TestCase:run"></a>
+    <strong>TestCase:run (quiet)</strong>
+    </dt>
+    <dd>
+    Call all of the test functions that start with "test_" and track failures.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">quiet</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "TestCase:assert_throws"></a>
+    <strong>TestCase:assert_throws (fn, expected_message)</strong>
+    </dt>
+    <dd>
+    Call the function fn and assert that an exception is thrown with
+ the given <code>expected message</code>
+ See <code>test/test_test.p8</code> for examples of how to use this assertion
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">fn</span>
+         A function to be called
+        </li>
+        <li><span class="parameter">expected_message</span>
+         The exact text of the expected exception
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        nil
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "TestCase:assert_nil"></a>
+    <strong>TestCase:assert_nil (any, message)</strong>
+    </dt>
+    <dd>
+    Assert that <code>any</code> is nil
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">any</span>
+         a value that is expected to be nil
+        </li>
+        <li><span class="parameter">message</span>
+         override the default error message with <code>message</code> instead
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        nil
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "TestCase:assert_not_nil"></a>
+    <strong>TestCase:assert_not_nil (any, message)</strong>
+    </dt>
+    <dd>
+    Assert that <code>any</code> is not nil
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">any</span>
+         a value that is expected to not be nil
+        </li>
+        <li><span class="parameter">message</span>
+         override the default error message with <code>message</code> instead
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        nil
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "TestCase:assert_true"></a>
+    <strong>TestCase:assert_true (any, message)</strong>
+    </dt>
+    <dd>
+    Assert that <code>any</code> is true
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">any</span>
+         a value that is expected to be true
+        </li>
+        <li><span class="parameter">message</span>
+         override the default error message with <code>message</code> instead
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        nil
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "TestCase:assert_false"></a>
+    <strong>TestCase:assert_false (any, message)</strong>
+    </dt>
+    <dd>
+    Assert that <code>any</code> is false
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">any</span>
+         a value that is expected to be false
+        </li>
+        <li><span class="parameter">message</span>
+         override the default error message with <code>message</code> instead
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        nil
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "TestCase:assert_equal"></a>
+    <strong>TestCase:assert_equal (a, b, message)</strong>
+    </dt>
+    <dd>
+    Assert that <code>a</code> is equal to <code>b</code>
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">a</span>
+         the actual object
+        </li>
+        <li><span class="parameter">b</span>
+         the expected object
+        </li>
+        <li><span class="parameter">message</span>
+         override the default error message with <code>message</code> instead
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        nil
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "TestCase:assert_almost_equal"></a>
+    <strong>TestCase:assert_almost_equal (a, b, tolerance, message)</strong>
+    </dt>
+    <dd>
+    Assert that <code>a</code> is almost equal to <code>b</code>, useful for comparing floating points.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">a</span>
+         the actual floating point value
+        </li>
+        <li><span class="parameter">b</span>
+         the expected floating poitn value
+        </li>
+        <li><span class="parameter">tolerance</span>
+         the absolute variance allowed between <code>a</code> and <code>b</code>
+        </li>
+        <li><span class="parameter">message</span>
+         override the default error message with <code>message</code> instead
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        nil
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "TestCase:assert_not_equal"></a>
+    <strong>TestCase:assert_not_equal (a, b, message)</strong>
+    </dt>
+    <dd>
+    Assert that <code>a</code> is not equal to <code>b</code>
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">a</span>
+         the actual object
+        </li>
+        <li><span class="parameter">b</span>
+         the undesired object
+        </li>
+        <li><span class="parameter">message</span>
+         override the default error message with <code>message</code> instead
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        nil
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "TestCase:assert_less_than"></a>
+    <strong>TestCase:assert_less_than (a, b, message)</strong>
+    </dt>
+    <dd>
+    Assert that <code>a</code> is less than <code>b</code>
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">a</span>
+         the actual value
+        </li>
+        <li><span class="parameter">b</span>
+         the upper limit
+        </li>
+        <li><span class="parameter">message</span>
+         override the default error message with <code>message</code> instead
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        nil
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "TestCase:assert_less_than_or_equal"></a>
+    <strong>TestCase:assert_less_than_or_equal (a, b, message)</strong>
+    </dt>
+    <dd>
+    Assert that <code>a</code> is less than or equal to <code>b</code>
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">a</span>
+         the actual value
+        </li>
+        <li><span class="parameter">b</span>
+         the upper limit
+        </li>
+        <li><span class="parameter">message</span>
+         override the default error message with <code>message</code> instead
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        nil
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "TestCase:assert_greater_than"></a>
+    <strong>TestCase:assert_greater_than (a, b, message)</strong>
+    </dt>
+    <dd>
+    Assert that <code>a</code> is greater than <code>b</code>
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">a</span>
+         the actual value
+        </li>
+        <li><span class="parameter">b</span>
+         the lower limit
+        </li>
+        <li><span class="parameter">message</span>
+         override the default error message with <code>message</code> instead
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        nil
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "TestCase:assert_greater_than_or_equal"></a>
+    <strong>TestCase:assert_greater_than_or_equal (a, b, message)</strong>
+    </dt>
+    <dd>
+    Assert that <code>a</code> is greater than or equal to <code>b</code>
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">a</span>
+         the actual value
+        </li>
+        <li><span class="parameter">b</span>
+         the lower limit
+        </li>
+        <li><span class="parameter">message</span>
+         override the default error message with <code>message</code> instead
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        nil
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "TestCase:assert_boolean"></a>
+    <strong>TestCase:assert_boolean (actual, message)</strong>
+    </dt>
+    <dd>
+    Assert that 'actual' is a boolean value
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">actual</span>
+         the value to test for type
+        </li>
+        <li><span class="parameter">message</span>
+         override the default error message with <code>message</code> instead
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        nil
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "TestCase:assert_string"></a>
+    <strong>TestCase:assert_string (actual, message)</strong>
+    </dt>
+    <dd>
+    Assert that 'actual' is a string value
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">actual</span>
+         the value to test for type
+        </li>
+        <li><span class="parameter">message</span>
+         override the default error message with <code>message</code> instead
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        nil
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "TestCase:assert_number"></a>
+    <strong>TestCase:assert_number (actual, message)</strong>
+    </dt>
+    <dd>
+    Assert that 'actual' is a number value
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">actual</span>
+         the value to test for type
+        </li>
+        <li><span class="parameter">message</span>
+         override the default error message with <code>message</code> instead
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        nil
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "TestSuite:add_test_case"></a>
+    <strong>TestSuite:add_test_case (test_case)</strong>
+    </dt>
+    <dd>
+    Add a test case instance to the test suite
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">test_case</span>
+         An instance of a subclass of TestCase
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        nil
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "TestSuite:run"></a>
+    <strong>TestSuite:run (quiet)</strong>
+    </dt>
+    <dd>
+    Run all of the test cases added to the test suite
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">quiet</span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        nil
+    </ol>
+
+
+
+
+</dd>
+</dl>
+    <h2 class="section-header "><a name="Fields"></a>Fields</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "TestSuite"></a>
+    <strong>TestSuite</strong>
+    </dt>
+    <dd>
+    The TestSuite class is a collection manager for test cases.
+ Add test case instances to a TestSuite using <a href="../modules/test.html#TestSuite:add_test_case">add_test_case</a>,
+ then call the <a href="../modules/test.html#run_suites">run_suites</a> function to run the tests.
+
+
+
+
+
+
+
+</dd>
+</dl>
+    <h2 class="section-header "><a name="Local_Functions"></a>Local Functions</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "run_suites"></a>
+    <strong>run_suites (suites)</strong>
+    </dt>
+    <dd>
+    A helper function that runs an array of suites, builds a run report and logs the report to STDOUT
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">suites</span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        nil
+    </ol>
+
+
+
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/lunarmodules/LDoc">LDoc 1.5.0</a></i>
+<i style="float:right;">Last updated 2023-05-22 13:25:58 </i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>

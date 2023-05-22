@@ -1,0 +1,211 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>pico8lib</title>
+    <link rel="stylesheet" href="../ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>pico8lib</h1>
+
+
+<ul>
+  <li><a href="../index.html">Index</a></li>
+</ul>
+
+
+
+<h2>Examples</h2>
+<ul class="nowrap">
+  <li><a href="../examples/test_class.p8.html">test_class.p8</a></li>
+  <li><a href="../examples/test_functions.p8.html">test_functions.p8</a></li>
+  <li><a href="../examples/test_json.p8.html">test_json.p8</a></li>
+  <li><strong>test_test.p8</strong></li>
+</ul>
+<h2>Modules</h2>
+<ul class="nowrap">
+  <li><a href="../modules/log.html">log</a></li>
+  <li><a href="../modules/test.html">test</a></li>
+</ul>
+<h2>Topics</h2>
+<ul class="">
+  <li><a href="../topics/README.md.html">README</a></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+    <h2>test_test.p8</h2>
+<pre>
+pico-<span class="number">8</span> cartridge // http://www.pico-<span class="number">8.</span>com
+version <span class="number">18</span>
+__lua__
+
+<span class="comment">-- Unit tests for the test module
+</span><span class="comment">-- by mindfilleter
+</span>
+<span class="comment">-- to run the tests use <code>pico8 -x tests/test_test.p8</code>
+</span>
+#include ../class.p8
+#include ../log.p8
+#include ../functions.p8
+#include ../strings.p8
+#include ../tables.p8
+#include ../test.p8
+
+
+<span class="keyword">local</span> suite = <span class="function-name">TestSuite</span>(<span class="string">"test.p8"</span>)
+
+<span class="comment">-- Assertions test case
+</span><span class="keyword">local</span> Assertions = <span class="function-name">TestCase</span>(<span class="string">"assertions"</span>)
+
+<span class="keyword">function</span> Assertions:<span class="function-name">test_assert_nil_pass</span> ()
+   self:<span class="function-name">assert_nil</span>(<span class="keyword">nil</span>)
+<span class="keyword">end</span>
+
+<span class="keyword">function</span> Assertions:<span class="function-name">test_assert_nil_fail</span> ()
+   self:<span class="function-name">assert_throws</span>(<span class="keyword">function</span> ()
+         self:<span class="function-name">assert_nil</span>(<span class="number">1</span>)
+   <span class="keyword">end</span>, <span class="string">"1 is not nil"</span>)
+<span class="keyword">end</span>
+
+<span class="keyword">function</span> Assertions:<span class="function-name">test_assert_not_nil_pass</span> ()
+   self:<span class="function-name">assert_not_nil</span>(<span class="number">1</span>)
+<span class="keyword">end</span>
+
+<span class="keyword">function</span> Assertions:<span class="function-name">test_assert_not_nil_fail</span> ()
+   self:<span class="function-name">assert_throws</span>(<span class="keyword">function</span> ()
+         self:<span class="function-name">assert_not_nil</span>(<span class="keyword">nil</span>)
+   <span class="keyword">end</span>, <span class="string">"[nil] is unexpectedly nil"</span>)
+<span class="keyword">end</span>
+
+suite:<span class="function-name">add_test_case</span>(Assertions)
+
+
+<span class="comment">-- Equality test case
+</span><span class="keyword">local</span> Equality = <span class="function-name">TestCase</span>(<span class="string">"equality"</span>)
+
+<span class="keyword">function</span> Equality:<span class="function-name">test_assert_equal_pass</span> ()
+   self:<span class="function-name">assert_equal</span>(<span class="number">1</span>, <span class="number">1</span>)
+<span class="keyword">end</span>
+
+<span class="keyword">function</span> Equality:<span class="function-name">test_assert_equal_fail</span> ()
+   self:<span class="function-name">assert_throws</span>(<span class="keyword">function</span> ()
+         self:<span class="function-name">assert_equal</span>(<span class="number">1</span>, <span class="number">2</span>)
+   <span class="keyword">end</span>, <span class="string">"1 ~= 2"</span>)
+<span class="keyword">end</span>
+
+<span class="keyword">function</span> Equality:<span class="function-name">test_assert_not_equal_pass</span> ()
+   self:<span class="function-name">assert_not_equal</span>(<span class="number">1</span>, <span class="number">2</span>)
+<span class="keyword">end</span>
+
+<span class="keyword">function</span> Equality:<span class="function-name">test_assert_not_equal_fail</span> ()
+   self:<span class="function-name">assert_throws</span>(<span class="keyword">function</span> ()
+         self:<span class="function-name">assert_not_equal</span>(<span class="number">1</span>, <span class="number">1</span>)
+   <span class="keyword">end</span>, <span class="string">"1 == 1"</span>)
+<span class="keyword">end</span>
+
+suite:<span class="function-name">add_test_case</span>(Equality)
+
+
+<span class="comment">-- Type test case
+</span><span class="keyword">local</span> Types = <span class="function-name">TestCase</span>(<span class="string">"types"</span>)
+
+<span class="keyword">function</span> Types:<span class="function-name">test_assert_boolean_pass</span> ()
+   self:<span class="function-name">assert_boolean</span>(<span class="keyword">true</span>)
+<span class="keyword">end</span>
+
+<span class="keyword">function</span> Types:<span class="function-name">test_assert_boolean_fail</span> ()
+   self:<span class="function-name">assert_throws</span>(<span class="keyword">function</span> ()
+         self:<span class="function-name">assert_boolean</span>(<span class="keyword">nil</span>)
+   <span class="keyword">end</span>, <span class="string">"nil is not a boolean"</span>)
+<span class="keyword">end</span>
+
+<span class="keyword">function</span> Types:<span class="function-name">test_assert_number_pass</span> ()
+   self:<span class="function-name">assert_number</span>(<span class="number">1</span>)
+<span class="keyword">end</span>
+
+<span class="keyword">function</span> Types:<span class="function-name">test_assert_number_fail</span> ()
+   self:<span class="function-name">assert_throws</span>(<span class="keyword">function</span> ()
+         self:<span class="function-name">assert_number</span>(<span class="string">"hello"</span>)
+   <span class="keyword">end</span>, <span class="string">'hello is not a number'</span>)
+<span class="keyword">end</span>
+
+<span class="keyword">function</span> Types:<span class="function-name">test_assert_string_pass</span> ()
+   self:<span class="function-name">assert_string</span>(<span class="string">"hello"</span>)
+<span class="keyword">end</span>
+
+<span class="keyword">function</span> Types:<span class="function-name">test_assert_string_fail</span> ()
+   self:<span class="function-name">assert_throws</span>(<span class="keyword">function</span> ()
+         self:<span class="function-name">assert_string</span>(<span class="keyword">nil</span>)
+   <span class="keyword">end</span>, <span class="string">"nil is not a string"</span>)
+<span class="keyword">end</span>
+
+suite:<span class="function-name">add_test_case</span>(Types)
+
+
+<span class="comment">-- Error handling test case
+</span><span class="keyword">local</span> ErrorHandling = <span class="function-name">TestCase</span>(<span class="string">"error_handling"</span>)
+
+<span class="keyword">function</span> ErrorHandling:<span class="function-name">test_assert_throws_pass</span> ()
+   self:<span class="function-name">assert_throws</span>(<span class="keyword">function</span> ()
+         <span class="global">assert</span>(<span class="string">"oops!"</span> == <span class="keyword">nil</span>, <span class="string">"oops!"</span>)
+   <span class="keyword">end</span>, <span class="string">"oops!"</span>)
+<span class="keyword">end</span>
+
+suite:<span class="function-name">add_test_case</span>(ErrorHandling)
+
+
+<span class="comment">-- Test suite test case
+</span><span class="keyword">local</span> TestSuiteTest = <span class="function-name">TestCase</span>(<span class="string">"test_suite"</span>)
+
+<span class="keyword">function</span> TestSuiteTest:<span class="function-name">test_report_counts</span> ()
+   <span class="keyword">local</span> test_suite = <span class="function-name">TestSuite</span>(<span class="string">"suite"</span>)
+   <span class="keyword">local</span> TestSuiteTestCase = <span class="function-name">TestCase</span>(<span class="string">"testsuitetest"</span>)
+   <span class="keyword">function</span> TestSuiteTestCase:<span class="function-name">test_assert_nil_pass</span> ()
+      self:<span class="function-name">assert_nil</span>(<span class="keyword">nil</span>)
+   <span class="keyword">end</span>
+   <span class="keyword">function</span> TestSuiteTestCase:<span class="function-name">test_assert_nil_fail</span> ()
+      self:<span class="function-name">assert_nil</span>(<span class="number">1</span>)
+   <span class="keyword">end</span>
+   test_suite:<span class="function-name">add_test_case</span>(TestSuiteTestCase)
+   test_suite:<span class="function-name">run</span>(<span class="keyword">true</span>) <span class="comment">-- quiet
+</span>   <span class="keyword">local</span> report = test_suite:<span class="function-name">make_run_report</span>()
+   self:<span class="function-name">assert_equal</span>(report.tests_run, <span class="number">2</span>)
+   self:<span class="function-name">assert_equal</span>(report.tests_failed, <span class="number">1</span>)
+<span class="keyword">end</span>
+
+suite:<span class="function-name">add_test_case</span>(TestSuiteTest)
+
+
+<span class="function-name">run_suites</span>{suite}</pre>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/lunarmodules/LDoc">LDoc 1.5.0</a></i>
+<i style="float:right;">Last updated 2023-05-22 13:25:58 </i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>

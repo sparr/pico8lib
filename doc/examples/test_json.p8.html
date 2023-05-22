@@ -1,0 +1,143 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>pico8lib</title>
+    <link rel="stylesheet" href="../ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>pico8lib</h1>
+
+
+<ul>
+  <li><a href="../index.html">Index</a></li>
+</ul>
+
+
+
+<h2>Examples</h2>
+<ul class="nowrap">
+  <li><a href="../examples/test_class.p8.html">test_class.p8</a></li>
+  <li><a href="../examples/test_functions.p8.html">test_functions.p8</a></li>
+  <li><strong>test_json.p8</strong></li>
+  <li><a href="../examples/test_test.p8.html">test_test.p8</a></li>
+</ul>
+<h2>Modules</h2>
+<ul class="nowrap">
+  <li><a href="../modules/log.html">log</a></li>
+  <li><a href="../modules/test.html">test</a></li>
+</ul>
+<h2>Topics</h2>
+<ul class="">
+  <li><a href="../topics/README.md.html">README</a></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+    <h2>test_json.p8</h2>
+<pre>
+pico-<span class="number">8</span> cartridge // http://www.pico-<span class="number">8.</span>com
+version <span class="number">18</span>
+__lua__
+
+<span class="comment">-- Unit tests for the json module
+</span><span class="comment">-- by sparr
+</span>
+<span class="comment">-- to run the tests use <code>pico8 -x tests/test_json.p8</code>
+</span>
+#include ../class.p8
+#include ../log.p8
+#include ../functions.p8
+#include ../strings.p8
+#include ../tables.p8
+#include ../test.p8
+
+#include ../json.p8
+
+
+<span class="keyword">local</span> suite = <span class="function-name">TestSuite</span>(<span class="string">"json.p8"</span>)
+
+<span class="comment">-- Parse test case
+</span><span class="keyword">local</span> Parse = <span class="function-name">TestCase</span>(<span class="string">"Parse"</span>)
+
+<span class="keyword">function</span> Parse:<span class="function-name">test_parse_integer</span> ()
+ self:<span class="function-name">assert_equal</span>(<span class="function-name">json</span><span class="string">'123'</span>, <span class="number">123</span>)
+<span class="keyword">end</span>
+
+<span class="keyword">function</span> Parse:<span class="function-name">test_parse_decimal</span> ()
+ self:<span class="function-name">assert_equal</span>(<span class="function-name">json</span><span class="string">'1.5'</span>, <span class="number">1.5</span>)
+<span class="keyword">end</span>
+
+<span class="keyword">function</span> Parse:<span class="function-name">test_parse_hex</span> ()
+ self:<span class="function-name">assert_equal</span>(<span class="function-name">json</span><span class="string">'0xa.a'</span>, <span class="number">10</span>+<span class="number">5</span>/<span class="number">8</span>)
+<span class="keyword">end</span>
+
+<span class="keyword">function</span> Parse:<span class="function-name">test_parse_binary</span> ()
+ self:<span class="function-name">assert_equal</span>(<span class="function-name">json</span><span class="string">'0b1010'</span>, <span class="number">10</span>)
+<span class="keyword">end</span>
+
+<span class="keyword">function</span> Parse:<span class="function-name">test_parse_string</span> ()
+ self:<span class="function-name">assert_equal</span>(<span class="function-name">json</span><span class="string">'"abc"'</span>, <span class="string">"abc"</span>)
+<span class="keyword">end</span>
+
+<span class="keyword">function</span> Parse:<span class="function-name">test_parse_null</span> ()
+ self:<span class="function-name">assert_equal</span>(<span class="function-name">json</span><span class="string">'null'</span>, json.null)
+<span class="keyword">end</span>
+
+<span class="keyword">function</span> Parse:<span class="function-name">test_parse_true</span> ()
+ self:<span class="function-name">assert_equal</span>(<span class="function-name">json</span><span class="string">'true'</span>, <span class="keyword">true</span>)
+<span class="keyword">end</span>
+
+<span class="keyword">function</span> Parse:<span class="function-name">test_parse_false</span> ()
+ self:<span class="function-name">assert_equal</span>(<span class="function-name">json</span><span class="string">'false'</span>, <span class="keyword">false</span>)
+<span class="keyword">end</span>
+
+<span class="keyword">function</span> Parse:<span class="function-name">test_parse_deep</span> ()
+ self:<span class="function-name">assert_equal</span>(<span class="function-name">json</span><span class="string">'{"abc":[1,2,{"def":[1,"xyz"]}]}'</span>.abc[<span class="number">3</span>].def[<span class="number">2</span>], <span class="string">"xyz"</span>)
+<span class="keyword">end</span>
+
+<span class="keyword">function</span> Parse:<span class="function-name">test_parse_multiline</span> ()
+ self:<span class="function-name">assert_equal</span>(<span class="function-name">json</span><span class="string">[[
+{"1 a":"abc"}
+]]</span>[<span class="string">"1 a"</span>], <span class="string">"abc"</span>)
+<span class="keyword">end</span>
+
+<span class="keyword">function</span> Parse:<span class="function-name">test_parse_whitespace</span> ()
+ self:<span class="function-name">assert_equal</span>(<span class="function-name">json</span><span class="string">' [ { "a b" : "c d" } ] '</span>[<span class="number">1</span>][<span class="string">"a b"</span>], <span class="string">"c d"</span>)
+<span class="keyword">end</span>
+
+suite:<span class="function-name">add_test_case</span>(Parse)
+
+
+<span class="function-name">run_suites</span>{suite}</pre>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/lunarmodules/LDoc">LDoc 1.5.0</a></i>
+<i style="float:right;">Last updated 2023-05-22 13:25:58 </i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>

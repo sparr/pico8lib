@@ -1,9 +1,6 @@
-pico-8 cartridge // http://www.pico-8.com
-version 18
-__lua__
 -- pico8lib json library
 -- by sparr
-
+-- @module json
 -- #include strings.p8
 
 -- based on https://gist.github.com/tylerneylon/59f4bcf316be525b30ab
@@ -12,6 +9,7 @@ __lua__
 -- error checking is available but commented out, useful for debugging bad hand-crafted json
 
 local json
+
 json = setmetatable({
 
   null = {}, -- to uniquely identify json null values
