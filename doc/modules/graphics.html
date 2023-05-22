@@ -1,0 +1,841 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>pico8lib</title>
+    <link rel="stylesheet" href="../ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>pico8lib</h1>
+
+
+<ul>
+  <li><a href="../index.html">Index</a></li>
+</ul>
+
+<h2>Contents</h2>
+<ul>
+<li><a href="#Functions">Functions</a></li>
+<li><a href="#Fields">Fields</a></li>
+<li><a href="#Local_Functions">Local Functions</a></li>
+</ul>
+
+
+<h2>Modules</h2>
+<ul class="nowrap">
+  <li><a href="../modules/class.html">class</a></li>
+  <li><a href="../modules/functions.html">functions</a></li>
+  <li><strong>graphics</strong></li>
+  <li><a href="../modules/json.html">json</a></li>
+  <li><a href="../modules/log.html">log</a></li>
+  <li><a href="../modules/math.html">math</a></li>
+  <li><a href="../modules/memory.html">memory</a></li>
+  <li><a href="../modules/number.html">number</a></li>
+  <li><a href="../modules/physics.html">physics</a></li>
+  <li><a href="../modules/rational.html">rational</a></li>
+  <li><a href="../modules/strings.html">strings</a></li>
+  <li><a href="../modules/tables.html">tables</a></li>
+  <li><a href="../modules/test.html">test</a></li>
+  <li><a href="../modules/vector.html">vector</a></li>
+</ul>
+<h2>Topics</h2>
+<ul class="">
+  <li><a href="../topics/README.md.html">README</a></li>
+</ul>
+<h2>Examples</h2>
+<ul class="nowrap">
+  <li><a href="../examples/snippets.p8.html">snippets.p8</a></li>
+  <li><a href="../examples/test_class.p8.html">test_class.p8</a></li>
+  <li><a href="../examples/test_functions.p8.html">test_functions.p8</a></li>
+  <li><a href="../examples/test_json.p8.html">test_json.p8</a></li>
+  <li><a href="../examples/test_test.p8.html">test_test.p8</a></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+<h1>Module <code>graphics</code></h1>
+<p>Drawing and sprite manipulation</p>
+<p>
+
+</p>
+    <h3>Info:</h3>
+    <ul>
+        <li><strong>Author</strong>: by sparr</li>
+    </ul>
+
+
+<h2><a href="#Functions">Functions</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#chromakey">chromakey (drawfunc, x1, y1, x2, y2, c)</a></td>
+	<td class="summary">"green screen" function
+ replaces pixels of color c in rectangle x1,y1,x2,y2 with output of drawfunc
+ initial version from https://www.lexaloffle.com/bbs/?tid=36813
+ optimized by sparr
+ todo version that uses peek/poke for faster handling of large contiguous "green" pixels</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#mapstring">mapstring (mapstr, mapw, celx, cely, sx, sy, celw, celh, layer)</a></td>
+	<td class="summary">takes a string and width describing a map, two hex digits per tile
+ draws the map, with other parameters same as map()
+ example "0123456789abcdef",4 represents this 4x2 map:
+ [[0x01,0x23,0x45,0x67],[0x89,0xab,0xcd,0xef]]</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#string_to_map">string_to_map (mapstr, mapw, celx, cely)</a></td>
+	<td class="summary">takes a string and width describing a map, two hex digits per tile
+ replaces existing map data, starting at celx,cely in the main map space
+ example: string<em>to</em>map("0123456789ab",3,2,1) will do the following:
+ mset(2,1,0x01) mset(3,1,0x23) mset(4,1,0x45)
+ mset(2,2,0x56) mset(3,2,0x89) mset(4,2,0xab)</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#print_shadow">print_shadow (string, x, y, col, bcol)</a></td>
+	<td class="summary">print string with a shadow
+ constant one pixel southeast shadow</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#print_border_4">print_border_4 (string, x, y, col, bcol)</a></td>
+	<td class="summary">print string with an outline
+ originally by cbmakes
+ 4-direction outline</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#drawp">drawp (p, func, ...)</a></td>
+	<td class="summary">wrap any drawing function in a fillp()
+ replace this:
+ fillp(1234)rect(5,6,7,8,9)fillp()
+ with this:
+ drawp(1234,rect,5,6,7,8,9)
+ saves 3 tokens, 7-11 bytes per call
+ function is 14-17 tokens, 55-61 bytes
+ break even after 5-9 calls</td>
+	</tr>
+</table>
+<h2><a href="#Fields">Fields</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#_fillp">_fillp</a></td>
+	<td class="summary">fillp with support for x/y offsets to shift the mask
+ original algorithm from https://www.lexaloffle.com/bbs/?tid=30518
+ heavily token optimized by sparr</td>
+	</tr>
+</table>
+<h2><a href="#Local_Functions">Local Functions</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#line_">line_ (x1, y1, x2, y2, c)</a></td>
+	<td class="summary">Bresenham's line drawing algorithm</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#spr4_fast">spr4_fast (sn, x, y)</a></td>
+	<td class="summary">draw a 4x4 sprite</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#circeven">circeven (x, y, r, c)</a></td>
+	<td class="summary">draw a circle of even diameter (2-16)
+ x,y is top left corner of bounding box
+ r is radius, 1-8
+ c is color
+ necessary sprite:
+ 88888777
+ 88877866
+ 88786655
+ 87865544
+ 87658433
+ 78654322
+ 76543281
+ 76543210</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#circevensmall">circevensmall (x, y, r, c)</a></td>
+	<td class="summary">draw a small filled circle of even diameter (2-8)
+ x,y is top left corner of circle bounding box
+ r is radius, 1-4
+ c is color
+ necessary sprite:
+ 00444400
+ 04033040
+ 40322304
+ 43211234
+ 43211234
+ 40322304
+ 04033040
+ 00444400</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#circfillevensmall">circfillevensmall (x, y, r, c)</a></td>
+	<td class="summary">draw a small filled circle of even diameter (2-8)
+ x,y is top left corner of circle bounding box
+ r is radius, 1-4
+ c is color
+ necessary sprite:
+ 00444400
+ 04433440
+ 44322344
+ 43211234
+ 43211234
+ 44322344
+ 04433440
+ 00444400</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#rectinverse">rectinverse (x, y, i, j, c)</a></td>
+	<td class="summary">draws every pixel outside a given rectangle</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#ellipsefill">ellipsefill (x0, y0, w, h, angle, c)</a></td>
+	<td class="summary">draw a filled ellipse
+ by @freds72
+ https://www.lexaloffle.com/bbs/?tid=35124
+ permission to share from freds72 on discord
+ find roots of a rotated ellipse
+ and use that to rectfill interior
+ x0/y0: ellipse center
+ h/w: height/width
+ angle
+ c: color</td>
+	</tr>
+</table>
+
+<br/>
+<br/>
+
+
+    <h2 class="section-header "><a name="Functions"></a>Functions</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "chromakey"></a>
+    <strong>chromakey (drawfunc, x1, y1, x2, y2, c)</strong>
+    </dt>
+    <dd>
+    "green screen" function
+ replaces pixels of color c in rectangle x1,y1,x2,y2 with output of drawfunc
+ initial version from https://www.lexaloffle.com/bbs/?tid=36813
+ optimized by sparr
+ todo version that uses peek/poke for faster handling of large contiguous "green" pixels
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">drawfunc</span>
+
+
+
+        </li>
+        <li><span class="parameter">x1</span>
+
+
+
+        </li>
+        <li><span class="parameter">y1</span>
+
+
+
+        </li>
+        <li><span class="parameter">x2</span>
+
+
+
+        </li>
+        <li><span class="parameter">y2</span>
+
+
+
+        </li>
+        <li><span class="parameter">c</span>
+        c defaults to 3
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "mapstring"></a>
+    <strong>mapstring (mapstr, mapw, celx, cely, sx, sy, celw, celh, layer)</strong>
+    </dt>
+    <dd>
+    takes a string and width describing a map, two hex digits per tile
+ draws the map, with other parameters same as map()
+ example "0123456789abcdef",4 represents this 4x2 map:
+ [[0x01,0x23,0x45,0x67],[0x89,0xab,0xcd,0xef]]
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">mapstr</span>
+
+
+
+        </li>
+        <li><span class="parameter">mapw</span>
+
+
+
+        </li>
+        <li><span class="parameter">celx</span>
+
+
+
+        </li>
+        <li><span class="parameter">cely</span>
+
+
+
+        </li>
+        <li><span class="parameter">sx</span>
+
+
+
+        </li>
+        <li><span class="parameter">sy</span>
+
+
+
+        </li>
+        <li><span class="parameter">celw</span>
+
+
+
+        </li>
+        <li><span class="parameter">celh</span>
+
+
+
+        </li>
+        <li><span class="parameter">layer</span>
+        remove[] to save tokens by making parameters mandatory
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "string_to_map"></a>
+    <strong>string_to_map (mapstr, mapw, celx, cely)</strong>
+    </dt>
+    <dd>
+    takes a string and width describing a map, two hex digits per tile
+ replaces existing map data, starting at celx,cely in the main map space
+ example: string<em>to</em>map("0123456789ab",3,2,1) will do the following:
+ mset(2,1,0x01) mset(3,1,0x23) mset(4,1,0x45)
+ mset(2,2,0x56) mset(3,2,0x89) mset(4,2,0xab)
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">mapstr</span>
+
+
+
+        </li>
+        <li><span class="parameter">mapw</span>
+
+
+
+        </li>
+        <li><span class="parameter">celx</span>
+
+
+
+        </li>
+        <li><span class="parameter">cely</span>
+        remove[] to save tokens by making parameters mandatory
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "print_shadow"></a>
+    <strong>print_shadow (string, x, y, col, bcol)</strong>
+    </dt>
+    <dd>
+    print string with a shadow
+ constant one pixel southeast shadow
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">string</span>
+
+
+
+        </li>
+        <li><span class="parameter">x</span>
+
+
+
+        </li>
+        <li><span class="parameter">y</span>
+
+
+
+        </li>
+        <li><span class="parameter">col</span>
+
+
+
+        </li>
+        <li><span class="parameter">bcol</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "print_border_4"></a>
+    <strong>print_border_4 (string, x, y, col, bcol)</strong>
+    </dt>
+    <dd>
+    print string with an outline
+ originally by cbmakes
+ 4-direction outline
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">string</span>
+
+
+
+        </li>
+        <li><span class="parameter">x</span>
+
+
+
+        </li>
+        <li><span class="parameter">y</span>
+
+
+
+        </li>
+        <li><span class="parameter">col</span>
+
+
+
+        </li>
+        <li><span class="parameter">bcol</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "drawp"></a>
+    <strong>drawp (p, func, ...)</strong>
+    </dt>
+    <dd>
+    wrap any drawing function in a fillp()
+ replace this:
+ fillp(1234)rect(5,6,7,8,9)fillp()
+ with this:
+ drawp(1234,rect,5,6,7,8,9)
+ saves 3 tokens, 7-11 bytes per call
+ function is 14-17 tokens, 55-61 bytes
+ break even after 5-9 calls
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">p</span>
+
+
+
+        </li>
+        <li><span class="parameter">func</span>
+
+
+
+        </li>
+        <li><span class="parameter">...</span>
+        fillp(p) save three tokens by not saving and restoring the previous pattern
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+</dl>
+    <h2 class="section-header "><a name="Fields"></a>Fields</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "_fillp"></a>
+    <strong>_fillp</strong>
+    </dt>
+    <dd>
+    fillp with support for x/y offsets to shift the mask
+ original algorithm from https://www.lexaloffle.com/bbs/?tid=30518
+ heavily token optimized by sparr
+
+
+
+
+
+
+
+</dd>
+</dl>
+    <h2 class="section-header "><a name="Local_Functions"></a>Local Functions</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "line_"></a>
+    <strong>line_ (x1, y1, x2, y2, c)</strong>
+    </dt>
+    <dd>
+    Bresenham's line drawing algorithm
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">x1</span>
+         Starting point of the line on the x axis
+        </li>
+        <li><span class="parameter">y1</span>
+         Starting point of the line on the y axis
+        </li>
+        <li><span class="parameter">x2</span>
+         Ending point of the line on the x axis
+        </li>
+        <li><span class="parameter">y2</span>
+         Ending point of the line on the x axis
+        </li>
+        <li><span class="parameter">c</span>
+         The color of the line
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "spr4_fast"></a>
+    <strong>spr4_fast (sn, x, y)</strong>
+    </dt>
+    <dd>
+    draw a 4x4 sprite
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">sn</span>
+
+
+
+        </li>
+        <li><span class="parameter">x</span>
+
+
+
+        </li>
+        <li><span class="parameter">y</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "circeven"></a>
+    <strong>circeven (x, y, r, c)</strong>
+    </dt>
+    <dd>
+    draw a circle of even diameter (2-16)
+ x,y is top left corner of bounding box
+ r is radius, 1-8
+ c is color
+ necessary sprite:
+ 88888777
+ 88877866
+ 88786655
+ 87865544
+ 87658433
+ 78654322
+ 76543281
+ 76543210
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">x</span>
+
+
+
+        </li>
+        <li><span class="parameter">y</span>
+
+
+
+        </li>
+        <li><span class="parameter">r</span>
+
+
+
+        </li>
+        <li><span class="parameter">c</span>
+        c = c or band(peek(24357), 15) -- make color optional
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "circevensmall"></a>
+    <strong>circevensmall (x, y, r, c)</strong>
+    </dt>
+    <dd>
+    draw a small filled circle of even diameter (2-8)
+ x,y is top left corner of circle bounding box
+ r is radius, 1-4
+ c is color
+ necessary sprite:
+ 00444400
+ 04033040
+ 40322304
+ 43211234
+ 43211234
+ 40322304
+ 04033040
+ 00444400
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">x</span>
+
+
+
+        </li>
+        <li><span class="parameter">y</span>
+
+
+
+        </li>
+        <li><span class="parameter">r</span>
+
+
+
+        </li>
+        <li><span class="parameter">c</span>
+        if (r &lt; 1 or r > 4) return -- optional safety c = c or band(peek(24357), 15) -- make color optional todo optional code to preserve pal/palt state
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "circfillevensmall"></a>
+    <strong>circfillevensmall (x, y, r, c)</strong>
+    </dt>
+    <dd>
+    draw a small filled circle of even diameter (2-8)
+ x,y is top left corner of circle bounding box
+ r is radius, 1-4
+ c is color
+ necessary sprite:
+ 00444400
+ 04433440
+ 44322344
+ 43211234
+ 43211234
+ 44322344
+ 04433440
+ 00444400
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">x</span>
+
+
+
+        </li>
+        <li><span class="parameter">y</span>
+
+
+
+        </li>
+        <li><span class="parameter">r</span>
+
+
+
+        </li>
+        <li><span class="parameter">c</span>
+        if (r &lt; 1 or r > 4) return -- optional safety c = c or band(peek(24357), 15) -- make color optional todo optional code to preserve pal/palt state
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "rectinverse"></a>
+    <strong>rectinverse (x, y, i, j, c)</strong>
+    </dt>
+    <dd>
+    draws every pixel outside a given rectangle
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">x</span>
+
+
+
+        </li>
+        <li><span class="parameter">y</span>
+
+
+
+        </li>
+        <li><span class="parameter">i</span>
+
+
+
+        </li>
+        <li><span class="parameter">j</span>
+
+
+
+        </li>
+        <li><span class="parameter">c</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "ellipsefill"></a>
+    <strong>ellipsefill (x0, y0, w, h, angle, c)</strong>
+    </dt>
+    <dd>
+    draw a filled ellipse
+ by @freds72
+ https://www.lexaloffle.com/bbs/?tid=35124
+ permission to share from freds72 on discord
+ find roots of a rotated ellipse
+ and use that to rectfill interior
+ x0/y0: ellipse center
+ h/w: height/width
+ angle
+ c: color
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">x0</span>
+
+
+
+        </li>
+        <li><span class="parameter">y0</span>
+
+
+
+        </li>
+        <li><span class="parameter">w</span>
+
+
+
+        </li>
+        <li><span class="parameter">h</span>
+
+
+
+        </li>
+        <li><span class="parameter">angle</span>
+
+
+
+        </li>
+        <li><span class="parameter">c</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/lunarmodules/LDoc">LDoc 1.5.0</a></i>
+<i style="float:right;">Last updated 2023-05-22 14:29:50 </i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>

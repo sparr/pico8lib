@@ -1,17 +1,19 @@
-pico-8 cartridge // http://www.pico-8.com
-version 18
-__lua__
--- pico8lib memory library
--- by sparr
+--- @module memory
+--- Reading, writing, manipulating memory
+-- @author sparr
 
-
-------------------------------------------------------------------------
+--- Efficiently copy a block of memory from `src` to `dst`
 -- 75% the runtime of memcpy, len must be a multiple of 4
+-- @param dst The offset to copy to
+-- @param src The offset to copy from
+-- @param len The number of bytes to copy
+-- @return null
 local function memcpy4(dst, src, len)
  for i = 0, len - 1, 4 do
   poke4(dst + i, $(src+i))
  end
 end
+
 -- this version can handle lengths that are not a multiple of 4
 local _memcpy = memcpy
 local function memcpy(dst, src, len)

@@ -1,0 +1,689 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>pico8lib</title>
+    <link rel="stylesheet" href="../ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>pico8lib</h1>
+
+
+<ul>
+  <li><a href="../index.html">Index</a></li>
+</ul>
+
+<h2>Contents</h2>
+<ul>
+<li><a href="#Functions">Functions</a></li>
+<li><a href="#Local_Functions">Local Functions</a></li>
+</ul>
+
+
+<h2>Modules</h2>
+<ul class="nowrap">
+  <li><a href="../modules/class.html">class</a></li>
+  <li><a href="../modules/functions.html">functions</a></li>
+  <li><a href="../modules/graphics.html">graphics</a></li>
+  <li><a href="../modules/json.html">json</a></li>
+  <li><a href="../modules/log.html">log</a></li>
+  <li><a href="../modules/math.html">math</a></li>
+  <li><a href="../modules/memory.html">memory</a></li>
+  <li><a href="../modules/number.html">number</a></li>
+  <li><a href="../modules/physics.html">physics</a></li>
+  <li><a href="../modules/rational.html">rational</a></li>
+  <li><a href="../modules/strings.html">strings</a></li>
+  <li><strong>tables</strong></li>
+  <li><a href="../modules/test.html">test</a></li>
+  <li><a href="../modules/vector.html">vector</a></li>
+</ul>
+<h2>Topics</h2>
+<ul class="">
+  <li><a href="../topics/README.md.html">README</a></li>
+</ul>
+<h2>Examples</h2>
+<ul class="nowrap">
+  <li><a href="../examples/snippets.p8.html">snippets.p8</a></li>
+  <li><a href="../examples/test_class.p8.html">test_class.p8</a></li>
+  <li><a href="../examples/test_functions.p8.html">test_functions.p8</a></li>
+  <li><a href="../examples/test_json.p8.html">test_json.p8</a></li>
+  <li><a href="../examples/test_test.p8.html">test_test.p8</a></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+<h1>Module <code>tables</code></h1>
+<p>Get value from table by key, with default</p>
+<p>
+
+</p>
+
+
+<h2><a href="#Functions">Functions</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#unshift">unshift (t)</a></td>
+	<td class="summary">delete and return the first item from table t</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#unshift">unshift (t, v)</a></td>
+	<td class="summary">add value v to the beginning of table t</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#insert">insert (t, i, v)</a></td>
+	<td class="summary">insert value v to table t at index i</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#tblrand">tblrand (tbl)</a></td>
+	<td class="summary">selects a random value from tbl</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#shuffle">shuffle (t)</a></td>
+	<td class="summary">randomize the order of a table using fisher-yates shuffle</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#sort">sort (t, keyfn)</a></td>
+	<td class="summary">sort an array in place
+ second parameter optionally extracts or calculates a sort key from each item
+ todo test</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#filter">filter (t, check)</a></td>
+	<td class="summary">filter a table, keeping only values that meet certain criteria
+ return a new table with the same keys/indices kept from the original</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#filter_array">filter_array (t, check)</a></td>
+	<td class="summary">filter an array, keeping only values that meet certain criteria
+ return a new array with sequential indices</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#any">any (t, check)</a></td>
+	<td class="summary">determine if any value in a table is truthy or passes check function</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#all">all (t, check)</a></td>
+	<td class="summary">determine if every value in a table is truthy or passes check function</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#all_reverse">all_reverse (t)</a></td>
+	<td class="summary">iterate an array in reverse
+ used just like all()</td>
+	</tr>
+</table>
+<h2><a href="#Local_Functions">Local Functions</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#add_f">add_f (t, v)</a></td>
+	<td class="summary">add value v to end of table t
+ supposedly faster but less safe than add(t,v)</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#del_r">del_r (t, v)</a></td>
+	<td class="summary">delete value v from table t, do not preserve order</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#del_i">del_i (t, i)</a></td>
+	<td class="summary">delete index i from table t, preserve order</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#del_ir">del_ir (t, i)</a></td>
+	<td class="summary">delete index i from table t, do not preserve order</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#pop">pop (t)</a></td>
+	<td class="summary">delete and return the last item from table t</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#merge">merge (dst, src)</a></td>
+	<td class="summary">copy keys and values from src to dst
+ also copy metatable if present in src</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#copy">copy (o)</a></td>
+	<td class="summary">creates a new table copied from o, using merge()</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#concat">concat (dst, src)</a></td>
+	<td class="summary">adds values from src to end of dst, in order</td>
+	</tr>
+</table>
+
+<br/>
+<br/>
+
+
+    <h2 class="section-header "><a name="Functions"></a>Functions</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "unshift"></a>
+    <strong>unshift (t)</strong>
+    </dt>
+    <dd>
+    delete and return the first item from table t
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">t</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "unshift"></a>
+    <strong>unshift (t, v)</strong>
+    </dt>
+    <dd>
+    add value v to the beginning of table t
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">t</span>
+
+
+
+        </li>
+        <li><span class="parameter">v</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "insert"></a>
+    <strong>insert (t, i, v)</strong>
+    </dt>
+    <dd>
+    insert value v to table t at index i
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">t</span>
+
+
+
+        </li>
+        <li><span class="parameter">i</span>
+
+
+
+        </li>
+        <li><span class="parameter">v</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "tblrand"></a>
+    <strong>tblrand (tbl)</strong>
+    </dt>
+    <dd>
+    selects a random value from tbl
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">tbl</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "shuffle"></a>
+    <strong>shuffle (t)</strong>
+    </dt>
+    <dd>
+    randomize the order of a table using fisher-yates shuffle
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">t</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "sort"></a>
+    <strong>sort (t, keyfn)</strong>
+    </dt>
+    <dd>
+    sort an array in place
+ second parameter optionally extracts or calculates a sort key from each item
+ todo test
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">t</span>
+
+
+
+        </li>
+        <li><span class="parameter">keyfn</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "filter"></a>
+    <strong>filter (t, check)</strong>
+    </dt>
+    <dd>
+    filter a table, keeping only values that meet certain criteria
+ return a new table with the same keys/indices kept from the original
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">t</span>
+
+
+
+        </li>
+        <li><span class="parameter">check</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "filter_array"></a>
+    <strong>filter_array (t, check)</strong>
+    </dt>
+    <dd>
+    filter an array, keeping only values that meet certain criteria
+ return a new array with sequential indices
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">t</span>
+
+
+
+        </li>
+        <li><span class="parameter">check</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "any"></a>
+    <strong>any (t, check)</strong>
+    </dt>
+    <dd>
+    determine if any value in a table is truthy or passes check function
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">t</span>
+
+
+
+        </li>
+        <li><span class="parameter">check</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "all"></a>
+    <strong>all (t, check)</strong>
+    </dt>
+    <dd>
+    determine if every value in a table is truthy or passes check function
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">t</span>
+
+
+
+        </li>
+        <li><span class="parameter">check</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "all_reverse"></a>
+    <strong>all_reverse (t)</strong>
+    </dt>
+    <dd>
+    iterate an array in reverse
+ used just like all()
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">t</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+</dl>
+    <h2 class="section-header "><a name="Local_Functions"></a>Local Functions</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "add_f"></a>
+    <strong>add_f (t, v)</strong>
+    </dt>
+    <dd>
+    add value v to end of table t
+ supposedly faster but less safe than add(t,v)
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">t</span>
+
+
+
+        </li>
+        <li><span class="parameter">v</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "del_r"></a>
+    <strong>del_r (t, v)</strong>
+    </dt>
+    <dd>
+    delete value v from table t, do not preserve order
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">t</span>
+
+
+
+        </li>
+        <li><span class="parameter">v</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "del_i"></a>
+    <strong>del_i (t, i)</strong>
+    </dt>
+    <dd>
+    delete index i from table t, preserve order
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">t</span>
+
+
+
+        </li>
+        <li><span class="parameter">i</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "del_ir"></a>
+    <strong>del_ir (t, i)</strong>
+    </dt>
+    <dd>
+    delete index i from table t, do not preserve order
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">t</span>
+
+
+
+        </li>
+        <li><span class="parameter">i</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "pop"></a>
+    <strong>pop (t)</strong>
+    </dt>
+    <dd>
+    delete and return the last item from table t
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">t</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "merge"></a>
+    <strong>merge (dst, src)</strong>
+    </dt>
+    <dd>
+    copy keys and values from src to dst
+ also copy metatable if present in src
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">dst</span>
+
+
+
+        </li>
+        <li><span class="parameter">src</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "copy"></a>
+    <strong>copy (o)</strong>
+    </dt>
+    <dd>
+    creates a new table copied from o, using merge()
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">o</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "concat"></a>
+    <strong>concat (dst, src)</strong>
+    </dt>
+    <dd>
+    adds values from src to end of dst, in order
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">dst</span>
+
+
+
+        </li>
+        <li><span class="parameter">src</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/lunarmodules/LDoc">LDoc 1.5.0</a></i>
+<i style="float:right;">Last updated 2023-05-22 14:29:50 </i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>

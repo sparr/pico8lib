@@ -1,13 +1,11 @@
-pico-8 cartridge // http://www.pico-8.com
-version 18
-__lua__
--- pico8lib strings library
--- by sparr
+--- @module strings
+--- Manipulating and creating strings
+-- @author sparr
 
-
-------------------------------------------------------------------------
--- unambiguous string serialization of arbitrary objects
+--- Unambiguous string serialization of arbitrary objects
 -- alternate condensed strings included as comments
+-- @param o The object to serialize
+-- @return A string representation of `o`
 local function repr(o)
  local visited_tables = {} -- track visited tables to avoid infinite recursion
  local visited_tables_num = 0

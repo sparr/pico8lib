@@ -1,0 +1,533 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>pico8lib</title>
+    <link rel="stylesheet" href="../ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>pico8lib</h1>
+
+
+<ul>
+  <li><a href="../index.html">Index</a></li>
+</ul>
+
+<h2>Contents</h2>
+<ul>
+<li><a href="#Local_Functions">Local Functions</a></li>
+</ul>
+
+
+<h2>Modules</h2>
+<ul class="nowrap">
+  <li><a href="../modules/class.html">class</a></li>
+  <li><a href="../modules/functions.html">functions</a></li>
+  <li><a href="../modules/graphics.html">graphics</a></li>
+  <li><a href="../modules/json.html">json</a></li>
+  <li><a href="../modules/log.html">log</a></li>
+  <li><strong>math</strong></li>
+  <li><a href="../modules/memory.html">memory</a></li>
+  <li><a href="../modules/number.html">number</a></li>
+  <li><a href="../modules/physics.html">physics</a></li>
+  <li><a href="../modules/rational.html">rational</a></li>
+  <li><a href="../modules/strings.html">strings</a></li>
+  <li><a href="../modules/tables.html">tables</a></li>
+  <li><a href="../modules/test.html">test</a></li>
+  <li><a href="../modules/vector.html">vector</a></li>
+</ul>
+<h2>Topics</h2>
+<ul class="">
+  <li><a href="../topics/README.md.html">README</a></li>
+</ul>
+<h2>Examples</h2>
+<ul class="nowrap">
+  <li><a href="../examples/snippets.p8.html">snippets.p8</a></li>
+  <li><a href="../examples/test_class.p8.html">test_class.p8</a></li>
+  <li><a href="../examples/test_functions.p8.html">test_functions.p8</a></li>
+  <li><a href="../examples/test_json.p8.html">test_json.p8</a></li>
+  <li><a href="../examples/test_test.p8.html">test_test.p8</a></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+<h1>Module <code>math</code></h1>
+<p>Mathematical operations, mostly on numbers</p>
+<p>
+
+</p>
+    <h3>Info:</h3>
+    <ul>
+        <li><strong>Author</strong>: by sparr</li>
+    </ul>
+
+
+<h2><a href="#Local_Functions">Local Functions</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#gcd1">gcd1 (a, b)</a></td>
+	<td class="summary">Return the greatest common divisor of two numbers
+ This is the first of two available implementations</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#gcd2">gcd2 (a, b)</a></td>
+	<td class="summary">Return the greatest common divisor of two numbers
+ This is the second of two available implementations</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#lcm">lcm (a, b)</a></td>
+	<td class="summary">least common multiple of two numbers</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#nthroot">nthroot (n, x)</a></td>
+	<td class="summary">Calculate the nth root of x
+ nthroot(3,8)==2 because 2^3==8
+ all versions start with a guess based on the built in ^ operator
+ this version performs newton's method until a convergent result or short loop is found
+ very accurate</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#dist">dist (x1, y1, x2, y2)</a></td>
+	<td class="summary">distance between two points
+ copied from vector.p8</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#distsqr">distsqr (x1, y1, x2, y2)</a></td>
+	<td class="summary">distance squared between two points</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#asin_octant">asin_octant (d)</a></td>
+	<td class="summary">approximation of asin(d) for 0&lt;=d&lt;=.7071
+ exact at d==0, d==sin(1/16), d==sin(1/8)
+ max error .0021 at d==sin(3/32) in given range
+ error within that max beyond bounds up to d==sin(.137)
+ asin() is the inverse of sin(); a=asin(d) when d=sin(a)</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#interp_linear">interp_linear (a, b, f)</a></td>
+	<td class="summary">linear interpolation between a and b
+ (a,b,0) == a
+ (a,b,1) == b
+ (a,b,0.25) is 1/4 of the way from a to b</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#interp_linear_inverse">interp_linear_inverse (a, b, v)</a></td>
+	<td class="summary">inverse of linear interpolation between a and b
+ "how far along the way from a to b is v?"
+ (a,b,a) == 0
+ (a,b,b) == 1
+ (a,b,(a+b)/2) == 0.5</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#interp_sine">interp_sine (a, b, f)</a></td>
+	<td class="summary">sine interpolation between a and b
+ (a,b,0) == a
+ (a,b,1) == b
+ (a,b,0.5) == 70.71% of the way from a to b</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#interp_smoothstep">interp_smoothstep (a, b, x)</a></td>
+	<td class="summary">smoothstep interpolation between a and b
+ https://en.wikipedia.org/wiki/smoothstep</td>
+	</tr>
+</table>
+
+<br/>
+<br/>
+
+
+    <h2 class="section-header "><a name="Local_Functions"></a>Local Functions</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "gcd1"></a>
+    <strong>gcd1 (a, b)</strong>
+    </dt>
+    <dd>
+    Return the greatest common divisor of two numbers
+ This is the first of two available implementations
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">a</span>
+         The first number
+        </li>
+        <li><span class="parameter">b</span>
+         The second number
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        The greatest common divisor, or zero
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="../modules/math.html#gcd2">gcd2</a>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "gcd2"></a>
+    <strong>gcd2 (a, b)</strong>
+    </dt>
+    <dd>
+    Return the greatest common divisor of two numbers
+ This is the second of two available implementations
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">a</span>
+         The first number
+        </li>
+        <li><span class="parameter">b</span>
+         The second number
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        The greatest common divisor, or zero
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="../modules/math.html#gcd1">gcd1</a>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "lcm"></a>
+    <strong>lcm (a, b)</strong>
+    </dt>
+    <dd>
+    least common multiple of two numbers
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">a</span>
+
+
+
+        </li>
+        <li><span class="parameter">b</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "nthroot"></a>
+    <strong>nthroot (n, x)</strong>
+    </dt>
+    <dd>
+    Calculate the nth root of x
+ nthroot(3,8)==2 because 2^3==8
+ all versions start with a guess based on the built in ^ operator
+ this version performs newton's method until a convergent result or short loop is found
+ very accurate
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">n</span>
+
+
+
+        </li>
+        <li><span class="parameter">x</span>
+        if (n * x == 0) return x * 0 -- preserves non-number type of x, such as rational or complex class
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "dist"></a>
+    <strong>dist (x1, y1, x2, y2)</strong>
+    </dt>
+    <dd>
+    distance between two points
+ copied from vector.p8
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">x1</span>
+
+
+
+        </li>
+        <li><span class="parameter">y1</span>
+
+
+
+        </li>
+        <li><span class="parameter">x2</span>
+
+
+
+        </li>
+        <li><span class="parameter">y2</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "distsqr"></a>
+    <strong>distsqr (x1, y1, x2, y2)</strong>
+    </dt>
+    <dd>
+    distance squared between two points
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">x1</span>
+
+
+
+        </li>
+        <li><span class="parameter">y1</span>
+
+
+
+        </li>
+        <li><span class="parameter">x2</span>
+
+
+
+        </li>
+        <li><span class="parameter">y2</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "asin_octant"></a>
+    <strong>asin_octant (d)</strong>
+    </dt>
+    <dd>
+    approximation of asin(d) for 0&lt;=d&lt;=.7071
+ exact at d==0, d==sin(1/16), d==sin(1/8)
+ max error .0021 at d==sin(3/32) in given range
+ error within that max beyond bounds up to d==sin(.137)
+ asin() is the inverse of sin(); a=asin(d) when d=sin(a)
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">d</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "interp_linear"></a>
+    <strong>interp_linear (a, b, f)</strong>
+    </dt>
+    <dd>
+    linear interpolation between a and b
+ (a,b,0) == a
+ (a,b,1) == b
+ (a,b,0.25) is 1/4 of the way from a to b
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">a</span>
+
+
+
+        </li>
+        <li><span class="parameter">b</span>
+
+
+
+        </li>
+        <li><span class="parameter">f</span>
+        "lerp"
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "interp_linear_inverse"></a>
+    <strong>interp_linear_inverse (a, b, v)</strong>
+    </dt>
+    <dd>
+    inverse of linear interpolation between a and b
+ "how far along the way from a to b is v?"
+ (a,b,a) == 0
+ (a,b,b) == 1
+ (a,b,(a+b)/2) == 0.5
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">a</span>
+
+
+
+        </li>
+        <li><span class="parameter">b</span>
+
+
+
+        </li>
+        <li><span class="parameter">v</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "interp_sine"></a>
+    <strong>interp_sine (a, b, f)</strong>
+    </dt>
+    <dd>
+    sine interpolation between a and b
+ (a,b,0) == a
+ (a,b,1) == b
+ (a,b,0.5) == 70.71% of the way from a to b
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">a</span>
+
+
+
+        </li>
+        <li><span class="parameter">b</span>
+
+
+
+        </li>
+        <li><span class="parameter">f</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "interp_smoothstep"></a>
+    <strong>interp_smoothstep (a, b, x)</strong>
+    </dt>
+    <dd>
+    smoothstep interpolation between a and b
+ https://en.wikipedia.org/wiki/smoothstep
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">a</span>
+
+
+
+        </li>
+        <li><span class="parameter">b</span>
+
+
+
+        </li>
+        <li><span class="parameter">x</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/lunarmodules/LDoc">LDoc 1.5.0</a></i>
+<i style="float:right;">Last updated 2023-05-22 14:29:50 </i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>
