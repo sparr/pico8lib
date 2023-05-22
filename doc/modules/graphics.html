@@ -148,56 +148,38 @@
 	<td class="summary">Bresenham's line drawing algorithm</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#spr4_fast">spr4_fast (sn, x, y)</a></td>
+	<td class="name" nowrap><a href="#line_fat">line_fat (x1, y1, x2, y2, fx, fy, c)</a></td>
+	<td class="summary">draw a fat line from point 1 to point 2</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#line_func">line_func (x1, y1, x2, y2, f, c)</a></td>
+	<td class="summary">draw a line from point 1 to point 2 by calling a custom function
+ line<em>func(...,pset) is equivalent to line</em>(...)</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#spr4_fast">spr4_fast (s, x, y)</a></td>
 	<td class="summary">draw a 4x4 sprite</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#circeven">circeven (x, y, r, c)</a></td>
-	<td class="summary">draw a circle of even diameter (2-16)
- x,y is top left corner of bounding box
- r is radius, 1-8
- c is color
- necessary sprite:
- 88888777
- 88877866
- 88786655
- 87865544
- 87658433
- 78654322
- 76543281
- 76543210</td>
+	<td class="name" nowrap><a href="#spr4">spr4 (s, x, y[, w=4[, h=4[, flip_h=false[, flip_v=false]]]])</a></td>
+	<td class="summary">draw a 4x4 sprite with additional sspr() options
+ 2.5x the runtime of spr4_fast()</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#circevensmall">circevensmall (x, y, r, c)</a></td>
-	<td class="summary">draw a small filled circle of even diameter (2-8)
- x,y is top left corner of circle bounding box
- r is radius, 1-4
- c is color
- necessary sprite:
- 00444400
- 04033040
- 40322304
- 43211234
- 43211234
- 40322304
- 04033040
- 00444400</td>
+	<td class="name" nowrap><a href="#circ_even">circ_even (s, x, y, r, c)</a></td>
+	<td class="summary">draw a circle of even diameter (2-16)</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#circfillevensmall">circfillevensmall (x, y, r, c)</a></td>
-	<td class="summary">draw a small filled circle of even diameter (2-8)
- x,y is top left corner of circle bounding box
- r is radius, 1-4
- c is color
- necessary sprite:
- 00444400
- 04433440
- 44322344
- 43211234
- 43211234
- 44322344
- 04433440
- 00444400</td>
+	<td class="name" nowrap><a href="#circfill_even">circfill_even (s, x, y, r, c)</a></td>
+	<td class="summary">draw a filled circle of even diameter (2-16)</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#circ_even_small">circ_even_small (s, x, y, r, c)</a></td>
+	<td class="summary">draw a small circle of even diameter (2-8)</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#circfill_even_small">circfill_even_small (s, x, y, r, c)</a></td>
+	<td class="summary">draw a small filled circle of even diameter (2-8)</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#rectinverse">rectinverse (x, y, i, j, c)</a></td>
@@ -557,8 +539,95 @@
 
 </dd>
     <dt>
+    <a name = "line_fat"></a>
+    <strong>line_fat (x1, y1, x2, y2, fx, fy, c)</strong>
+    </dt>
+    <dd>
+    draw a fat line from point 1 to point 2
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">x1</span>
+            <span class="types"><span class="type">number</span></span>
+         x coordinate of starting point
+        </li>
+        <li><span class="parameter">y1</span>
+            <span class="types"><span class="type">number</span></span>
+         y coordinate of starting point
+        </li>
+        <li><span class="parameter">x2</span>
+            <span class="types"><span class="type">number</span></span>
+         x coordinate of ending point
+        </li>
+        <li><span class="parameter">y2</span>
+            <span class="types"><span class="type">number</span></span>
+         y coordinate of ending point
+        </li>
+        <li><span class="parameter">fx</span>
+            <span class="types"><span class="type">number</span></span>
+         width of line pixels (east of the original line)
+        </li>
+        <li><span class="parameter">fy</span>
+            <span class="types"><span class="type">number</span></span>
+         height of line pixels (south of the original line)
+        </li>
+        <li><span class="parameter">c</span>
+            <span class="types"><span class="type">number</span></span>
+         color
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "line_func"></a>
+    <strong>line_func (x1, y1, x2, y2, f, c)</strong>
+    </dt>
+    <dd>
+    draw a line from point 1 to point 2 by calling a custom function
+ line<em>func(...,pset) is equivalent to line</em>(...)
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">x1</span>
+            <span class="types"><span class="type">number</span></span>
+         x coordinate of starting point
+        </li>
+        <li><span class="parameter">y1</span>
+            <span class="types"><span class="type">number</span></span>
+         y coordinate of starting point
+        </li>
+        <li><span class="parameter">x2</span>
+            <span class="types"><span class="type">number</span></span>
+         x coordinate of ending point
+        </li>
+        <li><span class="parameter">y2</span>
+            <span class="types"><span class="type">number</span></span>
+         y coordinate of ending point
+        </li>
+        <li><span class="parameter">f</span>
+            <span class="types"><span class="type">function</span></span>
+         function to call for each pixel of the line
+        </li>
+        <li><span class="parameter">c</span>
+            <span class="types"><span class="type">number</span></span>
+         color
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
     <a name = "spr4_fast"></a>
-    <strong>spr4_fast (sn, x, y)</strong>
+    <strong>spr4_fast (s, x, y)</strong>
     </dt>
     <dd>
     draw a 4x4 sprite
@@ -566,20 +635,17 @@
 
     <h3>Parameters:</h3>
     <ul>
-        <li><span class="parameter">sn</span>
-
-
-
+        <li><span class="parameter">s</span>
+            <span class="types"><span class="type">number</span></span>
+         sprite index
         </li>
         <li><span class="parameter">x</span>
-
-
-
+            <span class="types"><span class="type">number</span></span>
+         x coordinate for sprite placement
         </li>
         <li><span class="parameter">y</span>
-
-
-
+            <span class="types"><span class="type">number</span></span>
+         y coordinate for sprite placement
         </li>
     </ul>
 
@@ -589,44 +655,93 @@
 
 </dd>
     <dt>
-    <a name = "circeven"></a>
-    <strong>circeven (x, y, r, c)</strong>
+    <a name = "spr4"></a>
+    <strong>spr4 (s, x, y[, w=4[, h=4[, flip_h=false[, flip_v=false]]]])</strong>
+    </dt>
+    <dd>
+    draw a 4x4 sprite with additional sspr() options
+ 2.5x the runtime of spr4_fast()
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">s</span>
+            <span class="types"><span class="type">number</span></span>
+         sprite index
+        </li>
+        <li><span class="parameter">x</span>
+            <span class="types"><span class="type">number</span></span>
+         x coordinate for sprite placement
+        </li>
+        <li><span class="parameter">y</span>
+            <span class="types"><span class="type">number</span></span>
+         y coordinate for sprite placement
+        </li>
+        <li><span class="parameter">w</span>
+            <span class="types"><span class="type">number</span></span>
+         width to scale the sprite
+         (<em>default</em> 4)
+        </li>
+        <li><span class="parameter">h</span>
+            <span class="types"><span class="type">number</span></span>
+         height to scale the sprite
+         (<em>default</em> 4)
+        </li>
+        <li><span class="parameter">flip_h</span>
+            <span class="types"><span class="type">bool</span></span>
+         flip the sprite horizontally
+         (<em>default</em> false)
+        </li>
+        <li><span class="parameter">flip_v</span>
+            <span class="types"><span class="type">bool</span></span>
+         flip the sprite vertically
+         (<em>default</em> false)
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "circ_even"></a>
+    <strong>circ_even (s, x, y, r, c)</strong>
     </dt>
     <dd>
     draw a circle of even diameter (2-16)
- x,y is top left corner of bounding box
- r is radius, 1-8
- c is color
- necessary sprite:
- 88888777
- 88877866
- 88786655
- 87865544
- 87658433
- 78654322
- 76543281
- 76543210
 
 
     <h3>Parameters:</h3>
     <ul>
+        <li><span class="parameter">s</span>
+            <span class="types"><span class="type">number</span></span>
+         sprite index
+        </li>
         <li><span class="parameter">x</span>
-
-
-
+            <span class="types"><span class="type">number</span></span>
+         x coordinate, top left corner of bounding box
         </li>
         <li><span class="parameter">y</span>
-
-
-
+            <span class="types"><span class="type">number</span></span>
+         y coordinate, top left corner of bounding box
         </li>
         <li><span class="parameter">r</span>
-
-
-
+            <span class="types"><span class="type">number</span></span>
+         radius (1-8)
         </li>
         <li><span class="parameter">c</span>
-        c = c or band(peek(24357), 15) -- make color optional
+            <span class="types"><span class="type">number</span></span>
+         color
+ necessary sprite:
+ 00000888
+ 00088077
+ 00807766
+ 08076655
+ 08760544
+ 80765433
+ 87654302
+ 87654321
         </li>
     </ul>
 
@@ -636,44 +751,43 @@
 
 </dd>
     <dt>
-    <a name = "circevensmall"></a>
-    <strong>circevensmall (x, y, r, c)</strong>
+    <a name = "circfill_even"></a>
+    <strong>circfill_even (s, x, y, r, c)</strong>
     </dt>
     <dd>
-    draw a small filled circle of even diameter (2-8)
- x,y is top left corner of circle bounding box
- r is radius, 1-4
- c is color
- necessary sprite:
- 00444400
- 04033040
- 40322304
- 43211234
- 43211234
- 40322304
- 04033040
- 00444400
+    draw a filled circle of even diameter (2-16)
 
 
     <h3>Parameters:</h3>
     <ul>
+        <li><span class="parameter">s</span>
+            <span class="types"><span class="type">number</span></span>
+         sprite index
+        </li>
         <li><span class="parameter">x</span>
-
-
-
+            <span class="types"><span class="type">number</span></span>
+         x coordinate, top left corner of bounding
         </li>
         <li><span class="parameter">y</span>
-
-
-
+            <span class="types"><span class="type">number</span></span>
+         y coordinate, top left corner of bounding
         </li>
         <li><span class="parameter">r</span>
-
-
-
+            <span class="types"><span class="type">number</span></span>
+         radius (1-8)
         </li>
         <li><span class="parameter">c</span>
-        if (r &lt; 1 or r > 4) return -- optional safety c = c or band(peek(24357), 15) -- make color optional todo optional code to preserve pal/palt state
+            <span class="types"><span class="type">number</span></span>
+         color
+ necessary sprite:
+ 00000888
+ 00088877
+ 00887766
+ 08876655
+ 08766544
+ 88765433
+ 87654332
+ 87654321
         </li>
     </ul>
 
@@ -683,14 +797,80 @@
 
 </dd>
     <dt>
-    <a name = "circfillevensmall"></a>
-    <strong>circfillevensmall (x, y, r, c)</strong>
+    <a name = "circ_even_small"></a>
+    <strong>circ_even_small (s, x, y, r, c)</strong>
+    </dt>
+    <dd>
+    draw a small circle of even diameter (2-8)
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">s</span>
+            <span class="types"><span class="type">number</span></span>
+         sprite index
+        </li>
+        <li><span class="parameter">x</span>
+            <span class="types"><span class="type">number</span></span>
+         x coordinate, top left corner of bounding
+        </li>
+        <li><span class="parameter">y</span>
+            <span class="types"><span class="type">number</span></span>
+         y coordinate, top left corner of bounding
+        </li>
+        <li><span class="parameter">r</span>
+            <span class="types"><span class="type">number</span></span>
+         radius (1-4)
+        </li>
+        <li><span class="parameter">c</span>
+            <span class="types"><span class="type">number</span></span>
+         color
+ necessary sprite:
+ 00444400
+ 04033040
+ 40322304
+ 43211234
+ 43211234
+ 40322304
+ 04033040
+ 00444400
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "circfill_even_small"></a>
+    <strong>circfill_even_small (s, x, y, r, c)</strong>
     </dt>
     <dd>
     draw a small filled circle of even diameter (2-8)
- x,y is top left corner of circle bounding box
- r is radius, 1-4
- c is color
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">s</span>
+            <span class="types"><span class="type">number</span></span>
+         sprite index
+        </li>
+        <li><span class="parameter">x</span>
+            <span class="types"><span class="type">number</span></span>
+         x coordinate, top left corner of bounding
+        </li>
+        <li><span class="parameter">y</span>
+            <span class="types"><span class="type">number</span></span>
+         y coordinate, top left corner of bounding
+        </li>
+        <li><span class="parameter">r</span>
+            <span class="types"><span class="type">number</span></span>
+         radius (1-4)
+        </li>
+        <li><span class="parameter">c</span>
+            <span class="types"><span class="type">number</span></span>
+         color
  necessary sprite:
  00444400
  04433440
@@ -700,27 +880,6 @@
  44322344
  04433440
  00444400
-
-
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">x</span>
-
-
-
-        </li>
-        <li><span class="parameter">y</span>
-
-
-
-        </li>
-        <li><span class="parameter">r</span>
-
-
-
-        </li>
-        <li><span class="parameter">c</span>
-        if (r &lt; 1 or r > 4) return -- optional safety c = c or band(peek(24357), 15) -- make color optional todo optional code to preserve pal/palt state
         </li>
     </ul>
 
@@ -834,7 +993,7 @@
 </div> <!-- id="main" -->
 <div id="about">
 <i>generated by <a href="http://github.com/lunarmodules/LDoc">LDoc 1.5.0</a></i>
-<i style="float:right;">Last updated 2023-05-22 14:29:50 </i>
+<i style="float:right;">Last updated 2023-05-22 14:38:11 </i>
 </div> <!-- id="about" -->
 </div> <!-- id="container" -->
 </body>

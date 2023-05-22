@@ -38,7 +38,6 @@ end
 --- Calculate the nth root of x
 -- nthroot(3,8)==2 because 2^3==8
 -- all versions start with a guess based on the built in ^ operator
-
 -- this version performs newton's method until a convergent result or short loop is found
 -- very accurate
 local function nthroot(n, x)

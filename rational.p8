@@ -157,8 +157,3 @@ rational.__index=rational
 -- useful constants
 rational.zero=rational(0)
 rational.one=rational(1)
-
-
-------------------------------------------------------------------------
--- tests
--- todo

@@ -137,8 +137,6 @@ local vector_directions_4 = {vector{1, 0}, vector{0, 1}, vector{-1, 0}, vector{0
 local vector_directions_8 = {vector{1, 0}, vector{1, 1}, vector{0, 1}, vector{-1, 1}, vector{-1, 0}, vector{-1, -1}, vector{0, -1}, vector{1, -1}}
 
 
-------------------------------------------------------------------------
--- tests
 assert(vector{2,3} == vector{2,3})
 assert(vector{2,3} == -vector{-2,-3})
 assert(vector{2,3} + vector{-1,2} == vector{1,5})
