@@ -1,17 +1,18 @@
-pico-8 cartridge // http://www.pico-8.com
-version 18
-__lua__
--- pico8lib rational number library
--- by sparr
+--- @module rational
+--- Rational numbers
+-- @author sparr
 
 -- a rational number is a fraction, numerator/denominator
 -- rational number arithmetic operates on the two parts of the fraction separately
 -- rational numbers avoid floating point rounding errors in values like 1/3
 
-if nthroot == nil then local function nthroot(n,x) return x^(1/n) end end -- much better alternatives in math.p8
+--- Return the xth root of n
+-- @param n The number to take the root of
+-- @param x The root value
+-- @return The `x`th root of `n`
+local function nthroot(n,x) return x^(1/n) end -- much better alternatives in math.p8
 
-local rational
-rational = setmetatable({
+local rational = setmetatable({
 
  __len = function(a)
   return a.n / a.d -- single token conversion from rational to number
@@ -156,8 +157,3 @@ rational.__index=rational
 -- useful constants
 rational.zero=rational(0)
 rational.one=rational(1)
-
-
-------------------------------------------------------------------------
--- tests
--- todo

@@ -1,8 +1,8 @@
-pico-8 cartridge // http://www.pico-8.com
-version 18
-__lua__
--- pico8lib number library
+--- @module number
+--- Non-mathematical manipulation of number
 -- by sparr
+
+-- @module number
 
 const_number_minfrac = 0x0000.0001 -- 1/32768
 const_number_maxint  = 0x7fff      -- 32677

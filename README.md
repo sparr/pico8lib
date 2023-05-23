@@ -11,12 +11,14 @@ What you will not find here is code related to gameplay implementation, such as 
 * [`tables`](tables.p8) - Manipulating and creating tables
 * [`functions`](functions.p8) - Manipulating and creating functions
 * [`math`](math.p8) - Mathematical operations, mostly on numbers
-* [`number`](number.p8) - Non-mathematical maniuplation of numbers
+* [`number`](number.p8) - Non-mathematical manipulation of numbers
 * [`json`](json.p8) - JSON(ish) parser
 * [`graphics`](graphics.p8) - Drawing and sprite manipulation
 * [`physics`](physics.p8) - Collision functions, etc
 * [`memory`](memory.p8) - Reading, writing, manipulating memory
 * [`log`](log.p8) - Write timestamped (local time) logs to STDOUT
+* [`test`](test.p8) - A unit test framework for pico-8
+
 
 ### Classes
 * [`vector`](vector.p8) - 2d vectors

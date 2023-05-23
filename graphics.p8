@@ -1,23 +1,13 @@
-pico-8 cartridge // http://www.pico-8.com
-version 18
-__lua__
--- pico8lib graphics library
--- by sparr
+--- @module graphics
+--- Drawing and sprite manipulation
+-- @author by sparr
 
--- any function with a color parameter can add the following line
--- to make the color optional and use the pen color by default:
--- c = c or peek(24357) & 15
-
-
-------------------------------------------------------------------------
--- bresenham's line drawing algorithm
-
---- draw a line from point 1 to point 2
--- @tparam number x1 x coordinate of starting point
--- @tparam number y1 y coordinate of starting point
--- @tparam number x2 x coordinate of ending point
--- @tparam number y2 y coordinate of ending point
--- @tparam number c color
+--- Bresenham's line drawing algorithm
+-- @param x1 Starting point of the line on the x axis
+-- @param y1 Starting point of the line on the y axis
+-- @param x2 Ending point of the line on the x axis
+-- @param y2 Ending point of the line on the x axis
+-- @param c The color of the line
 local function line_(x1, y1, x2, y2, c)
  local dx, dy, sx, sy = abs(x2 - x1), -abs(y2 - y1), x1 < x2 and 1 or -1, y1 < y2 and 1 or -1
  local e = dx + dy
@@ -42,9 +32,9 @@ end
 -- @tparam number y1 y coordinate of starting point
 -- @tparam number x2 x coordinate of ending point
 -- @tparam number y2 y coordinate of ending point
--- @tparam number c color
 -- @tparam number fx width of line pixels (east of the original line)
 -- @tparam number fy height of line pixels (south of the original line)
+-- @tparam number c color
 local function line_fat(x1, y1, x2, y2, fx, fy, c)
  local dx, dy, sx, sy = abs(x2 - x1), -abs(y2 - y1), x1 < x2 and 1 or -1, y1 < y2 and 1 or -1
  local e = dx + dy
@@ -69,11 +59,11 @@ end
 -- @tparam number y1 y coordinate of starting point
 -- @tparam number x2 x coordinate of ending point
 -- @tparam number y2 y coordinate of ending point
--- @tparam number c color
 -- @tparam function f function to call for each pixel of the line
+-- @tparam number c color
 local function line_func(x1, y1, x2, y2, f, c)
  local dx, dy, sx, sy = abs(x2 - x1), -abs(y2 - y1), x1 < x2 and 1 or -1, y1 < y2 and 1 or -1
- local p, e = 1, dx + dy
+ local p, e = 0, dx + dy
  f(x1, y1, c, p)
  while x1 ~= x2 or y1 ~= y2 do
   p += 1
@@ -92,7 +82,7 @@ end
 
 
 --- draw a 4x4 sprite
--- @tparam number sn sprite index
+-- @tparam number s sprite index
 -- @tparam number x x coordinate for sprite placement
 -- @tparam number y y coordinate for sprite placement
 local function spr4_fast(s, x, y)

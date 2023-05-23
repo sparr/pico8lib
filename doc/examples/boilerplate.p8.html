@@ -1,0 +1,149 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>pico8lib</title>
+    <link rel="stylesheet" href="../ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>pico8lib</h1>
+
+
+<ul>
+  <li><a href="../index.html">Index</a></li>
+</ul>
+
+
+
+<h2>Examples</h2>
+<ul class="nowrap">
+  <li><strong>boilerplate.p8</strong></li>
+  <li><a href="../examples/snippets.p8.html">snippets.p8</a></li>
+  <li><a href="../examples/test_class.p8.html">test_class.p8</a></li>
+  <li><a href="../examples/test_functions.p8.html">test_functions.p8</a></li>
+  <li><a href="../examples/test_json.p8.html">test_json.p8</a></li>
+  <li><a href="../examples/test_test.p8.html">test_test.p8</a></li>
+</ul>
+<h2>Modules</h2>
+<ul class="nowrap">
+  <li><a href="../modules/class.html">class</a></li>
+  <li><a href="../modules/functions.html">functions</a></li>
+  <li><a href="../modules/graphics.html">graphics</a></li>
+  <li><a href="../modules/log.html">log</a></li>
+  <li><a href="../modules/math.html">math</a></li>
+  <li><a href="../modules/memory.html">memory</a></li>
+  <li><a href="../modules/number.html">number</a></li>
+  <li><a href="../modules/physics.html">physics</a></li>
+  <li><a href="../modules/rational.html">rational</a></li>
+  <li><a href="../modules/strings.html">strings</a></li>
+  <li><a href="../modules/tables.html">tables</a></li>
+  <li><a href="../modules/test.html">test</a></li>
+  <li><a href="../modules/vector.html">vector</a></li>
+</ul>
+<h2>Topics</h2>
+<ul class="">
+  <li><a href="../topics/README.md.html">README</a></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+    <h2>boilerplate.p8</h2>
+<pre>
+pico-<span class="number">8</span> cartridge // http://www.pico-<span class="number">8.</span>com
+version <span class="number">18</span>
+__lua__
+<span class="comment">-- name of cart
+</span><span class="comment">-- by author
+</span><span class="comment">-- ^^ these two lines will be rendered to the cart label
+</span>
+<span class="comment">-- code at the top level will be run once when the cart loads
+</span><span class="comment">-- local variables here are accessible to every function
+</span><span class="comment">-- global variables here are also accessible from the console when the cart is stopped
+</span>
+<span class="comment">-- profiling metric storage and configuration
+</span><span class="keyword">local</span> _profile_update, _profile_draw, _profile_color, _profile_x, _profile_y = <span class="number">0</span>, <span class="number">0</span>, <span class="number">14</span>, <span class="number">0</span>, <span class="number">0</span>
+
+<span class="keyword">function</span> <span class="function-name">_init</span>()
+ <span class="comment">-- this function will be run once when the cart loads
+</span> <span class="comment">-- you might also call it to reset your cart state
+</span> <span class="comment">-------------------------
+</span> <span class="comment">-- init code goes here --
+</span> <span class="comment">-------------------------
+</span><span class="keyword">end</span>
+
+<span class="comment">-- 30fps update function is generally not used
+</span><span class="comment">-- function _update()
+</span><span class="comment">-- end
+</span>
+<span class="keyword">function</span> <span class="function-name">_update60</span>()
+ _profile_update = <span class="function-name">stat</span>(<span class="number">1</span>) <span class="comment">-- record cpu usage at the start of the update
+</span> <span class="comment">---------------------------
+</span> <span class="comment">-- update code goes here --
+</span> <span class="comment">---------------------------
+</span> <span class="comment">-- simple handling of first player button inputs
+</span> <span class="keyword">if</span> <span class="function-name">btnp</span>(<span class="number">0</span>) <span class="keyword">then</span> <span class="keyword">end</span> <span class="comment">-- left
+</span> <span class="keyword">if</span> <span class="function-name">btnp</span>(<span class="number">1</span>) <span class="keyword">then</span> <span class="keyword">end</span> <span class="comment">-- right
+</span> <span class="keyword">if</span> <span class="function-name">btnp</span>(<span class="number">2</span>) <span class="keyword">then</span> <span class="keyword">end</span> <span class="comment">-- up
+</span> <span class="keyword">if</span> <span class="function-name">btnp</span>(<span class="number">3</span>) <span class="keyword">then</span> <span class="keyword">end</span> <span class="comment">-- down
+</span> <span class="keyword">if</span> <span class="function-name">btnp</span>(<span class="number">4</span>) <span class="keyword">then</span> <span class="keyword">end</span> <span class="comment">-- x
+</span> <span class="keyword">if</span> <span class="function-name">btnp</span>(<span class="number">5</span>) <span class="keyword">then</span> <span class="keyword">end</span> <span class="comment">-- o
+</span> _profile_update = <span class="function-name">stat</span>(<span class="number">1</span>) - _profile_update <span class="comment">-- record total cpu usage of update
+</span><span class="keyword">end</span>
+
+<span class="keyword">function</span> <span class="function-name">_draw</span>()
+ _profile_draw = <span class="function-name">stat</span>(<span class="number">1</span>) <span class="comment">-- record cpu usage at the start of the draw
+</span> <span class="function-name">cls</span>()
+ <span class="comment">-------------------------
+</span> <span class="comment">-- draw code goes here --
+</span> <span class="comment">-------------------------
+</span> _profile_draw = <span class="function-name">stat</span>(<span class="number">1</span>) - _profile_draw <span class="comment">-- record total cpu usage of draw
+</span> <span class="comment">-- print profiling and performance information
+</span> c = $<span class="number">0x5f24</span> <span class="comment">-- preserve cursor and color
+</span> <span class="function-name">cursor</span>(_profile_x, _profile_y)
+ <span class="function-name">color</span>(_profile_color)
+ <span class="global">print</span>(<span class="string">"time:"</span> .. <span class="function-name">tostr</span>(<span class="function-name">t</span>()))
+ <span class="global">print</span>(<span class="string">"updt:"</span> .. <span class="function-name">tostr</span>(_profile_update))
+ <span class="global">print</span>(<span class="string">"draw:"</span> .. <span class="function-name">tostr</span>(_profile_draw))
+ <span class="global">print</span>(<span class="string">" fps:"</span> .. <span class="function-name">tostr</span>(<span class="function-name">stat</span>(<span class="number">7</span>)))
+ <span class="function-name">poke4</span>(<span class="number">0x5f24</span>, c) <span class="comment">-- restore cursor and color
+</span><span class="keyword">end</span>
+__gfx__
+<span class="number">00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000</span>
+<span class="number">00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000</span>
+<span class="number">00700700000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000</span>
+<span class="number">00077000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000</span>
+<span class="number">00077000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000</span>
+<span class="number">00700700000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000</span>
+<span class="number">00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000</span>
+<span class="number">00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000</span></pre>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/lunarmodules/LDoc">LDoc 1.5.0</a></i>
+<i style="float:right;">Last updated 2023-05-22 13:43:44 </i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>
