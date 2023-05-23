@@ -177,7 +177,69 @@ function Unshift:test_nil_value ()
  self:assert_equal(#t,l+1)
 end
 
-suite:add_test_case(Unshift)
+
+local sortable_tables = {
+ {{},{}},
+ {{0},{0}},
+ {{1},{1}},
+ {{-1},{-1}},
+ {{2,0,-1,1,-2},{-2,-1,0,1,2}},
+ {{"a"},{"a"}},
+ {{"asdf"},{"asdf"}},
+ {{"b","e","a","d","c"},{"a","b","c","d","e"}},
+}
+
+local Reverse = suite:new_test_case("reverse")
+
+function Reverse:test_reverse ()
+ local reversable_tables = {
+  {{},{}},
+  {{0},{0}},
+  {{"a"},{"a"}},
+  {{'a',1,'asdf',-1},{-1,'asdf',1,'a'}},
+ }
+ for _,case in ipairs(reversable_tables) do
+  local a = table_copy(case[1])
+  reverse(a)
+  self:assert_true(table_compare(a,case[2]),"reverse("..tostr(a)..") != "..tostr(case[2]))
+ end
+end
+
+
+local Sort = suite:new_test_case("sort")
+
+function Sort:test_sort_slow ()
+ for _,case in ipairs(sortable_tables) do
+  local a = table_copy(case[1])
+  sort_slow(a)
+  self:assert_true(table_compare(a,case[2]),tostr(a).." != "..tostr(case[2]))
+ end
+end
+
+function Sort:test_sort_slow_func ()
+ for _,case in ipairs(sortable_tables) do
+  local a = table_copy(case[1])
+  sort_slow_func(a, function (i,j) return i<j end)
+  self:assert_true(table_compare(a,case[2]),tostr(a).." != "..tostr(case[2]))
+ end
+end
+
+function Sort:test_sort_slow_reverse ()
+ for _,case in ipairs(sortable_tables) do
+  local a = table_copy(case[1])
+  sort_slow_reverse(a)
+  reverse(a)
+  self:assert_true(table_compare(a,case[2]),tostr(a).." != "..tostr(case[2]))
+ end
+end
+
+function Sort:test_sort_quick ()
+ for _,case in ipairs(sortable_tables) do
+  local a = table_copy(case[1])
+  sort_quick(a)
+  self:assert_true(table_compare(a,case[2]),tostr(a).." != "..tostr(case[2]))
+ end
+end
 
 
 run_suites{suite}
