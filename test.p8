@@ -262,6 +262,15 @@ function TestSuite:add_test_case (test_case)
    self.cases[#self.cases + 1] = test_case
 end
 
+--- Create a new test case instance and add it to the test suite
+-- @tparam string name name for the new test case
+-- @treturn TestCase the new test case
+function TestSuite:new_test_case (name)
+   local case = TestCase(name)
+   self.cases[#self.cases + 1] = case
+   return case
+end
+
 --- Run all of the test cases added to the test suite
 -- @return nil
 function TestSuite:run (quiet)

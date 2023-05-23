@@ -18,7 +18,7 @@ __lua__
 local suite = TestSuite("tables.p8")
 
 
-local Get = TestCase("get")
+local Get = suite:new_test_case("get")
 
 function Get:test_get_hit ()
  self:assert_equal(get({5,6,7},1),5)
@@ -40,10 +40,8 @@ function Get:test_get_miss_default ()
  self:assert_equal(get({5,6,7},4,9),9)
 end
 
-suite:add_test_case(Get)
 
-
-local Add_ = TestCase("add_")
+local Add_ = suite:new_test_case("add_")
 
 function Add_:test_typical ()
  local t = {1,2,3}
@@ -77,10 +75,8 @@ function Add_:test_mixed_table ()
  self:assert_equal(#t,l+1)
 end
 
-suite:add_test_case(Add_)
 
-
-local Del_r = TestCase("del_r")
+local Del_r = suite:new_test_case("del_r")
 
 function Del_r:test_typical ()
  local t = {8,7,6,5}
@@ -106,10 +102,8 @@ function Del_r:test_empty_table ()
  self:assert_equal(#t,l)
 end
 
-suite:add_test_case(Del_r)
 
-
-local Deli_r = TestCase("deli_r")
+local Deli_r = suite:new_test_case("deli_r")
 
 function Deli_r:test_typical ()
  local t = {8,7,6,5}
@@ -135,10 +129,8 @@ function Deli_r:test_empty_table ()
  self:assert_equal(#t,l)
 end
 
-suite:add_test_case(Deli_r)
 
-
-local Shift = TestCase("shift")
+local Shift = suite:new_test_case("shift")
 
 function Shift:test_typical ()
  local t = {8,7,6,5}
@@ -158,10 +150,8 @@ function Shift:test_empty_table ()
  self:assert_equal(#t,l)
 end
 
-suite:add_test_case(Shift)
 
-
-local Unshift = TestCase("unshift")
+local Unshift = suite:new_test_case("unshift")
 
 function Unshift:test_typical ()
  local t = {8,7,6,5}
