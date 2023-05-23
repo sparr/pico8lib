@@ -8,7 +8,7 @@ __lua__
 --- create a new class
 -- @tparam class parent the parent of this new class
 -- @tparam[opt] table proto the prototype (default keys/values) for this new class 
--- @return class the new class
+-- @treturn class the new class
 function class(parent, proto)
  proto = setmetatable(proto or {}, {
   __index = parent,
