@@ -4,7 +4,7 @@ __lua__
 -- pico8lib logging library
 -- by mindfilleter
 
--- Depends on pico8lib/strings.p8
+-- #include strings.p8
 
 -- P8LIBLOGUTC configures the output to either use UTC or local time.
 -- false (default) for local time, true for UTC

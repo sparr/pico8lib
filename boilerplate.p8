@@ -5,6 +5,9 @@ __lua__
 -- by author
 -- ^^ these two lines will be rendered to the cart label
 
+-- this file is a boilerplate template that can be used to quickly create a new cart
+-- it includes button handling and update and draw profiling
+
 -- code at the top level will be run once when the cart loads
 -- local variables here are accessible to every function
 -- global variables here are also accessible from the console when the cart is stopped

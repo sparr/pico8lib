@@ -20,11 +20,12 @@ What you will not find here is code related to gameplay implementation, such as 
 
 ### Classes
 * [`vector`](vector.p8) - 2d vectors
-* [`rational`](rational.p8) - rational numbers
+* [`rational`](rational.p8) - Rational numbers
+* [`test`](test.p8) - Unit test library
 
 ### Other
-* [`snippets`](snippets.p8) - inline snippets to mix with your own code
-* [`boilerplate`](boilerplate.p8) - mostly empty pico8 cart with profiling and comments
+* [`snippets`](snippets.p8) - Inline snippets to mix with your own code
+* [`boilerplate`](boilerplate.p8) - Mostly empty pico8 cart with profiling and comments
 
 ## Conventions
 Code is not minified for character count; that is a job for a minifier if desired or necessary. I try to aim for 3-5 character identifiers in moderate to complex functions, 1-3 characters in simple functions.
@@ -37,8 +38,17 @@ Some functions are provided in multiple variations, optimized for tokens, size, 
 
 `-- remove[t,c]` marks code that can be removed, usually at the cost of reduced functionality or code safety.
 
+`#include` lines are commented out because nested includes are a syntax error in pico8. You will need to put all required includes in your own top level script file. e.g. if you want to do `#include json.p8` then you need to `#include strings.p8` earlier in the same file.
+
+## Tests
+Thanks to [mindfilleter](/mindfilleter) we can use [`test`](test.p8) to perform unit tests on this repo.
+
+Individual tests are in [`tests/`](tests), and can run with a command like `pico8 -x tests/test_test.p8`.
+
+[`tests/template.p8`](tests/template.p8) contains a template for new tests, which can be used in this repo or on your own project that uses the test library.
+
 ## Contributing
-PRs are welcome! I am looking to collect a variety of best-of-breed examples of common library functions. Additional (or any) tests would also be helpful.
+PRs are welcome! I am looking to collect a variety of best-of-breed examples of common library functions. Additional tests would also be helpful.
 
 The best place to chat with other PICO-8 developers is on the [PICO-8 Discord](https://discord.gg/zM9SD7N).
 
