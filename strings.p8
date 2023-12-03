@@ -71,17 +71,59 @@ end
 
 
 ------------------------------------------------------------------------
--- replacement tostr() that serializes tables
+-- replacement tostr() with additional features
 -- all versions ", ..." can be removed to save tokens if you never use tostr(number,true)
 local _tostr = tostr
--- this version respects __tostring and prints array values in order without keys
-local function tostr(n, ...)
+
+-- this version respects __tostring
+local function tostr_tostring(n, ...)
+ if type(n) == "table" then
+  local m = getmetatable(n)
+  if m and m.__tostring then
+   return m.__tostring(n, ...)
+  end
+ end
+ return _tostr(n, ...)
+end
+
+-- this version prints tables recursively with all keys in unpredictable order
+local function tostr_tables(t, ...)
+ if type(n) == "table" then
+  local s = "{"
+  for k, v in pairs(t) do
+   s = s .. (s=="{" and '' or ",") .. tostr(k, ...) .. "=" .. tostr(v, ...) -- mishandles reserved words that require ["key"]
+  end
+  return s
+ end
+ return _tostr(t, ...)
+end
+
+-- this version prints tables recursively with array values in order without keys then remaining table keys in unpredictable order
+local function tostr_arrays_tables(n, ...)
+ if type(n) == "table" then
+  local f, s = {}, "{" -- "[table:{" would avoid ambiguity with literal strings that look like tables
+  for i = 1, #n do
+   s = s .. (i == 1 and '' or ",") .. tostr(n[i])
+   f[i] = true
+  end
+  for k, v in pairs(n) do
+   if not f[k] then
+    s = s .. (s == "{" and '' or ",") .. tostr(k) .. "=" .. tostr(v) -- mishandles reserved words that require ["key"]
+   end
+  end
+  return s .. "}" -- .. "]" to match less ambiguous alternative above
+ end
+ return _tostr(n, ...)
+end
+
+-- this version respects __tostring and prints tables recursively with array values in order without keys then remaining table keys in unpredictable order
+local function tostr_tostring_arrays_tables(n, ...)
  if type(n) == "table" then
   local m = getmetatable(n)
   if m and m.__tostring then
    return m.__tostring(n, ...)
   else
-   local f, s = {}, "{" -- "[table:{" avoids ambiguity with literal strings that look like tables
+   local f, s = {}, "{" -- "[table:{" would avoid ambiguity with literal strings that look like tables
    for i = 1, #n do
     s = s .. (i == 1 and '' or ",") .. tostr(n[i])
     f[i] = true
@@ -95,17 +137,6 @@ local function tostr(n, ...)
   end
  end
  return _tostr(n, ...)
-end
--- this version prints all keys, in unpredictable order
-local function tostr(t, ...)
- if type(n) == "table" then
-  local s = "{"
-  for k, v in pairs(t) do
-   s = s .. (s=="{" and '' or ",") .. tostr(k, ...) .. "=" .. tostr(v, ...) -- mishandles reserved words that require ["key"]
-  end
-  return s
- end
- return _tostr(t, ...)
 end
 
 
