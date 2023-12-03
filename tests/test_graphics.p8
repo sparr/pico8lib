@@ -18,21 +18,15 @@ __lua__
 -- file being tested
 #include ../graphics.p8
 
-
-local GraphicsTestCase = class(
-   TestCase,
-   {
-    check_pixels = function (test, x,y,pixelstrings)
-     for i=x,x+#pixelstrings[1]-1 do
-      for j=y,y+#pixelstrings-1 do
-       c = pget( i, j )
-       e = tonum( "0x" .. pixelstrings[j-y+1][i-x+1] )
-       test:assert_equal( c, e, "color at " .. tostr(i) .. "," .. tostr(j) .. " is " .. tostr(c) .. ", expected " .. tostr(e) )
-      end
-     end
-    end,
-   }
-)
+local function check_pixels(test, x, y, pixelstrings)
+ for i=x,x+#pixelstrings[1]-1 do
+  for j=y,y+#pixelstrings-1 do
+   c = pget( i, j )
+   e = tonum( "0x" .. pixelstrings[j-y+1][i-x+1] )
+   test:assert_equal( c, e, "color at " .. tostr(i) .. "," .. tostr(j) .. " is " .. tostr(c) .. ", expected " .. tostr(e) )
+  end
+ end
+end
 
 local function reset()
    cls()
@@ -42,12 +36,12 @@ end
 local suite = TestSuite("graphics.p8")
 
 -- testing the test capabilities
-local Meta = GraphicsTestCase("meta", reset)
+local Meta = TestCase("meta", reset)
 
 function Meta:test_check_pixels ()
  pset(1,1,4)
  pset(2,3,7)
- self:check_pixels(0,0,{
+ check_pixels(self, 0,0,{
   "0000",
   "0400",
   "0000",
@@ -60,11 +54,11 @@ suite:add_test_case(Meta)
 
 
 -- Line functions
-local Line = GraphicsTestCase("line", reset)
+local Line = TestCase("line", reset)
 
 function Line:test_line__diagonal ()
  line_(1,1,5,7,7)
- self:check_pixels(0,0,{
+ check_pixels(self, 0,0,{
   "00000000",
   "07000000",
   "00700000",
@@ -79,12 +73,12 @@ end
 
 function Line:test_line__horizontal ()
  line_(3,72,115,72,7)
- self:check_pixels(2,71,{
+ check_pixels(self, 2,71,{
   "00000000",
   "07777777",
   "00000000",
  })
- self:check_pixels(109,71,{
+ check_pixels(self, 109,71,{
   "00000000",
   "77777770",
   "00000000",
@@ -93,7 +87,7 @@ end
 
 function Line:test_line__vertical ()
  line_(19,3,19,91,7)
- self:check_pixels(18,2,{
+ check_pixels(self, 18,2,{
   "000",
   "070",
   "070",
@@ -103,7 +97,7 @@ function Line:test_line__vertical ()
   "070",
   "070",
  })
- self:check_pixels(18,85,{
+ check_pixels(self, 18,85,{
   "070",
   "070",
   "070",
@@ -117,7 +111,7 @@ end
 
 function Line:test_line_fat ()
  line_fat(1,1,5,7,2,3,7)
- self:check_pixels(0,0,{
+ check_pixels(self, 0,0,{
   "00000000",
   "07700000",
   "07770000",
@@ -155,11 +149,11 @@ suite:add_test_case(Line)
 
 
 -- Sprite functions
-local Sprite = GraphicsTestCase("sprite", reset)
+local Sprite = TestCase("sprite", reset)
 
 function Sprite:test_spr4fast ()
  spr4_fast(3,1,1)
- self:check_pixels(0,0,{
+ check_pixels(self, 0,0,{
   "000000",
   "008880",
   "080770",
@@ -171,7 +165,7 @@ end
 
 function Sprite:test_spr4 ()
  spr4(3,1,1)
- self:check_pixels(0,0,{
+ check_pixels(self, 0,0,{
   "000000",
   "008880",
   "080770",
@@ -183,7 +177,7 @@ end
 
 function Sprite:test_spr4_shrink ()
  spr4(3,1,1,2,2)
- self:check_pixels(0,0,{
+ check_pixels(self, 0,0,{
   "0000",
   "0070",
   "0650",
@@ -193,7 +187,7 @@ end
 
 function Sprite:test_spr4_expand ()
  spr4(3,1,1,6,8)
- self:check_pixels(0,0,{
+ check_pixels(self, 0,0,{
   "00000000",
   "00088880",
   "00088880",
@@ -209,7 +203,7 @@ end
 
 function Sprite:test_spr4_fliph ()
  spr4(3,1,1,4,4,true)
- self:check_pixels(0,0,{
+ check_pixels(self, 0,0,{
   "000000",
   "088800",
   "077080",
@@ -221,7 +215,7 @@ end
 
 function Sprite:test_spr4_flipv ()
  spr4(3,1,1,4,4,false,true)
- self:check_pixels(0,0,{
+ check_pixels(self, 0,0,{
   "000000",
   "066550",
   "077660",
@@ -235,11 +229,11 @@ suite:add_test_case(Sprite)
 
 
 -- Circle functions
-local Circle = GraphicsTestCase("circle", reset)
+local Circle = TestCase("circle", reset)
 
 function Circle:test_circ_even_1 ()
  circ_even(1,1,1,1,7)
- self:check_pixels(0,0,{
+ check_pixels(self, 0,0,{
   "0000",
   "0770",
   "0770",
@@ -249,7 +243,7 @@ end
 
 function Circle:test_circ_even_2 ()
  circ_even(1,1,1,2,7)
- self:check_pixels(0,0,{
+ check_pixels(self, 0,0,{
   "000000",
   "007700",
   "070070",
@@ -261,7 +255,7 @@ end
 
 function Circle:test_circ_even_8 ()
  circ_even(1,1,1,8,7)
- self:check_pixels(0,0,{
+ check_pixels(self, 0,0,{
   "000000000000000000",
   "000000777777000000",
   "000077000000770000",
@@ -285,7 +279,7 @@ end
 
 function Circle:test_circ_even_small_1 ()
  circ_even_small(3,1,1,1,7)
- self:check_pixels(0,0,{
+ check_pixels(self, 0,0,{
   "0000",
   "0770",
   "0770",
@@ -295,7 +289,7 @@ end
 
 function Circle:test_circ_even_small_2 ()
  circ_even_small(3,1,1,2,7)
- self:check_pixels(0,0,{
+ check_pixels(self, 0,0,{
   "000000",
   "007700",
   "070070",
@@ -307,7 +301,7 @@ end
 
 function Circle:test_circ_even_small_4 ()
  circ_even_small(3,1,1,4,7)
- self:check_pixels(0,0,{
+ check_pixels(self, 0,0,{
   "0000000000",
   "0007777000",
   "0070000700",
@@ -323,7 +317,7 @@ end
 
 function Circle:test_circfill_even_1 ()
  circfill_even(2,1,1,1,7)
- self:check_pixels(0,0,{
+ check_pixels(self, 0,0,{
   "0000",
   "0770",
   "0770",
@@ -333,7 +327,7 @@ end
 
 function Circle:test_circfill_even_3 ()
  circfill_even(2,1,1,3,7)
- self:check_pixels(0,0,{
+ check_pixels(self, 0,0,{
   "00000000",
   "00777700",
   "07777770",
@@ -347,7 +341,7 @@ end
 
 function Circle:test_circfill_even_8 ()
  circfill_even(2,1,1,8,7)
- self:check_pixels(0,0,{
+ check_pixels(self, 0,0,{
   "000000000000000000",
   "000000777777000000",
   "000077777777770000",
@@ -371,7 +365,7 @@ end
 
 function Circle:test_circfill_even_small_1 ()
  circfill_even_small(4,1,1,1,7)
- self:check_pixels(0,0,{
+ check_pixels(self, 0,0,{
   "0000",
   "0770",
   "0770",
@@ -381,7 +375,7 @@ end
 
 function Circle:test_circfill_even_small_3 ()
  circfill_even_small(4,1,1,3,7)
- self:check_pixels(0,0,{
+ check_pixels(self, 0,0,{
   "00000000",
   "00777700",
   "07777770",
@@ -395,7 +389,7 @@ end
 
 function Circle:test_circfill_even_small_4 ()
  circfill_even_small(4,1,1,4,7)
- self:check_pixels(0,0,{
+ check_pixels(self, 0,0,{
   "0000000000",
   "0007777000",
   "0077777700",
