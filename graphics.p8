@@ -374,12 +374,12 @@ end
 -- [[0x01,0x23,0x45,0x67],[0x89,0xab,0xcd,0xef]]
 function mapstring(mapstr, mapw, celx, cely, sx, sy, celw, celh, layer)
  -- remove[] to save tokens by making parameters mandatory
- ms, celx, cely, sx, sy, celw, celh, layer =
- ms or "", celx or 0, cely or 0, sx or 0, sy or 0, celw or 1, celh or 1, layer or 0
+ mapstr, celx, cely, sx, sy, celw, celh, layer =
+ mapstr or "", celx or 0, cely or 0, sx or 0, sy or 0, celw or 1, celh or 1, layer or 0
  for y = cely, cely + celh - 1 do
   for x = celx, celx + celw - 1 do
    local sprnum = tonum("0x" .. sub(mapstr, (y * mapw + x) * 2 + 1, (y * mapw + x) * 2 + 2))
-   if sprnum > 0 and band(layer, fget(sprnum)) == layer then
+   if sprnum > 0 and layer & fget(sprnum) == layer then
     spr(sprnum, sx + (x - celx) * 8, sy + (y - cely) * 8)
    end
   end
