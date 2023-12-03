@@ -431,10 +431,11 @@ function print_border_4(string, x, y, col, bcol)
 end
 -- 8-direction outline
 function print_border_8(string, x, y, col, bcol)
- for dy = -1, 1 do
-  -- for x = -1, 1, y == 0 and 2 or 1 do -- 10% faster, costs 8 tokens
-  for dx = -1, 1 do
-   ?string, x + dx, y + dy, bcol
+ for j = -1, 1 do
+  -- 10% faster, costs 8 tokens
+  -- for i = -1, 1, j == 0 and 2 or 1 do
+  for i = -1, 1 do
+   ?string, x + i, y + j, bcol
   end
  end
  ?string, x, y, col
