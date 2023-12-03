@@ -28,6 +28,16 @@ local function check_pixels(test, x, y, pixelstrings)
  end
 end
 
+local function compare_pixels(test, x1, y1, x2, y2, w, h)
+ for i=1,w do
+  for j=1,h do
+   c = pget( x1+i-1, y1+j-1 )
+   e = pget( x2+i-1, y2+j-1 )
+   test:assert_equal( c, e, "color at " .. tostr(x1+i-1) .. "," .. tostr(y1+j-1) .. " is " .. tostr(c) .. ", expected " .. tostr(e) )
+  end
+ end
+end
+
 local function reset()
    cls()
    pal()
@@ -404,6 +414,63 @@ function Circle:test_circfill_even_small_4 ()
 end
 
 suite:add_test_case(Circle)
+
+
+-- Fill functions
+local FillP = TestCase("fillp", reset)
+
+function FillP:test_fillp_no_shift ()
+ fillp(0b0011110001011001)
+ rectfill(3,4,9,8)
+ _fillp(0b0011110001011001)
+ rectfill(23,24,29,28)
+ compare_pixels(self, 3, 4, 23, 24, 7, 5)
+end
+
+function FillP:test_fillp_x_shift ()
+ fillp(0b0011110001011001,1,0)
+ rectfill(3,4,9,8)
+ _fillp(0b0011110001011001)
+ rectfill(22,24,28,28)
+ compare_pixels(self, 3, 4, 22, 24, 7, 5)
+end
+
+function FillP:test_fillp_y_shift ()
+ fillp(0b0011110001011001,0,2)
+ rectfill(3,4,9,8)
+ _fillp(0b0011110001011001)
+ rectfill(23,22,29,26)
+ compare_pixels(self, 3, 4, 23, 22, 7, 5)
+end
+
+function FillP:test_fillp_negative_x_shift ()
+ fillp(0b0011110001011001,-3,0)
+ rectfill(3,4,9,8)
+ _fillp(0b0011110001011001)
+ rectfill(26,24,32,28)
+ compare_pixels(self, 3, 4, 26, 24, 7, 5)
+end
+
+function FillP:test_fillp_negative_y_shift ()
+ fillp(0b0011110001011001,0,-1)
+ rectfill(3,4,9,8)
+ _fillp(0b0011110001011001)
+ rectfill(23,25,29,29)
+ compare_pixels(self, 3, 4, 23, 25, 7, 5)
+end
+
+function FillP:test_fillp_shifts ()
+ fillp(0b0011110001011001,3,-1)
+ rectfill(3,4,9,8)
+ _fillp(0b0011110001011001)
+ rectfill(20,25,26,29)
+ compare_pixels(self, 3, 4, 20, 25, 7, 5)
+end
+
+
+-- TODO test decimal fill pattern for transparency
+
+suite:add_test_case(FillP)
 
 
 run_suites{suite}
