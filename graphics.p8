@@ -326,11 +326,10 @@ end
 -- "green screen" function
 -- replaces pixels of color c in rectangle x1,y1,x2,y2 with output of drawfunc
 -- initial version from https://www.lexaloffle.com/bbs/?tid=36813
--- optimized by sparr
 -- todo version that uses peek/poke for faster handling of large contiguous "green" pixels
 function chromakey(drawfunc, x1, y1, x2, y2, c)
-    -- c defaults to 3
-    c = c or 3
+    -- -- c defaults to 3
+    -- c = c or 3
     -- load prior clip state
     local clip_x1, clip_y1, clip_x2, clip_y2 = peek(0x5f20), peek(0x5f21), peek(0x5f22), peek(0x5f23)
 
