@@ -21,20 +21,14 @@ local TestCase = class(
 )
 
 --- TestCase naming convention: snake_case
-function TestCase:__init (name)
+function TestCase:__init (name, setup, teardown)
    self.name = name
+   --- setup is run before each test function is executed. It exists as a hook to setup state relevant to the test on the TestCase instance. Override this method as needed in your TestCase subclass.
+   if setup then self.setup = setup end
+   --- teardown is run after each test function is executed. It exists as a hook to reset state relevant to the test on the TestCase instance. Override this method as needed in your TestCase subclass.
+   if teardown then self.teardown = teardown end
 end
 
-
---- setup is run before each test function is executed. It exists as a hook to setup state relevant to the test on the TestCase instance. Override this method as needed in your TestCase subclass.
-function TestCase:setup ()
-   -- NOOP
-end
-
---- teardown is run after each test function is executed. It exists as a hook to reset state relevant to the test on the TestCase instance. Override this method as needed in your TestCase subclass.
-function TestCase:teardown ()
-   -- NOOP
-end
 
 function TestCase:_parse_error_message (e)
    local parts = split(e, ":")
@@ -53,7 +47,9 @@ function TestCase:run (quiet)
    for _, test_name in ipairs(test_names) do
       try(
          function ()
+            if self.setup then self.setup() end
             self[test_name](self)
+            if self.teardown then self.teardown() end
             if not quiet then log_info("PASS: TestCase:" .. self.name .. ":" .. test_name) end
          end,
          function (e)

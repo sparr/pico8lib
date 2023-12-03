@@ -34,13 +34,17 @@ local GraphicsTestCase = class(
    }
 )
 
+local function reset()
+   cls()
+   pal()
+end
+
 local suite = TestSuite("graphics.p8")
 
 -- testing the test capabilities
-local Meta = GraphicsTestCase("meta")
+local Meta = GraphicsTestCase("meta", reset)
 
 function Meta:test_check_pixels ()
- cls() pal()
  pset(1,1,4)
  pset(2,3,7)
  self:check_pixels(0,0,{
@@ -56,10 +60,9 @@ suite:add_test_case(Meta)
 
 
 -- Line functions
-local Line = GraphicsTestCase("line")
+local Line = GraphicsTestCase("line", reset)
 
 function Line:test_line__diagonal ()
- cls() pal()
  line_(1,1,5,7,7)
  self:check_pixels(0,0,{
   "00000000",
@@ -75,7 +78,6 @@ function Line:test_line__diagonal ()
 end
 
 function Line:test_line__horizontal ()
- cls() pal()
  line_(3,72,115,72,7)
  self:check_pixels(2,71,{
   "00000000",
@@ -90,7 +92,6 @@ function Line:test_line__horizontal ()
 end
 
 function Line:test_line__vertical ()
- cls() pal()
  line_(19,3,19,91,7)
  self:check_pixels(18,2,{
   "000",
@@ -115,7 +116,6 @@ function Line:test_line__vertical ()
 end
 
 function Line:test_line_fat ()
- cls() pal()
  line_fat(1,1,5,7,2,3,7)
  self:check_pixels(0,0,{
   "00000000",
@@ -133,7 +133,6 @@ function Line:test_line_fat ()
 end
 
 function Line:test_line_func ()
- cls() pal()
  expected = {
   {1,1,7,1},
   {2,2,7,2},
@@ -156,10 +155,9 @@ suite:add_test_case(Line)
 
 
 -- Sprite functions
-local Sprite = GraphicsTestCase("sprite")
+local Sprite = GraphicsTestCase("sprite", reset)
 
 function Sprite:test_spr4fast ()
- cls() pal()
  spr4_fast(3,1,1)
  self:check_pixels(0,0,{
   "000000",
@@ -172,7 +170,6 @@ function Sprite:test_spr4fast ()
 end
 
 function Sprite:test_spr4 ()
- cls() pal()
  spr4(3,1,1)
  self:check_pixels(0,0,{
   "000000",
@@ -185,7 +182,6 @@ function Sprite:test_spr4 ()
 end
 
 function Sprite:test_spr4_shrink ()
- cls() pal()
  spr4(3,1,1,2,2)
  self:check_pixels(0,0,{
   "0000",
@@ -196,7 +192,6 @@ function Sprite:test_spr4_shrink ()
 end
 
 function Sprite:test_spr4_expand ()
- cls() pal()
  spr4(3,1,1,6,8)
  self:check_pixels(0,0,{
   "00000000",
@@ -213,7 +208,6 @@ function Sprite:test_spr4_expand ()
 end
 
 function Sprite:test_spr4_fliph ()
- cls() pal()
  spr4(3,1,1,4,4,true)
  self:check_pixels(0,0,{
   "000000",
@@ -226,7 +220,6 @@ function Sprite:test_spr4_fliph ()
 end
 
 function Sprite:test_spr4_flipv ()
- cls() pal()
  spr4(3,1,1,4,4,false,true)
  self:check_pixels(0,0,{
   "000000",
@@ -242,10 +235,9 @@ suite:add_test_case(Sprite)
 
 
 -- Circle functions
-local Circle = GraphicsTestCase("circle")
+local Circle = GraphicsTestCase("circle", reset)
 
 function Circle:test_circ_even_1 ()
- cls() pal()
  circ_even(1,1,1,1,7)
  self:check_pixels(0,0,{
   "0000",
@@ -256,7 +248,6 @@ function Circle:test_circ_even_1 ()
 end
 
 function Circle:test_circ_even_2 ()
- cls() pal()
  circ_even(1,1,1,2,7)
  self:check_pixels(0,0,{
   "000000",
@@ -269,7 +260,6 @@ function Circle:test_circ_even_2 ()
 end
 
 function Circle:test_circ_even_8 ()
- cls() pal()
  circ_even(1,1,1,8,7)
  self:check_pixels(0,0,{
   "000000000000000000",
@@ -294,7 +284,6 @@ function Circle:test_circ_even_8 ()
 end
 
 function Circle:test_circ_even_small_1 ()
- cls() pal()
  circ_even_small(3,1,1,1,7)
  self:check_pixels(0,0,{
   "0000",
@@ -305,7 +294,6 @@ function Circle:test_circ_even_small_1 ()
 end
 
 function Circle:test_circ_even_small_2 ()
- cls() pal()
  circ_even_small(3,1,1,2,7)
  self:check_pixels(0,0,{
   "000000",
@@ -318,7 +306,6 @@ function Circle:test_circ_even_small_2 ()
 end
 
 function Circle:test_circ_even_small_4 ()
- cls() pal()
  circ_even_small(3,1,1,4,7)
  self:check_pixels(0,0,{
   "0000000000",
@@ -335,7 +322,6 @@ function Circle:test_circ_even_small_4 ()
 end
 
 function Circle:test_circfill_even_1 ()
- cls() pal()
  circfill_even(2,1,1,1,7)
  self:check_pixels(0,0,{
   "0000",
@@ -346,7 +332,6 @@ function Circle:test_circfill_even_1 ()
 end
 
 function Circle:test_circfill_even_3 ()
- cls() pal()
  circfill_even(2,1,1,3,7)
  self:check_pixels(0,0,{
   "00000000",
@@ -361,7 +346,6 @@ function Circle:test_circfill_even_3 ()
 end
 
 function Circle:test_circfill_even_8 ()
- cls() pal()
  circfill_even(2,1,1,8,7)
  self:check_pixels(0,0,{
   "000000000000000000",
@@ -386,7 +370,6 @@ function Circle:test_circfill_even_8 ()
 end
 
 function Circle:test_circfill_even_small_1 ()
- cls() pal()
  circfill_even_small(4,1,1,1,7)
  self:check_pixels(0,0,{
   "0000",
@@ -397,7 +380,6 @@ function Circle:test_circfill_even_small_1 ()
 end
 
 function Circle:test_circfill_even_small_3 ()
- cls() pal()
  circfill_even_small(4,1,1,3,7)
  self:check_pixels(0,0,{
   "00000000",
@@ -412,7 +394,6 @@ function Circle:test_circfill_even_small_3 ()
 end
 
 function Circle:test_circfill_even_small_4 ()
- cls() pal()
  circfill_even_small(4,1,1,4,7)
  self:check_pixels(0,0,{
   "0000000000",
