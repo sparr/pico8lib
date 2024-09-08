@@ -33,10 +33,12 @@
 
 <h2>Contents</h2>
 <ul>
-<li><a href="#Functions">Functions</a></li>
-<li><a href="#Local_Functions">Local Functions</a></li>
-<li><a href="#Functions_that_operate_on_two_or_more_tables__or_create_a_new_table">Functions that operate on two or more tables, or create a new table </a></li>
+<li><a href="#Miscellaneous">Miscellaneous </a></li>
+<li><a href="#One_Table_or_Key_Value">One Table or Key/Value </a></li>
+<li><a href="#Multiple_Tables_or_New_Table">Multiple Tables or New Table </a></li>
 <li><a href="#Sorting_Functions">Sorting Functions </a></li>
+<li><a href="#Filter">Filter </a></li>
+<li><a href="#Predicate">Predicate </a></li>
 </ul>
 
 
@@ -76,146 +78,161 @@
 <div id="content">
 
 <h1>Module <code>pico8lib.tables</code></h1>
-<p>Get value from table by key, with default</p>
+<p>_</p>
 <p>
 
 </p>
 
 
-<h2><a href="#Functions">Functions</a></h2>
+<h2><a href="#Miscellaneous">Miscellaneous </a></h2>
 <table class="function_list">
 	<tr>
-	<td class="name" nowrap><a href="#shift">shift (a)</a></td>
-	<td class="summary">delete and return the first item from array</td>
+	<td class="name" nowrap><a href="#all_reverse">all_reverse (t)</a></td>
+	<td class="summary">Iterate an array in reverse
+ used just like all()</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#unshift">unshift (a, v)</a></td>
-	<td class="summary">add value to the beginning of array</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#rand_array">rand_array (a)</a></td>
-	<td class="summary">select a random value from an array</td>
+	<td class="name" nowrap><a href="#reverse">reverse (a)</a></td>
+	<td class="summary">Reverse the items in an array, in place</td>
 	</tr>
 </table>
-<h2><a href="#Local_Functions">Local Functions</a></h2>
+<h2><a href="#One_Table_or_Key_Value">One Table or Key/Value </a></h2>
 <table class="function_list">
 	<tr>
+	<td class="name" nowrap><a href="#get">get (t, k[, d])</a></td>
+	<td class="summary">Get value from table by key, with default</td>
+	</tr>
+	<tr>
 	<td class="name" nowrap><a href="#add_">add_ (a, v)</a></td>
-	<td class="summary">add value to end of array
+	<td class="summary">Add value to end of array
  supposedly faster but less safe than add(a,v)</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#del_r">del_r (a, v)</a></td>
-	<td class="summary">delete value from array, do not preserve order</td>
+	<td class="summary">Delete value from array, do not preserve order</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#deli_r">deli_r (a, i)</a></td>
-	<td class="summary">delete index from array, do not preserve order</td>
+	<td class="summary">Delete index from array, do not preserve order</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#shift">shift (a)</a></td>
+	<td class="summary">Delete and return the first item from array</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#unshift">unshift (a, v)</a></td>
+	<td class="summary">Add value to the beginning of array</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#rand_array">rand_array (a)</a></td>
+	<td class="summary">Select a random value from an array</td>
 	</tr>
 </table>
-<h2><a href="#Functions_that_operate_on_two_or_more_tables__or_create_a_new_table">Functions that operate on two or more tables, or create a new table </a></h2>
+<h2><a href="#Multiple_Tables_or_New_Table">Multiple Tables or New Table </a></h2>
 <table class="function_list">
 	<tr>
 	<td class="name" nowrap><a href="#merge">merge (d, s)</a></td>
-	<td class="summary">copy keys, values, and metatable from one table to another, using copy()</td>
+	<td class="summary">Copy keys, values, and metatable from one table to another, using copy()</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#copy">copy (o)</a></td>
-	<td class="summary">create a copy of a variable, a deep copy if it's a table, using merge()</td>
+	<td class="summary">Create a copy of a variable, a deep copy if it's a table, using merge()</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#copy_merge">copy_merge (o[, t])</a></td>
-	<td class="summary">create a copy of a variable, a deep copy if it's a table, optionally merging another table over the copy</td>
+	<td class="summary">Create a copy of a variable, a deep copy if it's a table, optionally merging another table over the copy</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#table_copy">table_copy (o)</a></td>
-	<td class="summary">create a deep copy of a table</td>
+	<td class="summary">Create a deep copy of a table</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#table_compare">table_compare (a, b)</a></td>
-	<td class="summary">recursive/deep comparison of two tables</td>
+	<td class="summary">Recursive/deep comparison of two tables</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#table_compare_meta">table_compare_meta (a, b)</a></td>
-	<td class="summary">recursive/deep comparison of two tables and their metatables</td>
+	<td class="summary">Recursive/deep comparison of two tables and their metatables</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#concat">concat (d, s)</a></td>
-	<td class="summary">add values from one array to the end of another</td>
+	<td class="summary">Add values from one array to the end of another</td>
 	</tr>
 </table>
 <h2><a href="#Sorting_Functions">Sorting Functions </a></h2>
 <table class="function_list">
 	<tr>
 	<td class="name" nowrap><a href="#shuffle">shuffle (a)</a></td>
-	<td class="summary">randomize the order of a table using fisher-yates shuffle</td>
+	<td class="summary">Randomize the order of a table using fisher-yates shuffle</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#sort_slow">sort_slow (a)</a></td>
-	<td class="summary">sort an array in place, the slowest way</td>
+	<td class="summary">Sort an array in place, the slowest way</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#sort_slow_reverse">sort_slow_reverse (a)</a></td>
-	<td class="summary">sort an array in place, the slowest way</td>
+	<td class="summary">Sort an array in place, in descending order, the slowest way</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#sort_slow_func">sort_slow_func (a, f)</a></td>
-	<td class="summary">sort an array in place, the slowest way, with a key function</td>
+	<td class="summary">Sort an array in place, the slowest way, with a key function</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#sort_slow_func_unsafe">sort_slow_func_unsafe (a, f)</a></td>
-	<td class="summary">sort an array in place, the slowest way, with a key function</td>
+	<td class="summary">Sort an array in place, the slowest way, with a key function</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#sort_slow_cmp">sort_slow_cmp (a, f)</a></td>
-	<td class="summary">sort an array in place, the slowest way, with a comparison function</td>
+	<td class="summary">Sort an array in place, the slowest way, with a comparison function</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#sort_quick">sort_quick (a[, i[, j]])</a></td>
-	<td class="summary">sort an array in place, modified quicksort</td>
+	<td class="summary">Sort an array in place, modified quicksort
+ quicksort chooses a pivot value, rearranges the table into {vals&lt;=pivot, pivot, vals>=pivot}, recurses on both sides</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#sort_quick_func">sort_quick_func (a, f[, i[, j]])</a></td>
-	<td class="summary">sort an array in place, modified quicksort, with a key function</td>
+	<td class="summary">Sort an array in place, modified quicksort, with a key function</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#sort_quick_func">sort_quick_func (a, f[, i[, j]])</a></td>
-	<td class="summary">sort an array in place, modified quicksort, with a comparison function</td>
+	<td class="summary">Sort an array in place, modified quicksort, with a comparison function</td>
 	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#sort">sort</a></td>
+	<td class="summary">Default sort function</td>
+	</tr>
+</table>
+<h2><a href="#Filter">Filter </a></h2>
+<table class="function_list">
 	<tr>
 	<td class="name" nowrap><a href="#filter">filter (t, check)</a></td>
-	<td class="summary">filter a table, keeping only key,value pairs that pass a check function
+	<td class="summary">Filter a table, keeping only key,value pairs that pass a check function
  return a new table with the same keys/indices kept from the original</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#filter_array">filter_array (t, check)</a></td>
-	<td class="summary">filter an array, keeping only values that pass check function
+	<td class="summary">Filter an array, keeping only values that pass check function
  return a new array with sequential indices</td>
 	</tr>
+</table>
+<h2><a href="#Predicate">Predicate </a></h2>
+<table class="function_list">
 	<tr>
-	<td class="name" nowrap><a href="#any">any (t)</a></td>
-	<td class="summary">determine if any value in a table is truthy</td>
+	<td class="name" nowrap><a href="#pred_any">pred_any (t)</a></td>
+	<td class="summary">Determine if any value in a table is truthy</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#any_func">any_func (t, check)</a></td>
-	<td class="summary">determine if any value in a table passes check function</td>
+	<td class="name" nowrap><a href="#pred_any_func">pred_any_func (t, check)</a></td>
+	<td class="summary">Determine if any value in a table passes check function</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#all">all (t)</a></td>
-	<td class="summary">determine if every value in a table is truthy</td>
+	<td class="name" nowrap><a href="#pred_all">pred_all (t)</a></td>
+	<td class="summary">Determine if every value in a table is truthy</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#all_func">all_func (t, check)</a></td>
-	<td class="summary">determine if every value in a table is truthy or passes check function</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#all_reverse">all_reverse (t)</a></td>
-	<td class="summary">iterate an array in reverse
- used just like all()</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#reverse">reverse (a)</a></td>
-	<td class="summary">reverses the items in an array</td>
+	<td class="name" nowrap><a href="#pred_all_func">pred_all_func (t, check)</a></td>
+	<td class="summary">Determine if every value in a table is truthy or passes check function</td>
 	</tr>
 </table>
 
@@ -223,15 +240,178 @@
 <br/>
 
 
-    <h2 class="section-header "><a name="Functions"></a>Functions</h2>
+    <h2 class="section-header "><a name="Miscellaneous"></a>Miscellaneous </h2>
 
     <dl class="function">
+    <dt>
+    <a name = "all_reverse"></a>
+    <strong>all_reverse (t)</strong>
+    </dt>
+    <dd>
+    Iterate an array in reverse
+ used just like all()
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">t</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "reverse"></a>
+    <strong>reverse (a)</strong>
+    </dt>
+    <dd>
+    Reverse the items in an array, in place
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">a</span>
+            <span class="types"><span class="type">array</span></span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+</dl>
+    <h2 class="section-header "><a name="One_Table_or_Key_Value"></a>One Table or Key/Value </h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "get"></a>
+    <strong>get (t, k[, d])</strong>
+    </dt>
+    <dd>
+    Get value from table by key, with default
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">t</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.6">table</a></span>
+         The table to reference
+        </li>
+        <li><span class="parameter">k</span>
+         The key to access
+        </li>
+        <li><span class="parameter">d</span>
+         A default value to return if the key is not present in the table
+         (<em>optional</em>)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        Either the associated value or the default
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "add_"></a>
+    <strong>add_ (a, v)</strong>
+    </dt>
+    <dd>
+    Add value to end of array
+ supposedly faster but less safe than add(a,v)
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">a</span>
+            <span class="types"><span class="type">array</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">v</span>
+         value to add
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "del_r"></a>
+    <strong>del_r (a, v)</strong>
+    </dt>
+    <dd>
+    Delete value from array, do not preserve order
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">a</span>
+            <span class="types"><span class="type">array</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">v</span>
+         value to delete
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "deli_r"></a>
+    <strong>deli_r (a, i)</strong>
+    </dt>
+    <dd>
+    Delete index from array, do not preserve order
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">a</span>
+            <span class="types"><span class="type">array</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">i</span>
+            <span class="types"><span class="type">integer</span></span>
+         index
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
     <dt>
     <a name = "shift"></a>
     <strong>shift (a)</strong>
     </dt>
     <dd>
-    delete and return the first item from array
+    Delete and return the first item from array
 
 
     <h3>Parameters:</h3>
@@ -259,7 +439,7 @@
     <strong>unshift (a, v)</strong>
     </dt>
     <dd>
-    add value to the beginning of array
+    Add value to the beginning of array
 
 
     <h3>Parameters:</h3>
@@ -285,7 +465,7 @@
     <strong>rand_array (a)</strong>
     </dt>
     <dd>
-    select a random value from an array
+    Select a random value from an array
 
 
     <h3>Parameters:</h3>
@@ -307,91 +487,7 @@
 
 </dd>
 </dl>
-    <h2 class="section-header "><a name="Local_Functions"></a>Local Functions</h2>
-
-    <dl class="function">
-    <dt>
-    <a name = "add_"></a>
-    <strong>add_ (a, v)</strong>
-    </dt>
-    <dd>
-    add value to end of array
- supposedly faster but less safe than add(a,v)
-
-
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">a</span>
-            <span class="types"><span class="type">array</span></span>
-
-
-
-        </li>
-        <li><span class="parameter">v</span>
-         value to add
-        </li>
-    </ul>
-
-
-
-
-
-</dd>
-    <dt>
-    <a name = "del_r"></a>
-    <strong>del_r (a, v)</strong>
-    </dt>
-    <dd>
-    delete value from array, do not preserve order
-
-
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">a</span>
-            <span class="types"><span class="type">array</span></span>
-
-
-
-        </li>
-        <li><span class="parameter">v</span>
-         value to delete
-        </li>
-    </ul>
-
-
-
-
-
-</dd>
-    <dt>
-    <a name = "deli_r"></a>
-    <strong>deli_r (a, i)</strong>
-    </dt>
-    <dd>
-    delete index from array, do not preserve order
-
-
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">a</span>
-            <span class="types"><span class="type">array</span></span>
-
-
-
-        </li>
-        <li><span class="parameter">i</span>
-            <span class="types"><span class="type">integer</span></span>
-         index
-        </li>
-    </ul>
-
-
-
-
-
-</dd>
-</dl>
-    <h2 class="section-header "><a name="Functions_that_operate_on_two_or_more_tables__or_create_a_new_table"></a>Functions that operate on two or more tables, or create a new table </h2>
+    <h2 class="section-header "><a name="Multiple_Tables_or_New_Table"></a>Multiple Tables or New Table </h2>
 
     <dl class="function">
     <dt>
@@ -399,7 +495,7 @@
     <strong>merge (d, s)</strong>
     </dt>
     <dd>
-    copy keys, values, and metatable from one table to another, using copy()
+    Copy keys, values, and metatable from one table to another, using copy()
 
 
     <h3>Parameters:</h3>
@@ -430,7 +526,7 @@
     <strong>copy (o)</strong>
     </dt>
     <dd>
-    create a copy of a variable, a deep copy if it's a table, using merge()
+    Create a copy of a variable, a deep copy if it's a table, using merge()
 
 
     <h3>Parameters:</h3>
@@ -455,7 +551,7 @@
     <strong>copy_merge (o[, t])</strong>
     </dt>
     <dd>
-    create a copy of a variable, a deep copy if it's a table, optionally merging another table over the copy
+    Create a copy of a variable, a deep copy if it's a table, optionally merging another table over the copy
 
 
     <h3>Parameters:</h3>
@@ -485,7 +581,7 @@
     <strong>table_copy (o)</strong>
     </dt>
     <dd>
-    create a deep copy of a table
+    Create a deep copy of a table
 
 
     <h3>Parameters:</h3>
@@ -512,7 +608,7 @@
     <strong>table_compare (a, b)</strong>
     </dt>
     <dd>
-    recursive/deep comparison of two tables
+    Recursive/deep comparison of two tables
 
 
     <h3>Parameters:</h3>
@@ -547,7 +643,7 @@
     <strong>table_compare_meta (a, b)</strong>
     </dt>
     <dd>
-    recursive/deep comparison of two tables and their metatables
+    Recursive/deep comparison of two tables and their metatables
 
 
     <h3>Parameters:</h3>
@@ -582,7 +678,7 @@
     <strong>concat (d, s)</strong>
     </dt>
     <dd>
-    add values from one array to the end of another
+    Add values from one array to the end of another
 
 
     <h3>Parameters:</h3>
@@ -611,7 +707,7 @@
     <strong>shuffle (a)</strong>
     </dt>
     <dd>
-    randomize the order of a table using fisher-yates shuffle
+    Randomize the order of a table using fisher-yates shuffle
 
 
     <h3>Parameters:</h3>
@@ -632,7 +728,7 @@
     <strong>sort_slow (a)</strong>
     </dt>
     <dd>
-    sort an array in place, the slowest way
+    Sort an array in place, the slowest way
 
 
     <h3>Parameters:</h3>
@@ -653,7 +749,7 @@
     <strong>sort_slow_reverse (a)</strong>
     </dt>
     <dd>
-    sort an array in place, the slowest way
+    Sort an array in place, in descending order, the slowest way
 
 
     <h3>Parameters:</h3>
@@ -674,7 +770,7 @@
     <strong>sort_slow_func (a, f)</strong>
     </dt>
     <dd>
-    sort an array in place, the slowest way, with a key function
+    Sort an array in place, the slowest way, with a key function
 
 
     <h3>Parameters:</h3>
@@ -685,7 +781,7 @@
         </li>
         <li><span class="parameter">f</span>
             <span class="types"><span class="type">function</span></span>
-         function to extract or calculate a comparison key for each value
+         function to extract or calculate a comparison key for each value, run once per value
         </li>
     </ul>
 
@@ -699,7 +795,7 @@
     <strong>sort_slow_func_unsafe (a, f)</strong>
     </dt>
     <dd>
-    sort an array in place, the slowest way, with a key function
+    Sort an array in place, the slowest way, with a key function
 
 
     <h3>Parameters:</h3>
@@ -710,7 +806,7 @@
         </li>
         <li><span class="parameter">f</span>
             <span class="types"><span class="type">function</span></span>
-         function to extract or calculate a comparison key for each value
+         function to extract or calculate a comparison key for each valuem run multiple times per value
         </li>
     </ul>
 
@@ -724,7 +820,7 @@
     <strong>sort_slow_cmp (a, f)</strong>
     </dt>
     <dd>
-    sort an array in place, the slowest way, with a comparison function
+    Sort an array in place, the slowest way, with a comparison function
 
 
     <h3>Parameters:</h3>
@@ -749,7 +845,8 @@
     <strong>sort_quick (a[, i[, j]])</strong>
     </dt>
     <dd>
-    sort an array in place, modified quicksort
+    Sort an array in place, modified quicksort
+ quicksort chooses a pivot value, rearranges the table into {vals&lt;=pivot, pivot, vals>=pivot}, recurses on both sides
 
 
     <h3>Parameters:</h3>
@@ -766,7 +863,6 @@
         <li><span class="parameter">j</span>
             <span class="types"><span class="type">number</span></span>
          ending index of slice to sort
- quicksort chooses a pivot value, rearranges the table into {vals&lt;=pivot, pivot, vals>=pivot}, recurses on both sides
          (<em>optional</em>)
         </li>
     </ul>
@@ -781,7 +877,7 @@
     <strong>sort_quick_func (a, f[, i[, j]])</strong>
     </dt>
     <dd>
-    sort an array in place, modified quicksort, with a key function
+    Sort an array in place, modified quicksort, with a key function
 
 
     <h3>Parameters:</h3>
@@ -816,7 +912,7 @@
     <strong>sort_quick_func (a, f[, i[, j]])</strong>
     </dt>
     <dd>
-    sort an array in place, modified quicksort, with a comparison function
+    Sort an array in place, modified quicksort, with a comparison function
 
 
     <h3>Parameters:</h3>
@@ -847,11 +943,29 @@
 
 </dd>
     <dt>
+    <a name = "sort"></a>
+    <strong>sort</strong>
+    </dt>
+    <dd>
+    Default sort function
+
+
+
+
+
+
+
+</dd>
+</dl>
+    <h2 class="section-header "><a name="Filter"></a>Filter </h2>
+
+    <dl class="function">
+    <dt>
     <a name = "filter"></a>
     <strong>filter (t, check)</strong>
     </dt>
     <dd>
-    filter a table, keeping only key,value pairs that pass a check function
+    Filter a table, keeping only key,value pairs that pass a check function
  return a new table with the same keys/indices kept from the original
 
 
@@ -879,7 +993,7 @@
     <strong>filter_array (t, check)</strong>
     </dt>
     <dd>
-    filter an array, keeping only values that pass check function
+    Filter an array, keeping only values that pass check function
  return a new array with sequential indices
 
 
@@ -902,12 +1016,16 @@
 
 
 </dd>
+</dl>
+    <h2 class="section-header "><a name="Predicate"></a>Predicate </h2>
+
+    <dl class="function">
     <dt>
-    <a name = "any"></a>
-    <strong>any (t)</strong>
+    <a name = "pred_any"></a>
+    <strong>pred_any (t)</strong>
     </dt>
     <dd>
-    determine if any value in a table is truthy
+    Determine if any value in a table is truthy
 
 
     <h3>Parameters:</h3>
@@ -925,60 +1043,11 @@
 
 </dd>
     <dt>
-    <a name = "any_func"></a>
-    <strong>any_func (t, check)</strong>
+    <a name = "pred_any_func"></a>
+    <strong>pred_any_func (t, check)</strong>
     </dt>
     <dd>
-    determine if any value in a table passes check function
-
-
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">t</span>
-
-
-
-        </li>
-        <li><span class="parameter">check</span>
-
-
-
-        </li>
-    </ul>
-
-
-
-
-
-</dd>
-    <dt>
-    <a name = "all"></a>
-    <strong>all (t)</strong>
-    </dt>
-    <dd>
-    determine if every value in a table is truthy
-
-
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">t</span>
-
-
-
-        </li>
-    </ul>
-
-
-
-
-
-</dd>
-    <dt>
-    <a name = "all_func"></a>
-    <strong>all_func (t, check)</strong>
-    </dt>
-    <dd>
-    determine if every value in a table is truthy or passes check function
+    Determine if any value in a table passes check function
 
 
     <h3>Parameters:</h3>
@@ -1001,12 +1070,11 @@
 
 </dd>
     <dt>
-    <a name = "all_reverse"></a>
-    <strong>all_reverse (t)</strong>
+    <a name = "pred_all"></a>
+    <strong>pred_all (t)</strong>
     </dt>
     <dd>
-    iterate an array in reverse
- used just like all()
+    Determine if every value in a table is truthy
 
 
     <h3>Parameters:</h3>
@@ -1024,17 +1092,21 @@
 
 </dd>
     <dt>
-    <a name = "reverse"></a>
-    <strong>reverse (a)</strong>
+    <a name = "pred_all_func"></a>
+    <strong>pred_all_func (t, check)</strong>
     </dt>
     <dd>
-    reverses the items in an array
+    Determine if every value in a table is truthy or passes check function
 
 
     <h3>Parameters:</h3>
     <ul>
-        <li><span class="parameter">a</span>
-            <span class="types"><span class="type">array</span></span>
+        <li><span class="parameter">t</span>
+
+
+
+        </li>
+        <li><span class="parameter">check</span>
 
 
 
@@ -1053,7 +1125,7 @@
 </div> <!-- id="main" -->
 <div id="about">
 <i>generated by <a href="http://github.com/lunarmodules/LDoc">LDoc 1.5.0</a></i>
-<i style="float:right;">Last updated 2024-09-08 00:27:21 </i>
+<i style="float:right;">Last updated 2024-09-08 02:54:25 </i>
 </div> <!-- id="about" -->
 </div> <!-- id="container" -->
 </body>

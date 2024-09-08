@@ -33,8 +33,10 @@
 
 <h2>Contents</h2>
 <ul>
-<li><a href="#Fields">Fields</a></li>
 <li><a href="#Local_Functions">Local Functions</a></li>
+<li><a href="#Miscellaneous">Miscellaneous </a></li>
+<li><a href="#tostr">tostr </a></li>
+<li><a href="#Run_Length_Encoding">Run Length Encoding </a></li>
 </ul>
 
 
@@ -80,74 +82,129 @@
 </p>
 
 
-<h2><a href="#Fields">Fields</a></h2>
-<table class="function_list">
-	<tr>
-	<td class="name" nowrap><a href="#_tostr">_tostr</a></td>
-	<td class="summary">replacement tostr() with additional features
- all versions ", ..." can be removed to save tokens if you never use tostr(number,true)</td>
-	</tr>
-</table>
 <h2><a href="#Local_Functions">Local Functions</a></h2>
 <table class="function_list">
 	<tr>
 	<td class="name" nowrap><a href="#repr">repr (o)</a></td>
-	<td class="summary">Unambiguous string serialization of arbitrary objects
- alternate condensed strings included as comments</td>
+	<td class="summary">Unambiguous string serialization of arbitrary objects</td>
 	</tr>
+</table>
+<h2><a href="#Miscellaneous">Miscellaneous </a></h2>
+<table class="function_list">
 	<tr>
 	<td class="name" nowrap><a href="#int32_to_str">int32_to_str (n)</a></td>
-	<td class="summary">returns n*32768 as a string
- 0x0000.0001 is "1", 0x7fff.ffff is "2147483647", and 0x8000.0000 is "-2147483648"</td>
+	<td class="summary">Represent n*32768 as a string
+ <code>0x0000.0001</code> is "1", <code>0x7fff.ffff</code> is "2147483647", and <code>0x8000.0000</code> is "-2147483648"</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#hex_unpadded">hex_unpadded (v)</a></td>
-	<td class="summary">formats a number as hexadecimal with no 0x prefix or zero padding
- originally from https://www.lexaloffle.com/bbs/?tid=30910</td>
+	<td class="summary">Format a number as hexadecimal with no 0x prefix or zero padding</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#hex_unpadded">hex_unpadded (v, n)</a></td>
+	<td class="summary">Format a number as hexadecimal with no 0x prefix or zero padding
+ Optionally prints minus prefix instead of twos complement negative numbers</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#binary">binary (n)</a></td>
-	<td class="summary">formats a number as binary</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#rle_decode">rle_decode (str)</a></td>
-	<td class="summary">turns "ab2c4de" into "abccdddde"</td>
+	<td class="summary">Format a number as binary</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#replace">replace (str, fnd, rep)</a></td>
-	<td class="summary">replace fnd with rep in str
- 58 tokens
- originally from https://www.lexaloffle.com/bbs/?pid=72818
- "yes.</td>
+	<td class="summary">Replace fnd with rep in str
+ 58 tokens</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#replace">replace (str, fnd, rep)</a></td>
+	<td class="summary">Replace fnd with rep in str
+ 66 tokens, 5% faster than 58 token implementation</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#char_in_string">char_in_string (c, s)</a></td>
-	<td class="summary">check if a char exists in a string</td>
+	<td class="summary">Check if a char exists in a string</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#wrap">wrap (str)</a></td>
-	<td class="summary">wrap a long string to fit on the screen</td>
+	<td class="summary">Wrap a long string to fit on the screen</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#wrap">wrap (str, m)</a></td>
+	<td class="summary">Wrap a long string to fit on the screen
+ this version supports wide glyphs, although they might extend past the end of the screen
+ this version supports an optional max width</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#split">split (str, delim)</a></td>
-	<td class="summary">split a string on a delimiter, return a list of strings
- split("abc,def,",",") returns {"abc","def",""}</td>
+	<td class="summary">Split a string on a delimiter, return a list of strings
+ <code>split(&quot;abc,def,&quot;,&quot;,&quot;)</code> returns <code>{&quot;abc&quot;,&quot;def&quot;,&quot;&quot;}</code></td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#splitd">splitd (input, delim, ...)</a></td>
+	<td class="summary">Split a string on multiple delimiters, return an n-dimensional array of strings
+ <code>splitd(&quot;,a,b;c,d|e,f;&quot;,&quot;|&quot;,&quot;;&quot;,&quot;,&quot;)</code> returns <code>{{{&quot;&quot;,&quot;a&quot;,&quot;b&quot;},{&quot;c&quot;,&quot;d&quot;}},{{&quot;e&quot;,&quot;f&quot;},{}}}</code></td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#str_center">str_center (str, x)</a></td>
-	<td class="summary">center align string at given x coordinate
+	<td class="summary">Center align string at given x coordinate
  x defaults to 64 (screen center)</td>
 	</tr>
 	<tr>
+	<td class="name" nowrap><a href="#str_center">str_center (str, x)</a></td>
+	<td class="summary">Center align string at given x coordinate
+ x defaults to 64 (screen center)
+ support for wide glyphs</td>
+	</tr>
+	<tr>
 	<td class="name" nowrap><a href="#ssub">ssub (str, idx, len)</a></td>
-	<td class="summary">substring function with length instead of end position
- ssub(a,b) == sub(a,b,b)
- ssub(a,b,c) == sub(a,b,b+c)</td>
+	<td class="summary">Substring function with length instead of end position
+ <code>ssub(a,b) == sub(a,b,b)</code>
+ <code>ssub(a,b,c) == sub(a,b,b+c)</code></td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#starts_with">starts_with (str, prefix)</a></td>
-	<td class="summary">Checks if a string starts with a given prefix
+	<td class="summary">Check if a string starts with a given prefix
  returns true if it does, false otherwise</td>
+	</tr>
+</table>
+<h2><a href="#tostr">tostr </a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#tostr_tostring">tostr_tostring (n, ...)</a></td>
+	<td class="summary">tostr
+ respects __tostring</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#tostr_tables">tostr_tables (t, ...)</a></td>
+	<td class="summary">tostr
+ recursive handling of tables
+ all keys unordered</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#tostr_arrays_tables">tostr_arrays_tables (n, ...)</a></td>
+	<td class="summary">tostr
+ recursive handling of tables
+ array values in order, remaining keys unordered</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#tostr_tostring_arrays_tables">tostr_tostring_arrays_tables (n, ...)</a></td>
+	<td class="summary">tostr
+ respects __tostring
+ recursive handling of tables
+ array values in order, remaining keys unordered</td>
+	</tr>
+</table>
+<h2><a href="#Run_Length_Encoding">Run Length Encoding </a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#rle_decode">rle_decode (str)</a></td>
+	<td class="summary">RLE decode
+ turns "ab2c4de" into "abccdddde"</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#rle_decode">rle_decode (str)</a></td>
+	<td class="summary">RLE encode
+ turns "abccdddde" into "ab2c4de"
+ support for escaped digits and backslash as \1 ...</td>
 	</tr>
 </table>
 
@@ -155,25 +212,6 @@
 <br/>
 
 
-    <h2 class="section-header "><a name="Fields"></a>Fields</h2>
-
-    <dl class="function">
-    <dt>
-    <a name = "_tostr"></a>
-    <strong>_tostr</strong>
-    </dt>
-    <dd>
-    replacement tostr() with additional features
- all versions ", ..." can be removed to save tokens if you never use tostr(number,true)
-
-
-
-
-
-
-
-</dd>
-</dl>
     <h2 class="section-header "><a name="Local_Functions"></a>Local Functions</h2>
 
     <dl class="function">
@@ -183,7 +221,6 @@
     </dt>
     <dd>
     Unambiguous string serialization of arbitrary objects
- alternate condensed strings included as comments
 
 
     <h3>Parameters:</h3>
@@ -203,13 +240,17 @@
 
 
 </dd>
+</dl>
+    <h2 class="section-header "><a name="Miscellaneous"></a>Miscellaneous </h2>
+
+    <dl class="function">
     <dt>
     <a name = "int32_to_str"></a>
     <strong>int32_to_str (n)</strong>
     </dt>
     <dd>
-    returns n*32768 as a string
- 0x0000.0001 is "1", 0x7fff.ffff is "2147483647", and 0x8000.0000 is "-2147483648"
+    Represent n*32768 as a string
+ <code>0x0000.0001</code> is "1", <code>0x7fff.ffff</code> is "2147483647", and <code>0x8000.0000</code> is "-2147483648"
 
 
     <h3>Parameters:</h3>
@@ -231,13 +272,39 @@
     <strong>hex_unpadded (v)</strong>
     </dt>
     <dd>
-    formats a number as hexadecimal with no 0x prefix or zero padding
- originally from https://www.lexaloffle.com/bbs/?tid=30910
+    Format a number as hexadecimal with no 0x prefix or zero padding
 
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">v</span>
+            <span class="types"><span class="type">originally from https</span></span>
+        //www.lexaloffle.com/bbs/?tid=30910
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "hex_unpadded"></a>
+    <strong>hex_unpadded (v, n)</strong>
+    </dt>
+    <dd>
+    Format a number as hexadecimal with no 0x prefix or zero padding
+ Optionally prints minus prefix instead of twos complement negative numbers
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">v</span>
+
+
+
+        </li>
+        <li><span class="parameter">n</span>
 
 
 
@@ -254,7 +321,7 @@
     <strong>binary (n)</strong>
     </dt>
     <dd>
-    formats a number as binary
+    Format a number as binary
 
 
     <h3>Parameters:</h3>
@@ -272,19 +339,29 @@
 
 </dd>
     <dt>
-    <a name = "rle_decode"></a>
-    <strong>rle_decode (str)</strong>
+    <a name = "replace"></a>
+    <strong>replace (str, fnd, rep)</strong>
     </dt>
     <dd>
-    turns "ab2c4de" into "abccdddde"
+    Replace fnd with rep in str
+ 58 tokens
 
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">str</span>
+            <span class="types"><span class="type">originally from https</span></span>
 
 
 
+        </li>
+        <li><span class="parameter">fnd</span>
+
+
+
+        </li>
+        <li><span class="parameter">rep</span>
+        //www.lexaloffle.com/bbs/?pid=72818 "yes. please use it!" - shiftalow [2020-02-07 02:19]
         </li>
     </ul>
 
@@ -298,10 +375,8 @@
     <strong>replace (str, fnd, rep)</strong>
     </dt>
     <dd>
-    replace fnd with rep in str
- 58 tokens
- originally from https://www.lexaloffle.com/bbs/?pid=72818
- "yes.  please use it!" - shiftalow [2020-02-07 02:19]
+    Replace fnd with rep in str
+ 66 tokens, 5% faster than 58 token implementation
 
 
     <h3>Parameters:</h3>
@@ -333,7 +408,7 @@
     <strong>char_in_string (c, s)</strong>
     </dt>
     <dd>
-    check if a char exists in a string
+    Check if a char exists in a string
 
 
     <h3>Parameters:</h3>
@@ -360,7 +435,7 @@
     <strong>wrap (str)</strong>
     </dt>
     <dd>
-    wrap a long string to fit on the screen
+    Wrap a long string to fit on the screen
 
 
     <h3>Parameters:</h3>
@@ -378,12 +453,41 @@
 
 </dd>
     <dt>
+    <a name = "wrap"></a>
+    <strong>wrap (str, m)</strong>
+    </dt>
+    <dd>
+    Wrap a long string to fit on the screen
+ this version supports wide glyphs, although they might extend past the end of the screen
+ this version supports an optional max width
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">str</span>
+
+
+
+        </li>
+        <li><span class="parameter">m</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
     <a name = "split"></a>
     <strong>split (str, delim)</strong>
     </dt>
     <dd>
-    split a string on a delimiter, return a list of strings
- split("abc,def,",",") returns {"abc","def",""}
+    Split a string on a delimiter, return a list of strings
+ <code>split(&quot;abc,def,&quot;,&quot;,&quot;)</code> returns <code>{&quot;abc&quot;,&quot;def&quot;,&quot;&quot;}</code>
 
 
     <h3>Parameters:</h3>
@@ -406,12 +510,74 @@
 
 </dd>
     <dt>
+    <a name = "splitd"></a>
+    <strong>splitd (input, delim, ...)</strong>
+    </dt>
+    <dd>
+    Split a string on multiple delimiters, return an n-dimensional array of strings
+ <code>splitd(&quot;,a,b;c,d|e,f;&quot;,&quot;|&quot;,&quot;;&quot;,&quot;,&quot;)</code> returns <code>{{{&quot;&quot;,&quot;a&quot;,&quot;b&quot;},{&quot;c&quot;,&quot;d&quot;}},{{&quot;e&quot;,&quot;f&quot;},{}}}</code>
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">input</span>
+
+
+
+        </li>
+        <li><span class="parameter">delim</span>
+
+
+
+        </li>
+        <li><span class="parameter">...</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
     <a name = "str_center"></a>
     <strong>str_center (str, x)</strong>
     </dt>
     <dd>
-    center align string at given x coordinate
+    Center align string at given x coordinate
  x defaults to 64 (screen center)
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">str</span>
+
+
+
+        </li>
+        <li><span class="parameter">x</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "str_center"></a>
+    <strong>str_center (str, x)</strong>
+    </dt>
+    <dd>
+    Center align string at given x coordinate
+ x defaults to 64 (screen center)
+ support for wide glyphs
 
 
     <h3>Parameters:</h3>
@@ -438,9 +604,9 @@
     <strong>ssub (str, idx, len)</strong>
     </dt>
     <dd>
-    substring function with length instead of end position
- ssub(a,b) == sub(a,b,b)
- ssub(a,b,c) == sub(a,b,b+c)
+    Substring function with length instead of end position
+ <code>ssub(a,b) == sub(a,b,b)</code>
+ <code>ssub(a,b,c) == sub(a,b,b+c)</code>
 
 
     <h3>Parameters:</h3>
@@ -472,7 +638,7 @@
     <strong>starts_with (str, prefix)</strong>
     </dt>
     <dd>
-    Checks if a string starts with a given prefix
+    Check if a string starts with a given prefix
  returns true if it does, false otherwise
 
 
@@ -496,13 +662,185 @@
 
 </dd>
 </dl>
+    <h2 class="section-header "><a name="tostr"></a>tostr </h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "tostr_tostring"></a>
+    <strong>tostr_tostring (n, ...)</strong>
+    </dt>
+    <dd>
+    tostr
+ respects __tostring
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">n</span>
+
+
+
+        </li>
+        <li><span class="parameter">...</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "tostr_tables"></a>
+    <strong>tostr_tables (t, ...)</strong>
+    </dt>
+    <dd>
+    tostr
+ recursive handling of tables
+ all keys unordered
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">t</span>
+
+
+
+        </li>
+        <li><span class="parameter">...</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "tostr_arrays_tables"></a>
+    <strong>tostr_arrays_tables (n, ...)</strong>
+    </dt>
+    <dd>
+    tostr
+ recursive handling of tables
+ array values in order, remaining keys unordered
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">n</span>
+
+
+
+        </li>
+        <li><span class="parameter">...</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "tostr_tostring_arrays_tables"></a>
+    <strong>tostr_tostring_arrays_tables (n, ...)</strong>
+    </dt>
+    <dd>
+    tostr
+ respects __tostring
+ recursive handling of tables
+ array values in order, remaining keys unordered
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">n</span>
+
+
+
+        </li>
+        <li><span class="parameter">...</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+</dl>
+    <h2 class="section-header "><a name="Run_Length_Encoding"></a>Run Length Encoding </h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "rle_decode"></a>
+    <strong>rle_decode (str)</strong>
+    </dt>
+    <dd>
+    RLE decode
+ turns "ab2c4de" into "abccdddde"
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">str</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "rle_decode"></a>
+    <strong>rle_decode (str)</strong>
+    </dt>
+    <dd>
+    RLE encode
+ turns "abccdddde" into "ab2c4de"
+ support for escaped digits and backslash as \1 ...  \9 and \\
+ turns "a3\12bc" into "a111bbc"
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">str</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+</dl>
 
 
 </div> <!-- id="content" -->
 </div> <!-- id="main" -->
 <div id="about">
 <i>generated by <a href="http://github.com/lunarmodules/LDoc">LDoc 1.5.0</a></i>
-<i style="float:right;">Last updated 2024-09-08 00:27:21 </i>
+<i style="float:right;">Last updated 2024-09-08 02:54:25 </i>
 </div> <!-- id="about" -->
 </div> <!-- id="container" -->
 </body>

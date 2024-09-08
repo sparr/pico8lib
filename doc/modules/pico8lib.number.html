@@ -33,7 +33,11 @@
 
 <h2>Contents</h2>
 <ul>
-<li><a href="#Local_Functions">Local Functions</a></li>
+<li><a href="#Fields">Fields</a></li>
+<li><a href="#Random_Functions">Random Functions </a></li>
+<li><a href="#Miscellaneous">Miscellaneous </a></li>
+<li><a href="#Bit_manipulation">Bit manipulation </a></li>
+<li><a href="#Rounding">Rounding </a></li>
 </ul>
 
 
@@ -79,39 +83,102 @@
 </p>
 
 
-<h2><a href="#Local_Functions">Local Functions</a></h2>
+<h2><a href="#Fields">Fields</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#const_number_minfrac">const_number_minfrac</a></td>
+	<td class="summary">Smallest representable positive fraction (<code>1/32768</code>)</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#const_number_maxint">const_number_maxint</a></td>
+	<td class="summary">Maximum representable positive integer (<code>32767</code>)</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#const_number_maxnum">const_number_maxnum</a></td>
+	<td class="summary">Maximum representable positive number (<code>32767 + 32767/32768</code>)</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#const_number_minnum">const_number_minnum</a></td>
+	<td class="summary">Minimum representable negative integer and number (<code>-32768</code>)</td>
+	</tr>
+</table>
+<h2><a href="#Random_Functions">Random Functions </a></h2>
 <table class="function_list">
 	<tr>
 	<td class="name" nowrap><a href="#rand">rand (x)</a></td>
-	<td class="summary">random range functions
- originally inspired by https://www.lexaloffle.com/bbs/?pid=72829
- todo tests</td>
+	<td class="summary">Random value [0 to x-1]
+ such as pixel or grid offsets</td>
 	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#randi">randi (x)</a></td>
+	<td class="summary">Random value [0 to x]
+ such as pixels in/on a rect</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#randp">randp (x)</a></td>
+	<td class="summary">Random value [1 to x-1]
+ such as pixels in a rect</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#randpi">randpi (x)</a></td>
+	<td class="summary">Random value [1 to x]
+ such as lua list indices</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#randb">randb (n, x)</a></td>
+	<td class="summary">Random value [n to x-1]</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#randbi">randbi (n, x)</a></td>
+	<td class="summary">Random value [n to x-1]</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#randfrac">randfrac (n, x)</a></td>
+	<td class="summary">Random value [n to x] for non-integer n and x</td>
+	</tr>
+</table>
+<h2><a href="#Miscellaneous">Miscellaneous </a></h2>
+<table class="function_list">
 	<tr>
 	<td class="name" nowrap><a href="#popcount_loop">popcount_loop (n)</a></td>
-	<td class="summary">count the 1 bits in a number
- this version runs one loop per set bit, 26 tokens
- algorithm from https://graphics.stanford.edu/~seander/bithacks.html</td>
+	<td class="summary">Count the 1 bits in a number
+ This version runs one loop per set bit, 26 tokens</td>
 	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#popcount_magic">popcount_magic (v)</a></td>
+	<td class="summary">Count the 1 bits in a number
+ This version runs in constant time, 42 tokens
+ Constant time is 111% the one-set-bit time of the shorter loop function</td>
+	</tr>
+</table>
+<h2><a href="#Bit_manipulation">Bit manipulation </a></h2>
+<table class="function_list">
 	<tr>
 	<td class="name" nowrap><a href="#rotr8">rotr8 (n, b)</a></td>
-	<td class="summary">rotate an 8-bit integer n to the right by b bits</td>
+	<td class="summary">Rotate an 8-bit integer n to the right by b bits</td>
 	</tr>
 	<tr>
+	<td class="name" nowrap><a href="#rotl8">rotl8 (n, b)</a></td>
+	<td class="summary">Rotate an 8-bit integer n to the left by b bits</td>
+	</tr>
+</table>
+<h2><a href="#Rounding">Rounding </a></h2>
+<table class="function_list">
+	<tr>
 	<td class="name" nowrap><a href="#flrceil">flrceil (x, d)</a></td>
-	<td class="summary">flrceil(x,1) is flr(x), flrceil(x,-1) is ceil(x)</td>
+	<td class="summary">Floor or Ceiling of a number</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#tozero">tozero (n)</a></td>
-	<td class="summary">nearest integer toward zero</td>
+	<td class="summary">Round toward zero</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#toinf">toinf (n)</a></td>
-	<td class="summary">nearest integer toward +/- infinity</td>
+	<td class="summary">Round toward infinity</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#round">round (n)</a></td>
-	<td class="summary">round a number to the nearest integer, 0.5 rounds up</td>
+	<td class="summary">Round to nearest integer, 0.5 rounds toward +Inf</td>
 	</tr>
 </table>
 
@@ -119,7 +186,67 @@
 <br/>
 
 
-    <h2 class="section-header "><a name="Local_Functions"></a>Local Functions</h2>
+    <h2 class="section-header "><a name="Fields"></a>Fields</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "const_number_minfrac"></a>
+    <strong>const_number_minfrac</strong>
+    </dt>
+    <dd>
+    Smallest representable positive fraction (<code>1/32768</code>)
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "const_number_maxint"></a>
+    <strong>const_number_maxint</strong>
+    </dt>
+    <dd>
+    Maximum representable positive integer (<code>32767</code>)
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "const_number_maxnum"></a>
+    <strong>const_number_maxnum</strong>
+    </dt>
+    <dd>
+    Maximum representable positive number (<code>32767 + 32767/32768</code>)
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "const_number_minnum"></a>
+    <strong>const_number_minnum</strong>
+    </dt>
+    <dd>
+    Minimum representable negative integer and number (<code>-32768</code>)
+
+
+
+
+
+
+
+</dd>
+</dl>
+    <h2 class="section-header "><a name="Random_Functions"></a>Random Functions </h2>
 
     <dl class="function">
     <dt>
@@ -127,15 +254,16 @@
     <strong>rand (x)</strong>
     </dt>
     <dd>
-    random range functions
- originally inspired by https://www.lexaloffle.com/bbs/?pid=72829
- todo tests
+    Random value [0 to x-1]
+ such as pixel or grid offsets
 
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">x</span>
-        (0 ... x-1), such as for pixel or grid offsets
+
+
+
         </li>
     </ul>
 
@@ -145,13 +273,80 @@
 
 </dd>
     <dt>
-    <a name = "popcount_loop"></a>
-    <strong>popcount_loop (n)</strong>
+    <a name = "randi"></a>
+    <strong>randi (x)</strong>
     </dt>
     <dd>
-    count the 1 bits in a number
- this version runs one loop per set bit, 26 tokens
- algorithm from https://graphics.stanford.edu/~seander/bithacks.html
+    Random value [0 to x]
+ such as pixels in/on a rect
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">x</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "randp"></a>
+    <strong>randp (x)</strong>
+    </dt>
+    <dd>
+    Random value [1 to x-1]
+ such as pixels in a rect
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">x</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "randpi"></a>
+    <strong>randpi (x)</strong>
+    </dt>
+    <dd>
+    Random value [1 to x]
+ such as lua list indices
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">x</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "randb"></a>
+    <strong>randb (n, x)</strong>
+    </dt>
+    <dd>
+    Random value [n to x-1]
 
 
     <h3>Parameters:</h3>
@@ -161,6 +356,11 @@
 
 
         </li>
+        <li><span class="parameter">x</span>
+
+
+
+        </li>
     </ul>
 
 
@@ -169,11 +369,116 @@
 
 </dd>
     <dt>
+    <a name = "randbi"></a>
+    <strong>randbi (n, x)</strong>
+    </dt>
+    <dd>
+    Random value [n to x-1]
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">n</span>
+
+
+
+        </li>
+        <li><span class="parameter">x</span>
+        (n to x]
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "randfrac"></a>
+    <strong>randfrac (n, x)</strong>
+    </dt>
+    <dd>
+    Random value [n to x] for non-integer n and x
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">n</span>
+
+
+
+        </li>
+        <li><span class="parameter">x</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+</dl>
+    <h2 class="section-header "><a name="Miscellaneous"></a>Miscellaneous </h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "popcount_loop"></a>
+    <strong>popcount_loop (n)</strong>
+    </dt>
+    <dd>
+    Count the 1 bits in a number
+ This version runs one loop per set bit, 26 tokens
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">n</span>
+            <span class="types"><span class="type">algorithm from https</span></span>
+        //graphics.stanford.edu/~seander/bithacks.html
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "popcount_magic"></a>
+    <strong>popcount_magic (v)</strong>
+    </dt>
+    <dd>
+    Count the 1 bits in a number
+ This version runs in constant time, 42 tokens
+ Constant time is 111% the one-set-bit time of the shorter loop function
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">v</span>
+            <span class="types"><span class="type">original implementation from https</span></span>
+        //www.lexaloffle.com/bbs/?pid=72850 [2020-02-06 16:25]  felice: if i post code in a bbs post then it's free for all to use. credit is nice of course if it's significant. algorithm from https://support.amd.com/techdocs/25112.pdf or https://graphics.stanford.edu/~seander/bithacks.html
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+</dl>
+    <h2 class="section-header "><a name="Bit_manipulation"></a>Bit manipulation </h2>
+
+    <dl class="function">
+    <dt>
     <a name = "rotr8"></a>
     <strong>rotr8 (n, b)</strong>
     </dt>
     <dd>
-    rotate an 8-bit integer n to the right by b bits
+    Rotate an 8-bit integer n to the right by b bits
 
 
     <h3>Parameters:</h3>
@@ -196,21 +501,21 @@
 
 </dd>
     <dt>
-    <a name = "flrceil"></a>
-    <strong>flrceil (x, d)</strong>
+    <a name = "rotl8"></a>
+    <strong>rotl8 (n, b)</strong>
     </dt>
     <dd>
-    flrceil(x,1) is flr(x), flrceil(x,-1) is ceil(x)
+    Rotate an 8-bit integer n to the left by b bits
 
 
     <h3>Parameters:</h3>
     <ul>
-        <li><span class="parameter">x</span>
+        <li><span class="parameter">n</span>
 
 
 
         </li>
-        <li><span class="parameter">d</span>
+        <li><span class="parameter">b</span>
 
 
 
@@ -222,12 +527,47 @@
 
 
 </dd>
+</dl>
+    <h2 class="section-header "><a name="Rounding"></a>Rounding </h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "flrceil"></a>
+    <strong>flrceil (x, d)</strong>
+    </dt>
+    <dd>
+    Floor or Ceiling of a number
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">x</span>
+            <span class="types"><span class="type">number</span></span>
+         The number to floor or ceiling
+        </li>
+        <li><span class="parameter">d</span>
+            <span class="types"><span class="type">number</span></span>
+         1 for floor, -1 for ceiling
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">number</span></span>
+        The floor'd or ceiling'd number
+    </ol>
+
+
+
+
+</dd>
     <dt>
     <a name = "tozero"></a>
     <strong>tozero (n)</strong>
     </dt>
     <dd>
-    nearest integer toward zero
+    Round toward zero
 
 
     <h3>Parameters:</h3>
@@ -249,7 +589,7 @@
     <strong>toinf (n)</strong>
     </dt>
     <dd>
-    nearest integer toward +/- infinity
+    Round toward infinity
 
 
     <h3>Parameters:</h3>
@@ -271,7 +611,7 @@
     <strong>round (n)</strong>
     </dt>
     <dd>
-    round a number to the nearest integer, 0.5 rounds up
+    Round to nearest integer, 0.5 rounds toward +Inf
 
 
     <h3>Parameters:</h3>
@@ -295,7 +635,7 @@
 </div> <!-- id="main" -->
 <div id="about">
 <i>generated by <a href="http://github.com/lunarmodules/LDoc">LDoc 1.5.0</a></i>
-<i style="float:right;">Last updated 2024-09-08 00:27:21 </i>
+<i style="float:right;">Last updated 2024-09-08 02:54:25 </i>
 </div> <!-- id="about" -->
 </div> <!-- id="container" -->
 </body>

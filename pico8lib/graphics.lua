@@ -1,14 +1,13 @@
 --- @module graphics
 --- Drawing and sprite manipulation
-
-
--- any function with a color parameter can add the following line
+-- 
+-- Any function with a color parameter can add the following line
 -- to make the color optional and use the pen color by default:
--- c = c or peek(24357) & 15
+-- `c = c or peek(24357) & 15`
 
 
 --- Draw a line connecting two points
--- uses Bresenham's line drawing algorithm
+-- Uses Bresenham's line drawing algorithm
 -- @tparam number x1 X coordinate of starting point of the line
 -- @tparam number y1 Y coordinate of starting point of the line
 -- @tparam number x2 X coordinate of ending point of the line
@@ -34,7 +33,7 @@ end
 
 
 --- Draw a fat line connecting two points
--- uses Bresenham's line drawing algorithm and rectfill
+-- Uses Bresenham's line drawing algorithm and rectfill
 -- @tparam number x1 x coordinate of starting point
 -- @tparam number y1 y coordinate of starting point
 -- @tparam number x2 x coordinate of ending point
@@ -62,8 +61,8 @@ end
 
 
 --- Draw a line connecting two points using a custom draw function
--- uses Bresenham's line drawing algorithm and the custom function for each point on the line
--- line_func(...,pset) is equivalent to line_(...)
+-- Uses Bresenham's line drawing algorithm and the custom function for each point on the line
+-- `line_func(...,pset)` is equivalent to `line_(...)`
 -- @tparam number x1 x coordinate of starting point
 -- @tparam number y1 y coordinate of starting point
 -- @tparam number x2 x coordinate of ending point
@@ -90,44 +89,45 @@ local function line_func(x1, y1, x2, y2, f, c)
 end
 
 
---- draw a 4x4 sprite
--- @tparam number s sprite index
--- @tparam number x x coordinate for sprite placement
--- @tparam number y y coordinate for sprite placement
+--- Draw a 4x4 sprite
+-- @tparam number s Sprite index
+-- @tparam number x X coordinate for sprite placement
+-- @tparam number y Y coordinate for sprite placement
 local function spr4_fast(s, x, y)
  sspr(s % 32 * 4, flr(s / 32) * 4, 4, 4, x, y)
 end
 
---- draw a 4x4 sprite with additional sspr() options
+--- Draw a 4x4 sprite with additional sspr() options
 -- 2.5x the runtime of spr4_fast()
--- @tparam number s sprite index
--- @tparam number x x coordinate for sprite placement
--- @tparam number y y coordinate for sprite placement
--- @tparam[opt=4] number w width to scale the sprite
--- @tparam[opt=4] number h height to scale the sprite
--- @tparam[opt=false] bool flip_h flip the sprite horizontally
--- @tparam[opt=false] bool flip_v flip the sprite vertically
+-- @tparam number s Sprite index
+-- @tparam number x X coordinate for sprite placement
+-- @tparam number y Y coordinate for sprite placement
+-- @tparam[opt=4] number w Width to scale the sprite
+-- @tparam[opt=4] number h Height to scale the sprite
+-- @tparam[opt=false] bool flip_h Flip the sprite horizontally
+-- @tparam[opt=false] bool flip_v Flip the sprite vertically
 local function spr4(s, x, y, w, h, ...)
  sspr(s % 32 * 4, flr(s / 32) * 4, 4, 4, x, y, w or 4, h or 4, ...)
 end
 
 
---- draw a circle of even diameter (2-16)
+--- Draw a circle of even diameter (2-16)
 -- @tparam number s sprite index
 -- @tparam number x x coordinate, top left corner of bounding box
 -- @tparam number y y coordinate, top left corner of bounding box
 -- @tparam number r radius (1-8)
 -- @tparam number c color
--- necessary sprite:
--- 00000888
--- 00088077
--- 00807766
--- 08076655
--- 08760544
--- 80765433
--- 87654302
--- 87654321
 local function circ_even(s, x, y, r, c)
+ -- necessary sprite:
+ -- 00000888
+ -- 00088077
+ -- 00807766
+ -- 08076655
+ -- 08760544
+ -- 80765433
+ -- 87654302
+ -- 87654321
+
  -- if (r < 1 or r > 8) return -- [optional] safety
  -- todo optional code to preserve pal/palt state
  palt(0xFFFF ^^ 1<<(15-r))
@@ -140,22 +140,23 @@ local function circ_even(s, x, y, r, c)
  pal() -- optional if other code makes no expectations about palette or transparency
 end
 
---- draw a filled circle of even diameter (2-16)
--- @tparam number s sprite index
--- @tparam number x x coordinate, top left corner of bounding
--- @tparam number y y coordinate, top left corner of bounding
--- @tparam number r radius (1-8)
--- @tparam number c color
--- necessary sprite:
--- 00000888
--- 00088877
--- 00887766
--- 08876655
--- 08766544
--- 88765433
--- 87654332
--- 87654321
+--- Draw a filled circle of even diameter (2-16)
+-- @tparam number s Sprite index
+-- @tparam number x X coordinate, top left corner of bounding box
+-- @tparam number y Y coordinate, top left corner of bounding box
+-- @tparam number r Radius (1-8)
+-- @tparam number c Color
 local function circfill_even(s, x, y, r, c)
+ -- necessary sprite:
+ -- 00000888
+ -- 00088877
+ -- 00887766
+ -- 08876655
+ -- 08766544
+ -- 88765433
+ -- 87654332
+ -- 87654321
+
  -- if (r < 1 or r > 8) return -- [optional] safety
  -- todo optional code to preserve pal/palt state
  for t = 1, 8 do
@@ -171,22 +172,23 @@ local function circfill_even(s, x, y, r, c)
 end
 
 
---- draw a small circle of even diameter (2-8)
--- @tparam number s sprite index
--- @tparam number x x coordinate, top left corner of bounding
--- @tparam number y y coordinate, top left corner of bounding
--- @tparam number r radius (1-4)
--- @tparam number c color
--- necessary sprite:
--- 00444400
--- 04033040
--- 40322304
--- 43211234
--- 43211234
--- 40322304
--- 04033040
--- 00444400
+--- Draw a small circle of even diameter (2-8)
+-- @tparam number s Sprite index
+-- @tparam number x X coordinate, top left corner of bounding box
+-- @tparam number y Y coordinate, top left corner of bounding box
+-- @tparam number r Radius (1-4)
+-- @tparam number c Color
 local function circ_even_small(s, x, y, r, c)
+ -- necessary sprite:
+ -- 00444400
+ -- 04033040
+ -- 40322304
+ -- 43211234
+ -- 43211234
+ -- 40322304
+ -- 04033040
+ -- 00444400
+
  -- if (r < 1 or r > 4) return -- [optional] safety
  -- todo optional code to preserve pal/palt state
  palt(0xFFFF ^^ 1<<(15-r))
@@ -196,22 +198,23 @@ local function circ_even_small(s, x, y, r, c)
 end
 
 
---- draw a small filled circle of even diameter (2-8)
--- @tparam number s sprite index
--- @tparam number x x coordinate, top left corner of bounding
--- @tparam number y y coordinate, top left corner of bounding
--- @tparam number r radius (1-4)
--- @tparam number c color
--- necessary sprite:
--- 00444400
--- 04433440
--- 44322344
--- 43211234
--- 43211234
--- 44322344
--- 04433440
--- 00444400
+--- Draw a small filled circle of even diameter (2-8)
+-- @tparam number s Sprite index
+-- @tparam number x X coordinate, top left corner of bounding box
+-- @tparam number y Y coordinate, top left corner of bounding box
+-- @tparam number r Radius (1-4)
+-- @tparam number c Color
 local function circfill_even_small(s, x, y, r, c)
+ -- necessary sprite:
+ -- 00444400
+ -- 04433440
+ -- 44322344
+ -- 43211234
+ -- 43211234
+ -- 44322344
+ -- 04433440
+ -- 00444400
+
  -- if (r < 1 or r > 4) return -- [optional] safety
  -- todo optional code to preserve pal/palt state
  for t = 1, 4 do
@@ -223,11 +226,16 @@ local function circfill_even_small(s, x, y, r, c)
 end
 
 
-------------------------------------------------------------------------
+-- from number.lua
 local function flrceil(x, d) return d * flr(x*d) end
--- draws every pixel outside a given circle
--- fixme does not match circ/circfill boundary exactly
+
+--- Draw every pixel outside a given circle
+-- @tparam number x X coordinate, top left corner of bounding box
+-- @tparam number y Y coordinate, top left corner of bounding box
+-- @tparam number r Radius (1-4)
+-- @tparam number c Color
 local function circinverse(x, y, r, c)
+ -- FIXME does not match circ/circfill boundary exactly
  -- -1 and 128 are rectangle bounds
  -- outside the screen so that we don't accidentally draw borders when the other coordinate is also outside
  for lrr = -1, 128, 129 do
@@ -258,8 +266,12 @@ local function circinverse(x, y, r, c)
 end
 
 
-------------------------------------------------------------------------
--- draws every pixel outside a given rectangle
+--- Draw every pixel outside a given rectangle
+-- @tparam number x X coordinate, top left corner of rectangle
+-- @tparam number y Y coordinate, top left corner of rectagle
+-- @tparam number i X coordinate, bottom right corner of rectangle
+-- @tparam number j Y coordinate, bottom right corner of rectangle
+-- @tparam number c Color
 local function rectinverse(x, y, i, j, c)
  if (x > i) x, i = i, x
  if (y > j) y, j = j, y
@@ -270,11 +282,10 @@ local function rectinverse(x, y, i, j, c)
 end
 
 
-------------------------------------------------------------------------
--- fillp with support for x/y offsets to shift the mask
--- original algorithm from https://www.lexaloffle.com/bbs/?tid=30518
 local _fillp = fillp
+--- fillp with support for x/y offsets to shift the mask
 local function fillp(p, x, y)
+ -- original algorithm from https://www.lexaloffle.com/bbs/?tid=30518
  local p, x, y = p or 0, x or 0, y or 0 -- remove[13,36] backward compatibility with fillp(p)
  local p16, x = flr(p), x & 3
  local f, p32 = flr(shr(15, x)) * 0x1111, rotr(p16 + lshr(p16, 16), (y & 3) * 4 + x)
@@ -282,18 +293,21 @@ local function fillp(p, x, y)
 end
 
 
-------------------------------------------------------------------------
--- draw a filled ellipse
--- by @freds72
--- https://www.lexaloffle.com/bbs/?tid=35124
--- permission to share from freds72 on discord
--- find roots of a rotated ellipse
--- and use that to rectfill interior
--- x0/y0: ellipse center
--- h/w: height/width
--- angle
--- c: color
+--- Draw a filled ellipse
+-- @tparam number x0 X coordinate, center of the ellipse
+-- @tparam number y0 Y coordinate, center of the ellipse
+-- @tparam number w Width of the ellipse
+-- @tparam number h Height of the ellipse
+-- @tparam number angle Rotation angle of the ellipse major axis
+-- @tparam number c Color
 local function ellipsefill(x0, y0, w, h, angle, c)
+ -- by @freds72
+ -- https://www.lexaloffle.com/bbs/?tid=35124
+ -- permission to share from freds72 on discord
+
+ -- find roots of a rotated ellipse
+ -- and use that to rectfill interior
+
  local asq, bsq = w * w, h * h
 
  -- max. extent
@@ -321,12 +335,17 @@ local function ellipsefill(x0, y0, w, h, angle, c)
 end
 
 
-------------------------------------------------------------------------
--- "green screen" function
--- replaces pixels of color c in rectangle x1,y1,x2,y2 with output of drawfunc
--- initial version from https://www.lexaloffle.com/bbs/?tid=36813
--- todo version that uses peek/poke for faster handling of large contiguous "green" pixels
-function chromakey(drawfunc, x1, y1, x2, y2, c)
+--- "Green Screen" function
+-- Replaces pixels of a given color in a rectangle with output of a draw function
+-- @tparam function drawfunc A function that takes x1, y1, x2, y2 coordinates and draws a rectangle of content
+-- @tparam number x1 X coordinate, top left corner of rectangle
+-- @tparam number y1 Y coordinate, top left corner of rectangle
+-- @tparam number x2 X coordinate, bottom right corner of rectangle
+-- @tparam number y2 Y coordinate, bottom right corner of rectangle
+-- @tparam number c Color
+local function chromakey(drawfunc, x1, y1, x2, y2, c)
+ -- initial version from https://www.lexaloffle.com/bbs/?tid=36813
+ -- todo version that uses peek/poke for faster handling of large contiguous "green" pixels
     -- -- c defaults to 3
     -- c = c or 3
     -- load prior clip state
@@ -366,12 +385,20 @@ function chromakey(drawfunc, x1, y1, x2, y2, c)
 end
 
 
-------------------------------------------------------------------------
--- takes a string and width describing a map, two hex digits per tile
--- draws the map, with other parameters same as map()
--- example "0123456789abcdef",4 represents this 4x2 map:
--- [[0x01,0x23,0x45,0x67],[0x89,0xab,0xcd,0xef]]
-function mapstring(mapstr, mapw, celx, cely, sx, sy, celw, celh, layer)
+--- Draw a map from a string
+-- @tparam string mapstr The map string, two hex digits per tile
+-- @tparam number mapw Width of the map in tiles
+-- @tparam[opt] number celx
+-- @tparam[opt] number cely
+-- @tparam[opt] number sx
+-- @tparam[opt] number sy
+-- @tparam[opt] number celw
+-- @tparam[opt] number celh
+-- @tparam[opt] number layer
+local function mapstring(mapstr, mapw, celx, cely, sx, sy, celw, celh, layer)
+ -- example `("0123456789abcdef",4) represents this 4x2 map:
+ -- `[[0x01,0x23,0x45,0x67],[0x89,0xab,0xcd,0xef]]`
+
  -- remove[] to save tokens by making parameters mandatory
  mapstr, celx, cely, sx, sy, celw, celh, layer =
  mapstr or "", celx or 0, cely or 0, sx or 0, sy or 0, celw or 1, celh or 1, layer or 0
@@ -386,13 +413,16 @@ function mapstring(mapstr, mapw, celx, cely, sx, sy, celw, celh, layer)
 end
 
 
-------------------------------------------------------------------------
--- takes a string and width describing a map, two hex digits per tile
--- replaces existing map data, starting at celx,cely in the main map space
--- example: string_to_map("0123456789ab",3,2,1) will do the following:
--- mset(2,1,0x01) mset(3,1,0x23) mset(4,1,0x45)
--- mset(2,2,0x56) mset(3,2,0x89) mset(4,2,0xab)
-function string_to_map(mapstr, mapw, celx, cely)
+--- Replace existing map data with map described by a string
+-- @tparam string mapstr The map string, two hex digits per tile (e.g. "00DEADBEEF99")
+-- @tparam[opt] number mapw Width of the map in tiles
+-- @tparam number celx X coordinate to start replacing in the map space
+-- @tparam number cely Y coordinate to start replacing in the map space
+local function string_to_map(mapstr, mapw, celx, cely)
+ -- example: string_to_map("0123456789ab",3,2,1) will do the following:
+ -- mset(2,1,0x01) mset(3,1,0x23) mset(4,1,0x45)
+ -- mset(2,2,0x56) mset(3,2,0x89) mset(4,2,0xab)
+
  -- remove[] to save tokens by making parameters mandatory
  mapstr, mapw, celx, cely = mapstr or "", mapw or #mapstr/2, celx or 0, cely or 0
  for y = 0, #mapstr/mapw/2-1 do
@@ -403,61 +433,84 @@ function string_to_map(mapstr, mapw, celx, cely)
 end
 
 
-------------------------------------------------------------------------
--- print string with a shadow
--- constant one pixel southeast shadow
-function print_shadow(string, x, y, col, bcol)
- ?string, x + 1, y + 1, bcol
- ?string, x, y, col
+--- Print string with a shadow
+-- @tparam string string The string to print
+-- @tparam number x X coordinate, top left corner of print area
+-- @tparam number y Y coordinate, top left corner of print area
+-- @tparam number c Color of text
+-- @tparam number b Color of shadow
+local function print_shadow(string, x, y, c, b)
+ ?string, x + 1, y + 1, b
+ ?string, x, y, c
 end
--- optional dx, dy for shadow placement
-function print_shadow(string, x, y, col, bcol, dx, dy)
- ?string, x + (dx or 1), y + (dy or 1), bcol
- ?string, x, y, col
+
+--- Print string with a shadow
+-- @tparam string string The string to print
+-- @tparam number x X coordinate, top left corner of print area
+-- @tparam number y Y coordinate, top left corner of print area
+-- @tparam number c Color of text
+-- @tparam number b Color of shadow
+-- @tparam[opt=1] number dx X offset of shadow
+-- @tparam[opt=1] number dy Y offset of shadow
+local function print_shadow(string, x, y, c, b, dx, dy)
+ ?string, x + (dx or 1), y + (dy or 1), b
+ ?string, x, y, c
 end
 
 
-------------------------------------------------------------------------
--- print string with an outline
--- originally by cbmakes
+--- Print string with an outline
 -- 4-direction outline
-function print_border_4(string, x, y, col, bcol)
+-- @tparam string string The string to print
+-- @tparam number x X coordinate, top left corner of print area
+-- @tparam number y Y coordinate, top left corner of print area
+-- @tparam number c Color of text
+-- @tparam number b Color of outline
+local function print_border_4(string, x, y, c, b)
+ -- originally by cbmakes
  for d = -1, 1, 2 do
-  ?string, x + d, y, bcol
-  ?string, x, y + d, bcol
+  ?string, x + d, y, b
+  ?string, x, y + d, b
  end
- ?string, x, y, col
+ ?string, x, y, c
 end
+
+--- Print string with an outline
 -- 8-direction outline
-function print_border_8(string, x, y, col, bcol)
+-- @tparam string string The string to print
+-- @tparam number x X coordinate, top left corner of print area
+-- @tparam number y Y coordinate, top left corner of print area
+-- @tparam number c Color of text
+-- @tparam number b Color of outline
+local function print_border_8(string, x, y, c, b)
  for j = -1, 1 do
   -- 10% faster, costs 8 tokens
   -- for i = -1, 1, j == 0 and 2 or 1 do
   for i = -1, 1 do
-   ?string, x + i, y + j, bcol
+   ?string, x + i, y + j, b
   end
  end
- ?string, x, y, col
+ ?string, x, y, c
 end
 
 
-------------------------------------------------------------------------
--- wrap any drawing function in a fillp()
--- replace this:
--- fillp(1234)rect(5,6,7,8,9)fillp()
--- with this:
--- drawp(1234,rect,5,6,7,8,9)
--- saves 3 tokens, 7-11 bytes per call
--- function is 14-17 tokens, 55-61 bytes
--- break even after 5-9 calls
-function drawp(p,func,...)
+--- Wrap any drawing function in a fillp()
+-- Replace `fillp(1234)rect(5,6,7,8,9)fillp()` with `drawp(1234,rect,5,6,7,8,9)`
+-- Break even on tokens and/or bytes after 5-9 calls
+-- @tparam numbert p Fill pattern
+-- @tparam function func The draw function to call
+-- @param ... Paramters for func
+local function drawp(p,func,...)
+ -- Saves 3 tokens, 7-11 bytes per call
+ -- Function is 14-17 tokens, 55-61 bytes
  -- fillp(p) save three tokens by not saving and restoring the previous pattern
  p = fillp(p)
  func(...)
  -- fillp()
  fillp(p)
+ -- TODO return func's return value
 end
 
+-- All of the sprites needed for the functions above
 -- __gfx__
 -- 0000000000000888000008880044440000444400
 -- 0000000000088077000888770433334004333340

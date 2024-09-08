@@ -3,10 +3,10 @@
 
 
 --- Unambiguous string serialization of arbitrary objects
--- alternate condensed strings included as comments
 -- @param o The object to serialize
 -- @return A string representation of `o`
 local function repr(o)
+ -- alternate condensed strings included as comments
  local visited_tables = {} -- track visited tables to avoid infinite recursion
  local visited_tables_num = 0
  local visited_functions = {}
@@ -68,12 +68,15 @@ local function repr(o)
 end
 
 
-------------------------------------------------------------------------
--- replacement tostr() with additional features
+--- tostr
+-- @section tostr
+
+-- Replacements for tostr with additional features
 -- all versions ", ..." can be removed to save tokens if you never use tostr(number,true)
 local _tostr = tostr
 
--- this version respects __tostring
+--- tostr
+-- respects __tostring
 local function tostr_tostring(n, ...)
  if type(n) == "table" then
   local m = getmetatable(n)
@@ -84,7 +87,9 @@ local function tostr_tostring(n, ...)
  return _tostr(n, ...)
 end
 
--- this version prints tables recursively with all keys in unpredictable order
+--- tostr
+-- recursive handling of tables
+-- all keys unordered
 local function tostr_tables(t, ...)
  if type(n) == "table" then
   local s = "{"
@@ -96,7 +101,9 @@ local function tostr_tables(t, ...)
  return _tostr(t, ...)
 end
 
--- this version prints tables recursively with array values in order without keys then remaining table keys in unpredictable order
+--- tostr
+-- recursive handling of tables
+-- array values in order, remaining keys unordered
 local function tostr_arrays_tables(n, ...)
  if type(n) == "table" then
   local f, s = {}, "{" -- "[table:{" would avoid ambiguity with literal strings that look like tables
@@ -114,7 +121,10 @@ local function tostr_arrays_tables(n, ...)
  return _tostr(n, ...)
 end
 
--- this version respects __tostring and prints tables recursively with array values in order without keys then remaining table keys in unpredictable order
+--- tostr
+-- respects __tostring
+-- recursive handling of tables
+-- array values in order, remaining keys unordered
 local function tostr_tostring_arrays_tables(n, ...)
  if type(n) == "table" then
   local m = getmetatable(n)
@@ -138,9 +148,11 @@ local function tostr_tostring_arrays_tables(n, ...)
 end
 
 
-------------------------------------------------------------------------
--- returns n*32768 as a string
--- 0x0000.0001 is "1", 0x7fff.ffff is "2147483647", and 0x8000.0000 is "-2147483648"
+--- Miscellaneous
+-- @section Misc
+
+--- Represent n*32768 as a string
+-- `0x0000.0001` is "1", `0x7fff.ffff` is "2147483647", and `0x8000.0000` is "-2147483648"
 local function int32_to_str(n)
  local sign, out, digit = sgn(n) < 0 and "-" or "", ""
  n = abs(n)
@@ -153,16 +165,17 @@ local function int32_to_str(n)
 end
 
 
-------------------------------------------------------------------------
--- formats a number as hexadecimal with no 0x prefix or zero padding
--- originally from https://www.lexaloffle.com/bbs/?tid=30910
+--- Format a number as hexadecimal with no 0x prefix or zero padding
 local function hex_unpadded(v)
+ -- originally from https://www.lexaloffle.com/bbs/?tid=30910
   local s, l, r = tostr(v, true), 3, 11
   while sub(s, l, l) == "0" do l += 1 end
   while sub(s, r, r) == "0" do r -= 1 end
   return sub(s, l, r == 7 and 6 or r)
 end
--- this version optionally prints minus prefix instead of twos complement negative numbers
+
+--- Format a number as hexadecimal with no 0x prefix or zero padding
+-- Optionally prints minus prefix instead of twos complement negative numbers
 local function hex_unpadded(v, n)
   if (v<0 and n) n, v = 1, abs(v)
   local s, l, r = tostr(v, true), 3, 11
@@ -172,8 +185,7 @@ local function hex_unpadded(v, n)
 end
 
 
-------------------------------------------------------------------------
--- formats a number as binary
+--- Format a number as binary
 local function binary(n)
  local out = "0b"
  for e=-15,16 do
@@ -182,7 +194,11 @@ local function binary(n)
  return out
 end
 
-------------------------------------------------------------------------
+
+--- Run Length Encoding
+-- @section RLE
+
+--- RLE decode
 -- turns "ab2c4de" into "abccdddde"
 local function rle_decode(str)
  local out, count = "", ""
@@ -199,6 +215,9 @@ local function rle_decode(str)
  end
  return out
 end
+
+--- RLE encode
+-- turns "abccdddde" into "ab2c4de"
 -- support for escaped digits and backslash as \\1 ... \\9 and \\\
 -- turns "a3\\12bc" into "a111bbc"
 local function rle_decode(str)
@@ -220,12 +239,15 @@ local function rle_decode(str)
 end
 
 
-------------------------------------------------------------------------
--- replace fnd with rep in str
+--- Miscellaneous
+-- @section Misc
+
+
+--- Replace fnd with rep in str
 -- 58 tokens
--- originally from https://www.lexaloffle.com/bbs/?pid=72818
--- "yes. please use it!" - shiftalow [2020-02-07 02:19]
 local function replace(str, fnd, rep)
+ -- originally from https://www.lexaloffle.com/bbs/?pid=72818
+ -- "yes. please use it!" - shiftalow [2020-02-07 02:19]
  local out = ''
  while #str > 0 do
   local tmp = sub(str, 1, #fnd)
@@ -234,6 +256,8 @@ local function replace(str, fnd, rep)
  end
  return out
 end
+
+--- Replace fnd with rep in str
 -- 66 tokens, 5% faster than 58 token implementation
 local function replace(str, fnd, rep)
  local out, i = '', 1
@@ -251,8 +275,7 @@ local function replace(str, fnd, rep)
 end
 
 
-------------------------------------------------------------------------
--- check if a char exists in a string
+--- Check if a char exists in a string
 local function char_in_string(c, s)
  for i = 1, #s do
   if (c == sub(s, i, i)) return true
@@ -261,8 +284,7 @@ local function char_in_string(c, s)
 end
 
 
-------------------------------------------------------------------------
--- wrap a long string to fit on the screen
+--- Wrap a long string to fit on the screen
 local function wrap(str)
  local out = ""
  for i=1,#str,32 do
@@ -270,6 +292,8 @@ local function wrap(str)
  end
  return out
 end
+
+--- Wrap a long string to fit on the screen
 -- this version supports wide glyphs, although they might extend past the end of the screen
 -- this version supports an optional max width
 local function wrap(str, m)
@@ -288,9 +312,8 @@ local function wrap(str, m)
 end
 
 
-------------------------------------------------------------------------
--- split a string on a delimiter, return a list of strings
--- split("abc,def,",",") returns {"abc","def",""}
+--- Split a string on a delimiter, return a list of strings
+-- `split("abc,def,",",")` returns `{"abc","def",""}`
 local function split(str, delim)
  local out, pos = {}, 0
  for i=1, #str do
@@ -303,8 +326,8 @@ local function split(str, delim)
  return out
 end
 
--- split a string on multiple delimiters, return an n-dimensional array of strings
--- splitd(",a,b;c,d|e,f;","|",";",",") returns {{{"","a","b"},{"c","d"}},{{"e","f"},{}}}
+--- Split a string on multiple delimiters, return an n-dimensional array of strings
+-- `splitd(",a,b;c,d|e,f;","|",";",",")` returns `{{{"","a","b"},{"c","d"}},{{"e","f"},{}}}`
 local function splitd(input, delim, ...)
  local out, pos = {}, 0
  if type(input) == "string" then
@@ -325,13 +348,14 @@ local function splitd(input, delim, ...)
 end
 
 
-------------------------------------------------------------------------
--- center align string at given x coordinate
+--- Center align string at given x coordinate
 -- x defaults to 64 (screen center)
 local function str_center(str, x)
  return (x or 64) - #str * 2
 end
 
+--- Center align string at given x coordinate
+-- x defaults to 64 (screen center)
 -- support for wide glyphs
 local function str_center(str, x)
  local w = 0
@@ -342,17 +366,15 @@ local function str_center(str, x)
 end
 
 
-------------------------------------------------------------------------
--- substring function with length instead of end position
--- ssub(a,b) == sub(a,b,b)
--- ssub(a,b,c) == sub(a,b,b+c)
+--- Substring function with length instead of end position
+-- `ssub(a,b) == sub(a,b,b)`
+-- `ssub(a,b,c) == sub(a,b,b+c)`
 local function ssub(str, idx, len)
  return sub(str, idx, idx + (len or 0))
 end
 
 
-------------------------------------------------------------------------
--- Checks if a string starts with a given prefix
+--- Check if a string starts with a given prefix
 -- returns true if it does, false otherwise
 local function starts_with(str, prefix)
  return ssub(str, 0, #prefix) == prefix

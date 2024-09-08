@@ -1,9 +1,10 @@
 --- @module tables
 -- Manipulating and creating tables
 
+--- _
 
--- --- Functions that operate on one table and one key and/or value
--- -- @section One Table or Key/Value
+--- One Table or Key/Value
+-- @section One_Table_or_Key_Value
 
 --- Get value from table by key, with default
 -- @tparam table t The table to reference
@@ -14,7 +15,7 @@ local function get(t, k, d)
  return t[k]~=nil and t[k] or d
 end
 
---- add value to end of array
+--- Add value to end of array
 -- supposedly faster but less safe than add(a,v)
 -- @tparam array a
 -- @param v value to add
@@ -22,7 +23,7 @@ local function add_(a, v)
  a[#a + 1] = v
 end
 
---- delete value from array, do not preserve order
+--- Delete value from array, do not preserve order
 -- @tparam array a
 -- @param v value to delete
 local function del_r(a, v)
@@ -31,7 +32,7 @@ local function del_r(a, v)
  end
 end
 
---- delete index from array, do not preserve order
+--- Delete index from array, do not preserve order
 -- @tparam array a
 -- @tparam integer i index
 local function deli_r(a, i)
@@ -40,25 +41,21 @@ local function deli_r(a, i)
  end
 end
 
--- aliases to use table as stack
-local pop = deli
-local push = add_f
-
---- delete and return the first item from array
+--- Delete and return the first item from array
 -- @tparam array a
 -- @return value of a[1] prior to deletion
 function shift(a)
  return deli(a, 1)
 end
 
---- add value to the beginning of array
+--- Add value to the beginning of array
 -- @tparam array a
 -- @param v value to add
 function unshift(a, v)
  return add(a,v,1)
 end
 
---- select a random value from an array
+--- Select a random value from an array
 -- @tparam array a array to choose from
 -- @return randomly chosen item from array
 function rand_array(a)
@@ -66,10 +63,10 @@ function rand_array(a)
 end
 
 
---- Functions that operate on two or more tables, or create a new table
+--- Multiple Tables or New Table
 -- @section Multiple_Tables
 
---- copy keys, values, and metatable from one table to another, using copy()
+--- Copy keys, values, and metatable from one table to another, using copy()
 -- @tparam table d destination
 -- @tparam table s source
 -- @treturn table d
@@ -82,14 +79,14 @@ local function merge(d, s)
  return d
 end
 
---- create a copy of a variable, a deep copy if it's a table, using merge()
+--- Create a copy of a variable, a deep copy if it's a table, using merge()
 -- @param o variable to copy
 -- @return copy of o
 local function copy(o)
  return type(o) == 'table' and merge({}, o) or o
 end
 
---- create a copy of a variable, a deep copy if it's a table, optionally merging another table over the copy
+--- Create a copy of a variable, a deep copy if it's a table, optionally merging another table over the copy
 -- @param o variable to copy
 -- @tparam[opt] table t table to merge over the copy
 -- @return copy of o, optionally merged with t
@@ -103,7 +100,7 @@ local function copy_merge(o, t)
  end
 end
 
---- create a deep copy of a table
+--- Create a deep copy of a table
 -- @tparam table o original table
 -- @treturn table copy of o
 function table_copy(o)
@@ -114,7 +111,7 @@ function table_copy(o)
  return c
 end
 
---- recursive/deep comparison of two tables
+--- Recursive/deep comparison of two tables
 -- @tparam table a
 -- @tparam table b
 -- @treturn boolean true iff tables have equal contents
@@ -132,7 +129,7 @@ local function table_compare( a, b )
  return true
 end
 
---- recursive/deep comparison of two tables and their metatables
+--- Recursive/deep comparison of two tables and their metatables
 -- @tparam table a
 -- @tparam table b
 -- @treturn boolean true iff tables have equal contents and metatable contents
@@ -140,7 +137,7 @@ local function table_compare_meta( a, b )
  return table_compare( a, b ) and table_compare( getmetatable(a), getmetatable(b) )
 end
 
---- add values from one array to the end of another
+--- Add values from one array to the end of another
 -- @tparam array d destination
 -- @tparam array s source
 local function concat(d, s)
@@ -153,7 +150,7 @@ end
 --- Sorting Functions
 -- @section Sorting
 
---- randomize the order of a table using fisher-yates shuffle
+--- Randomize the order of a table using fisher-yates shuffle
 -- @tparam array a array to shuffle in place
 function shuffle(a)
   for i = #a, 1, -1 do
@@ -162,7 +159,7 @@ function shuffle(a)
   end
 end
 
---- sort an array in place, the slowest way
+--- Sort an array in place, the slowest way
 -- @tparam array a array to sort in place
 function sort_slow(a)
  for i,v in inext,a do
@@ -172,7 +169,7 @@ function sort_slow(a)
  end
 end
 
---- sort an array in place, the slowest way
+--- Sort an array in place, in descending order, the slowest way
 -- @tparam array a array to sort in place
 function sort_slow_reverse(a)
  for i,v in inext,a do
@@ -182,9 +179,9 @@ function sort_slow_reverse(a)
  end
 end
 
---- sort an array in place, the slowest way, with a key function
+--- Sort an array in place, the slowest way, with a key function
 -- @tparam array a array to sort in place
--- @tparam function f function to extract or calculate a comparison key for each value
+-- @tparam function f function to extract or calculate a comparison key for each value, run once per value
 function sort_slow_func(a, f)
  local k = {}
  for i = 1, #a do
@@ -197,9 +194,9 @@ function sort_slow_func(a, f)
  end
 end
 
---- sort an array in place, the slowest way, with a key function
+--- Sort an array in place, the slowest way, with a key function
 -- @tparam array a array to sort in place
--- @tparam function f function to extract or calculate a comparison key for each value
+-- @tparam function f function to extract or calculate a comparison key for each valuem run multiple times per value
 function sort_slow_func_unsafe(a, f)
  for i,v in inext,a do
   for j,w in inext,a do
@@ -208,7 +205,7 @@ function sort_slow_func_unsafe(a, f)
  end
 end
 
---- sort an array in place, the slowest way, with a comparison function
+--- Sort an array in place, the slowest way, with a comparison function
 -- @tparam array a array to sort in place
 -- @tparam function f function to compare two values
 function sort_slow_cmp(a, f)
@@ -219,11 +216,11 @@ function sort_slow_cmp(a, f)
  end
 end
 
---- sort an array in place, modified quicksort
+--- Sort an array in place, modified quicksort
+-- quicksort chooses a pivot value, rearranges the table into {vals<=pivot, pivot, vals>=pivot}, recurses on both sides
 -- @tparam array a the table to sort
 -- @tparam[opt] number i starting index of slice to sort
 -- @tparam[opt] number j ending index of slice to sort
--- quicksort chooses a pivot value, rearranges the table into {vals<=pivot, pivot, vals>=pivot}, recurses on both sides
 function sort_quick(a, i, j)
  i, j = i or 1, j or #a
  if (i>=j) return
@@ -243,7 +240,7 @@ function sort_quick(a, i, j)
  sort_quick(a,p+1,j)
 end
 
---- sort an array in place, modified quicksort, with a key function
+--- Sort an array in place, modified quicksort, with a key function
 -- @tparam array a the table to sort
 -- @tparam function f function to extract or calculate a comparison key for each value
 -- @tparam[opt] number i starting index of slice to sort
@@ -259,7 +256,7 @@ function sort_quick_func(a, f, i, j)
  sort_quick(a,f,p+1,j)
 end
 
---- sort an array in place, modified quicksort, with a comparison function
+--- Sort an array in place, modified quicksort, with a comparison function
 -- @tparam array a the table to sort
 -- @tparam function f function to compare two values
 -- @tparam[opt] number i starting index of slice to sort
@@ -275,10 +272,14 @@ function sort_quick_func(a, f, i, j)
  sort_quick(a,f,p+1,j)
 end
 
+--- Default sort function
 local sort = sort_quick
 
-------------------------------------------------------------------------
--- filter a table, keeping only key,value pairs that pass a check function
+
+--- Filter
+-- @section Filter
+
+--- Filter a table, keeping only key,value pairs that pass a check function
 -- return a new table with the same keys/indices kept from the original
 function filter(t, check)
  o = {}
@@ -289,8 +290,7 @@ function filter(t, check)
 end
 
 
-------------------------------------------------------------------------
--- filter an array, keeping only values that pass check function
+--- Filter an array, keeping only values that pass check function
 -- return a new array with sequential indices
 function filter_array(t, check)
  o = {}
@@ -301,9 +301,11 @@ function filter_array(t, check)
 end
 
 
-------------------------------------------------------------------------
--- determine if any value in a table is truthy
-function any(t)
+--- Predicate
+-- @section Predicates
+
+--- Determine if any value in a table is truthy
+function pred_any(t)
  for k, v in pairs(t) do
   if (v) return true
  end
@@ -311,19 +313,16 @@ function any(t)
 end
 
 
-------------------------------------------------------------------------
--- determine if any value in a table passes check function
-function any_func(t, check)
+--- Determine if any value in a table passes check function
+function pred_any_func(t, check)
  for k, v in pairs(t) do
   if (check(v)) return true
  end
  return false -- optional if nil is acceptable
 end
 
-
-------------------------------------------------------------------------
--- determine if every value in a table is truthy
-function all(t)
+--- Determine if every value in a table is truthy
+function pred_all(t)
  for k, v in pairs(t) do
   if (not v) return false
  end
@@ -331,9 +330,8 @@ function all(t)
 end
 
 
-------------------------------------------------------------------------
--- determine if every value in a table is truthy or passes check function
-function all_func(t, check)
+--- Determine if every value in a table is truthy or passes check function
+function pred_all_func(t, check)
  for k, v in pairs(t) do
   if (not check(v)) return false
  end
@@ -341,8 +339,10 @@ function all_func(t, check)
 end
 
 
-------------------------------------------------------------------------
--- iterate an array in reverse
+--- Miscellaneous
+-- @section Misc
+
+--- Iterate an array in reverse
 -- used just like all()
 function all_reverse(t)
  local i = #t
@@ -353,7 +353,7 @@ function all_reverse(t)
  end
 end
 
---- reverses the items in an array
+--- Reverse the items in an array, in place
 -- @tparam array a
 function reverse(a)
  for i=1,#a\2 do

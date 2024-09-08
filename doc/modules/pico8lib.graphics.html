@@ -33,8 +33,6 @@
 
 <h2>Contents</h2>
 <ul>
-<li><a href="#Functions">Functions</a></li>
-<li><a href="#Fields">Fields</a></li>
 <li><a href="#Local_Functions">Local Functions</a></li>
 </ul>
 
@@ -76,125 +74,110 @@
 
 <h1>Module <code>pico8lib.graphics</code></h1>
 <p>Drawing and sprite manipulation</p>
+
+<p> Any function with a color parameter can add the following line
+ to make the color optional and use the pen color by default:
+ <code>c = c or peek(24357) &amp; 15</code></p>
 <p>
 
 </p>
 
 
-<h2><a href="#Functions">Functions</a></h2>
-<table class="function_list">
-	<tr>
-	<td class="name" nowrap><a href="#chromakey">chromakey (drawfunc, x1, y1, x2, y2, c)</a></td>
-	<td class="summary">"green screen" function
- replaces pixels of color c in rectangle x1,y1,x2,y2 with output of drawfunc
- initial version from https://www.lexaloffle.com/bbs/?tid=36813
- todo version that uses peek/poke for faster handling of large contiguous "green" pixels</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#mapstring">mapstring (mapstr, mapw, celx, cely, sx, sy, celw, celh, layer)</a></td>
-	<td class="summary">takes a string and width describing a map, two hex digits per tile
- draws the map, with other parameters same as map()
- example "0123456789abcdef",4 represents this 4x2 map:
- [[0x01,0x23,0x45,0x67],[0x89,0xab,0xcd,0xef]]</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#string_to_map">string_to_map (mapstr, mapw, celx, cely)</a></td>
-	<td class="summary">takes a string and width describing a map, two hex digits per tile
- replaces existing map data, starting at celx,cely in the main map space
- example: string<em>to</em>map("0123456789ab",3,2,1) will do the following:
- mset(2,1,0x01) mset(3,1,0x23) mset(4,1,0x45)
- mset(2,2,0x56) mset(3,2,0x89) mset(4,2,0xab)</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#print_shadow">print_shadow (string, x, y, col, bcol)</a></td>
-	<td class="summary">print string with a shadow
- constant one pixel southeast shadow</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#print_border_4">print_border_4 (string, x, y, col, bcol)</a></td>
-	<td class="summary">print string with an outline
- originally by cbmakes
- 4-direction outline</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#drawp">drawp (p, func, ...)</a></td>
-	<td class="summary">wrap any drawing function in a fillp()
- replace this:
- fillp(1234)rect(5,6,7,8,9)fillp()
- with this:
- drawp(1234,rect,5,6,7,8,9)
- saves 3 tokens, 7-11 bytes per call
- function is 14-17 tokens, 55-61 bytes
- break even after 5-9 calls</td>
-	</tr>
-</table>
-<h2><a href="#Fields">Fields</a></h2>
-<table class="function_list">
-	<tr>
-	<td class="name" nowrap><a href="#_fillp">_fillp</a></td>
-	<td class="summary">fillp with support for x/y offsets to shift the mask
- original algorithm from https://www.lexaloffle.com/bbs/?tid=30518</td>
-	</tr>
-</table>
 <h2><a href="#Local_Functions">Local Functions</a></h2>
 <table class="function_list">
 	<tr>
 	<td class="name" nowrap><a href="#line_">line_ (x1, y1, x2, y2, c)</a></td>
 	<td class="summary">Draw a line connecting two points
- uses Bresenham's line drawing algorithm</td>
+ Uses Bresenham's line drawing algorithm</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#line_fat">line_fat (x1, y1, x2, y2, fx, fy, c)</a></td>
 	<td class="summary">Draw a fat line connecting two points
- uses Bresenham's line drawing algorithm and rectfill</td>
+ Uses Bresenham's line drawing algorithm and rectfill</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#line_func">line_func (x1, y1, x2, y2, f, c)</a></td>
 	<td class="summary">Draw a line connecting two points using a custom draw function
- uses Bresenham's line drawing algorithm and the custom function for each point on the line
- line<em>func(...,pset) is equivalent to line</em>(...)</td>
+ Uses Bresenham's line drawing algorithm and the custom function for each point on the line
+ <code>line_func(...,pset)</code> is equivalent to <code>line_(...)</code></td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#spr4_fast">spr4_fast (s, x, y)</a></td>
-	<td class="summary">draw a 4x4 sprite</td>
+	<td class="summary">Draw a 4x4 sprite</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#spr4">spr4 (s, x, y[, w=4[, h=4[, flip_h=false[, flip_v=false]]]])</a></td>
-	<td class="summary">draw a 4x4 sprite with additional sspr() options
+	<td class="summary">Draw a 4x4 sprite with additional sspr() options
  2.5x the runtime of spr4_fast()</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#circ_even">circ_even (s, x, y, r, c)</a></td>
-	<td class="summary">draw a circle of even diameter (2-16)</td>
+	<td class="summary">Draw a circle of even diameter (2-16)</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#circfill_even">circfill_even (s, x, y, r, c)</a></td>
-	<td class="summary">draw a filled circle of even diameter (2-16)</td>
+	<td class="summary">Draw a filled circle of even diameter (2-16)</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#circ_even_small">circ_even_small (s, x, y, r, c)</a></td>
-	<td class="summary">draw a small circle of even diameter (2-8)</td>
+	<td class="summary">Draw a small circle of even diameter (2-8)</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#circfill_even_small">circfill_even_small (s, x, y, r, c)</a></td>
-	<td class="summary">draw a small filled circle of even diameter (2-8)</td>
+	<td class="summary">Draw a small filled circle of even diameter (2-8)</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#circinverse">circinverse (x, y, r, c)</a></td>
+	<td class="summary">Draw every pixel outside a given circle</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#rectinverse">rectinverse (x, y, i, j, c)</a></td>
-	<td class="summary">draws every pixel outside a given rectangle</td>
+	<td class="summary">Draw every pixel outside a given rectangle</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#fillp">fillp (p, x, y)</a></td>
+	<td class="summary">fillp with support for x/y offsets to shift the mask</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#ellipsefill">ellipsefill (x0, y0, w, h, angle, c)</a></td>
-	<td class="summary">draw a filled ellipse
- by @freds72
- https://www.lexaloffle.com/bbs/?tid=35124
- permission to share from freds72 on discord
- find roots of a rotated ellipse
- and use that to rectfill interior
- x0/y0: ellipse center
- h/w: height/width
- angle
- c: color</td>
+	<td class="summary">Draw a filled ellipse</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#chromakey">chromakey (drawfunc, x1, y1, x2, y2, c)</a></td>
+	<td class="summary">"Green Screen" function
+ Replaces pixels of a given color in a rectangle with output of a draw function</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#mapstring">mapstring (mapstr, mapw[, celx[, cely[, sx[, sy[, celw[, celh[, layer]]]]]]])</a></td>
+	<td class="summary">Draw a map from a string</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#string_to_map">string_to_map (mapstr[, mapw], celx, cely)</a></td>
+	<td class="summary">Replace existing map data with map described by a string</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#print_shadow">print_shadow (string, x, y, c, b)</a></td>
+	<td class="summary">Print string with a shadow</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#print_shadow">print_shadow (string, x, y, c, b[, dx=1[, dy=1]])</a></td>
+	<td class="summary">Print string with a shadow</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#print_border_4">print_border_4 (string, x, y, c, b)</a></td>
+	<td class="summary">Print string with an outline
+ 4-direction outline</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#print_border_8">print_border_8 (string, x, y, c, b)</a></td>
+	<td class="summary">Print string with an outline
+ 8-direction outline</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#drawp">drawp (p, func, ...)</a></td>
+	<td class="summary">Wrap any drawing function in a fillp()
+ Replace <code>fillp(1234)rect(5,6,7,8,9)fillp()</code> with <code>drawp(1234,rect,5,6,7,8,9)</code>
+ Break even on tokens and/or bytes after 5-9 calls</td>
 	</tr>
 </table>
 
@@ -202,303 +185,6 @@
 <br/>
 
 
-    <h2 class="section-header "><a name="Functions"></a>Functions</h2>
-
-    <dl class="function">
-    <dt>
-    <a name = "chromakey"></a>
-    <strong>chromakey (drawfunc, x1, y1, x2, y2, c)</strong>
-    </dt>
-    <dd>
-    "green screen" function
- replaces pixels of color c in rectangle x1,y1,x2,y2 with output of drawfunc
- initial version from https://www.lexaloffle.com/bbs/?tid=36813
- todo version that uses peek/poke for faster handling of large contiguous "green" pixels
-
-
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">drawfunc</span>
-
-
-
-        </li>
-        <li><span class="parameter">x1</span>
-
-
-
-        </li>
-        <li><span class="parameter">y1</span>
-
-
-
-        </li>
-        <li><span class="parameter">x2</span>
-
-
-
-        </li>
-        <li><span class="parameter">y2</span>
-
-
-
-        </li>
-        <li><span class="parameter">c</span>
-        c defaults to 3 c = c or 3 load prior clip state
-        </li>
-    </ul>
-
-
-
-
-
-</dd>
-    <dt>
-    <a name = "mapstring"></a>
-    <strong>mapstring (mapstr, mapw, celx, cely, sx, sy, celw, celh, layer)</strong>
-    </dt>
-    <dd>
-    takes a string and width describing a map, two hex digits per tile
- draws the map, with other parameters same as map()
- example "0123456789abcdef",4 represents this 4x2 map:
- [[0x01,0x23,0x45,0x67],[0x89,0xab,0xcd,0xef]]
-
-
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">mapstr</span>
-
-
-
-        </li>
-        <li><span class="parameter">mapw</span>
-
-
-
-        </li>
-        <li><span class="parameter">celx</span>
-
-
-
-        </li>
-        <li><span class="parameter">cely</span>
-
-
-
-        </li>
-        <li><span class="parameter">sx</span>
-
-
-
-        </li>
-        <li><span class="parameter">sy</span>
-
-
-
-        </li>
-        <li><span class="parameter">celw</span>
-
-
-
-        </li>
-        <li><span class="parameter">celh</span>
-
-
-
-        </li>
-        <li><span class="parameter">layer</span>
-        remove[] to save tokens by making parameters mandatory
-        </li>
-    </ul>
-
-
-
-
-
-</dd>
-    <dt>
-    <a name = "string_to_map"></a>
-    <strong>string_to_map (mapstr, mapw, celx, cely)</strong>
-    </dt>
-    <dd>
-    takes a string and width describing a map, two hex digits per tile
- replaces existing map data, starting at celx,cely in the main map space
- example: string<em>to</em>map("0123456789ab",3,2,1) will do the following:
- mset(2,1,0x01) mset(3,1,0x23) mset(4,1,0x45)
- mset(2,2,0x56) mset(3,2,0x89) mset(4,2,0xab)
-
-
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">mapstr</span>
-
-
-
-        </li>
-        <li><span class="parameter">mapw</span>
-
-
-
-        </li>
-        <li><span class="parameter">celx</span>
-
-
-
-        </li>
-        <li><span class="parameter">cely</span>
-        remove[] to save tokens by making parameters mandatory
-        </li>
-    </ul>
-
-
-
-
-
-</dd>
-    <dt>
-    <a name = "print_shadow"></a>
-    <strong>print_shadow (string, x, y, col, bcol)</strong>
-    </dt>
-    <dd>
-    print string with a shadow
- constant one pixel southeast shadow
-
-
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">string</span>
-
-
-
-        </li>
-        <li><span class="parameter">x</span>
-
-
-
-        </li>
-        <li><span class="parameter">y</span>
-
-
-
-        </li>
-        <li><span class="parameter">col</span>
-
-
-
-        </li>
-        <li><span class="parameter">bcol</span>
-
-
-
-        </li>
-    </ul>
-
-
-
-
-
-</dd>
-    <dt>
-    <a name = "print_border_4"></a>
-    <strong>print_border_4 (string, x, y, col, bcol)</strong>
-    </dt>
-    <dd>
-    print string with an outline
- originally by cbmakes
- 4-direction outline
-
-
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">string</span>
-
-
-
-        </li>
-        <li><span class="parameter">x</span>
-
-
-
-        </li>
-        <li><span class="parameter">y</span>
-
-
-
-        </li>
-        <li><span class="parameter">col</span>
-
-
-
-        </li>
-        <li><span class="parameter">bcol</span>
-
-
-
-        </li>
-    </ul>
-
-
-
-
-
-</dd>
-    <dt>
-    <a name = "drawp"></a>
-    <strong>drawp (p, func, ...)</strong>
-    </dt>
-    <dd>
-    wrap any drawing function in a fillp()
- replace this:
- fillp(1234)rect(5,6,7,8,9)fillp()
- with this:
- drawp(1234,rect,5,6,7,8,9)
- saves 3 tokens, 7-11 bytes per call
- function is 14-17 tokens, 55-61 bytes
- break even after 5-9 calls
-
-
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">p</span>
-
-
-
-        </li>
-        <li><span class="parameter">func</span>
-
-
-
-        </li>
-        <li><span class="parameter">...</span>
-        fillp(p) save three tokens by not saving and restoring the previous pattern
-        </li>
-    </ul>
-
-
-
-
-
-</dd>
-</dl>
-    <h2 class="section-header "><a name="Fields"></a>Fields</h2>
-
-    <dl class="function">
-    <dt>
-    <a name = "_fillp"></a>
-    <strong>_fillp</strong>
-    </dt>
-    <dd>
-    fillp with support for x/y offsets to shift the mask
- original algorithm from https://www.lexaloffle.com/bbs/?tid=30518
-
-
-
-
-
-
-
-</dd>
-</dl>
     <h2 class="section-header "><a name="Local_Functions"></a>Local Functions</h2>
 
     <dl class="function">
@@ -508,7 +194,7 @@
     </dt>
     <dd>
     Draw a line connecting two points
- uses Bresenham's line drawing algorithm
+ Uses Bresenham's line drawing algorithm
 
 
     <h3>Parameters:</h3>
@@ -546,7 +232,7 @@
     </dt>
     <dd>
     Draw a fat line connecting two points
- uses Bresenham's line drawing algorithm and rectfill
+ Uses Bresenham's line drawing algorithm and rectfill
 
 
     <h3>Parameters:</h3>
@@ -592,8 +278,8 @@
     </dt>
     <dd>
     Draw a line connecting two points using a custom draw function
- uses Bresenham's line drawing algorithm and the custom function for each point on the line
- line<em>func(...,pset) is equivalent to line</em>(...)
+ Uses Bresenham's line drawing algorithm and the custom function for each point on the line
+ <code>line_func(...,pset)</code> is equivalent to <code>line_(...)</code>
 
 
     <h3>Parameters:</h3>
@@ -634,22 +320,22 @@
     <strong>spr4_fast (s, x, y)</strong>
     </dt>
     <dd>
-    draw a 4x4 sprite
+    Draw a 4x4 sprite
 
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">s</span>
             <span class="types"><span class="type">number</span></span>
-         sprite index
+         Sprite index
         </li>
         <li><span class="parameter">x</span>
             <span class="types"><span class="type">number</span></span>
-         x coordinate for sprite placement
+         X coordinate for sprite placement
         </li>
         <li><span class="parameter">y</span>
             <span class="types"><span class="type">number</span></span>
-         y coordinate for sprite placement
+         Y coordinate for sprite placement
         </li>
     </ul>
 
@@ -663,7 +349,7 @@
     <strong>spr4 (s, x, y[, w=4[, h=4[, flip_h=false[, flip_v=false]]]])</strong>
     </dt>
     <dd>
-    draw a 4x4 sprite with additional sspr() options
+    Draw a 4x4 sprite with additional sspr() options
  2.5x the runtime of spr4_fast()
 
 
@@ -671,34 +357,34 @@
     <ul>
         <li><span class="parameter">s</span>
             <span class="types"><span class="type">number</span></span>
-         sprite index
+         Sprite index
         </li>
         <li><span class="parameter">x</span>
             <span class="types"><span class="type">number</span></span>
-         x coordinate for sprite placement
+         X coordinate for sprite placement
         </li>
         <li><span class="parameter">y</span>
             <span class="types"><span class="type">number</span></span>
-         y coordinate for sprite placement
+         Y coordinate for sprite placement
         </li>
         <li><span class="parameter">w</span>
             <span class="types"><span class="type">number</span></span>
-         width to scale the sprite
+         Width to scale the sprite
          (<em>default</em> 4)
         </li>
         <li><span class="parameter">h</span>
             <span class="types"><span class="type">number</span></span>
-         height to scale the sprite
+         Height to scale the sprite
          (<em>default</em> 4)
         </li>
         <li><span class="parameter">flip_h</span>
             <span class="types"><span class="type">bool</span></span>
-         flip the sprite horizontally
+         Flip the sprite horizontally
          (<em>default</em> false)
         </li>
         <li><span class="parameter">flip_v</span>
             <span class="types"><span class="type">bool</span></span>
-         flip the sprite vertically
+         Flip the sprite vertically
          (<em>default</em> false)
         </li>
     </ul>
@@ -713,7 +399,7 @@
     <strong>circ_even (s, x, y, r, c)</strong>
     </dt>
     <dd>
-    draw a circle of even diameter (2-16)
+    Draw a circle of even diameter (2-16)
 
 
     <h3>Parameters:</h3>
@@ -737,15 +423,6 @@
         <li><span class="parameter">c</span>
             <span class="types"><span class="type">number</span></span>
          color
- necessary sprite:
- 00000888
- 00088077
- 00807766
- 08076655
- 08760544
- 80765433
- 87654302
- 87654321
         </li>
     </ul>
 
@@ -759,39 +436,30 @@
     <strong>circfill_even (s, x, y, r, c)</strong>
     </dt>
     <dd>
-    draw a filled circle of even diameter (2-16)
+    Draw a filled circle of even diameter (2-16)
 
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">s</span>
             <span class="types"><span class="type">number</span></span>
-         sprite index
+         Sprite index
         </li>
         <li><span class="parameter">x</span>
             <span class="types"><span class="type">number</span></span>
-         x coordinate, top left corner of bounding
+         X coordinate, top left corner of bounding box
         </li>
         <li><span class="parameter">y</span>
             <span class="types"><span class="type">number</span></span>
-         y coordinate, top left corner of bounding
+         Y coordinate, top left corner of bounding box
         </li>
         <li><span class="parameter">r</span>
             <span class="types"><span class="type">number</span></span>
-         radius (1-8)
+         Radius (1-8)
         </li>
         <li><span class="parameter">c</span>
             <span class="types"><span class="type">number</span></span>
-         color
- necessary sprite:
- 00000888
- 00088877
- 00887766
- 08876655
- 08766544
- 88765433
- 87654332
- 87654321
+         Color
         </li>
     </ul>
 
@@ -805,39 +473,30 @@
     <strong>circ_even_small (s, x, y, r, c)</strong>
     </dt>
     <dd>
-    draw a small circle of even diameter (2-8)
+    Draw a small circle of even diameter (2-8)
 
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">s</span>
             <span class="types"><span class="type">number</span></span>
-         sprite index
+         Sprite index
         </li>
         <li><span class="parameter">x</span>
             <span class="types"><span class="type">number</span></span>
-         x coordinate, top left corner of bounding
+         X coordinate, top left corner of bounding box
         </li>
         <li><span class="parameter">y</span>
             <span class="types"><span class="type">number</span></span>
-         y coordinate, top left corner of bounding
+         Y coordinate, top left corner of bounding box
         </li>
         <li><span class="parameter">r</span>
             <span class="types"><span class="type">number</span></span>
-         radius (1-4)
+         Radius (1-4)
         </li>
         <li><span class="parameter">c</span>
             <span class="types"><span class="type">number</span></span>
-         color
- necessary sprite:
- 00444400
- 04033040
- 40322304
- 43211234
- 43211234
- 40322304
- 04033040
- 00444400
+         Color
         </li>
     </ul>
 
@@ -851,39 +510,63 @@
     <strong>circfill_even_small (s, x, y, r, c)</strong>
     </dt>
     <dd>
-    draw a small filled circle of even diameter (2-8)
+    Draw a small filled circle of even diameter (2-8)
 
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">s</span>
             <span class="types"><span class="type">number</span></span>
-         sprite index
+         Sprite index
         </li>
         <li><span class="parameter">x</span>
             <span class="types"><span class="type">number</span></span>
-         x coordinate, top left corner of bounding
+         X coordinate, top left corner of bounding box
         </li>
         <li><span class="parameter">y</span>
             <span class="types"><span class="type">number</span></span>
-         y coordinate, top left corner of bounding
+         Y coordinate, top left corner of bounding box
         </li>
         <li><span class="parameter">r</span>
             <span class="types"><span class="type">number</span></span>
-         radius (1-4)
+         Radius (1-4)
         </li>
         <li><span class="parameter">c</span>
             <span class="types"><span class="type">number</span></span>
-         color
- necessary sprite:
- 00444400
- 04433440
- 44322344
- 43211234
- 43211234
- 44322344
- 04433440
- 00444400
+         Color
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "circinverse"></a>
+    <strong>circinverse (x, y, r, c)</strong>
+    </dt>
+    <dd>
+    Draw every pixel outside a given circle
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">x</span>
+            <span class="types"><span class="type">number</span></span>
+         X coordinate, top left corner of bounding box
+        </li>
+        <li><span class="parameter">y</span>
+            <span class="types"><span class="type">number</span></span>
+         Y coordinate, top left corner of bounding box
+        </li>
+        <li><span class="parameter">r</span>
+            <span class="types"><span class="type">number</span></span>
+         Radius (1-4)
+        </li>
+        <li><span class="parameter">c</span>
+            <span class="types"><span class="type">number</span></span>
+         Color
         </li>
     </ul>
 
@@ -897,35 +580,61 @@
     <strong>rectinverse (x, y, i, j, c)</strong>
     </dt>
     <dd>
-    draws every pixel outside a given rectangle
+    Draw every pixel outside a given rectangle
 
 
     <h3>Parameters:</h3>
     <ul>
+        <li><span class="parameter">x</span>
+            <span class="types"><span class="type">number</span></span>
+         X coordinate, top left corner of rectangle
+        </li>
+        <li><span class="parameter">y</span>
+            <span class="types"><span class="type">number</span></span>
+         Y coordinate, top left corner of rectagle
+        </li>
+        <li><span class="parameter">i</span>
+            <span class="types"><span class="type">number</span></span>
+         X coordinate, bottom right corner of rectangle
+        </li>
+        <li><span class="parameter">j</span>
+            <span class="types"><span class="type">number</span></span>
+         Y coordinate, bottom right corner of rectangle
+        </li>
+        <li><span class="parameter">c</span>
+            <span class="types"><span class="type">number</span></span>
+         Color
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "fillp"></a>
+    <strong>fillp (p, x, y)</strong>
+    </dt>
+    <dd>
+    fillp with support for x/y offsets to shift the mask
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">p</span>
+            <span class="types"><span class="type">original algorithm from https</span></span>
+
+
+
+        </li>
         <li><span class="parameter">x</span>
 
 
 
         </li>
         <li><span class="parameter">y</span>
-
-
-
-        </li>
-        <li><span class="parameter">i</span>
-
-
-
-        </li>
-        <li><span class="parameter">j</span>
-
-
-
-        </li>
-        <li><span class="parameter">c</span>
-
-
-
+        //www.lexaloffle.com/bbs/?tid=30518
         </li>
     </ul>
 
@@ -939,49 +648,374 @@
     <strong>ellipsefill (x0, y0, w, h, angle, c)</strong>
     </dt>
     <dd>
-    draw a filled ellipse
- by @freds72
- https://www.lexaloffle.com/bbs/?tid=35124
- permission to share from freds72 on discord
- find roots of a rotated ellipse
- and use that to rectfill interior
- x0/y0: ellipse center
- h/w: height/width
- angle
- c: color
+    Draw a filled ellipse
 
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">x0</span>
-
-
-
+            <span class="types"><span class="type">number</span></span>
+         X coordinate, center of the ellipse
         </li>
         <li><span class="parameter">y0</span>
-
-
-
+            <span class="types"><span class="type">number</span></span>
+         Y coordinate, center of the ellipse
         </li>
         <li><span class="parameter">w</span>
-
-
-
+            <span class="types"><span class="type">number</span></span>
+         Width of the ellipse
         </li>
         <li><span class="parameter">h</span>
-
-
-
+            <span class="types"><span class="type">number</span></span>
+         Height of the ellipse
         </li>
         <li><span class="parameter">angle</span>
-
-
-
+            <span class="types"><span class="type">number</span></span>
+         Rotation angle of the ellipse major axis
         </li>
         <li><span class="parameter">c</span>
+            <span class="types"><span class="type">number</span></span>
+         Color
+        </li>
+    </ul>
 
 
 
+
+
+</dd>
+    <dt>
+    <a name = "chromakey"></a>
+    <strong>chromakey (drawfunc, x1, y1, x2, y2, c)</strong>
+    </dt>
+    <dd>
+    "Green Screen" function
+ Replaces pixels of a given color in a rectangle with output of a draw function
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">drawfunc</span>
+            <span class="types"><span class="type">function</span></span>
+         A function that takes x1, y1, x2, y2 coordinates and draws a rectangle of content
+        </li>
+        <li><span class="parameter">x1</span>
+            <span class="types"><span class="type">number</span></span>
+         X coordinate, top left corner of rectangle
+        </li>
+        <li><span class="parameter">y1</span>
+            <span class="types"><span class="type">number</span></span>
+         Y coordinate, top left corner of rectangle
+        </li>
+        <li><span class="parameter">x2</span>
+            <span class="types"><span class="type">number</span></span>
+         X coordinate, bottom right corner of rectangle
+        </li>
+        <li><span class="parameter">y2</span>
+            <span class="types"><span class="type">number</span></span>
+         Y coordinate, bottom right corner of rectangle
+        </li>
+        <li><span class="parameter">c</span>
+            <span class="types"><span class="type">number</span></span>
+         Color
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "mapstring"></a>
+    <strong>mapstring (mapstr, mapw[, celx[, cely[, sx[, sy[, celw[, celh[, layer]]]]]]])</strong>
+    </dt>
+    <dd>
+    Draw a map from a string
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">mapstr</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.4">string</a></span>
+         The map string, two hex digits per tile
+        </li>
+        <li><span class="parameter">mapw</span>
+            <span class="types"><span class="type">number</span></span>
+         Width of the map in tiles
+        </li>
+        <li><span class="parameter">celx</span>
+            <span class="types"><span class="type">number</span></span>
+
+
+
+         (<em>optional</em>)
+        </li>
+        <li><span class="parameter">cely</span>
+            <span class="types"><span class="type">number</span></span>
+
+
+
+         (<em>optional</em>)
+        </li>
+        <li><span class="parameter">sx</span>
+            <span class="types"><span class="type">number</span></span>
+
+
+
+         (<em>optional</em>)
+        </li>
+        <li><span class="parameter">sy</span>
+            <span class="types"><span class="type">number</span></span>
+
+
+
+         (<em>optional</em>)
+        </li>
+        <li><span class="parameter">celw</span>
+            <span class="types"><span class="type">number</span></span>
+
+
+
+         (<em>optional</em>)
+        </li>
+        <li><span class="parameter">celh</span>
+            <span class="types"><span class="type">number</span></span>
+
+
+
+         (<em>optional</em>)
+        </li>
+        <li><span class="parameter">layer</span>
+            <span class="types"><span class="type">number</span></span>
+
+
+
+         (<em>optional</em>)
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "string_to_map"></a>
+    <strong>string_to_map (mapstr[, mapw], celx, cely)</strong>
+    </dt>
+    <dd>
+    Replace existing map data with map described by a string
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">mapstr</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.4">string</a></span>
+         The map string, two hex digits per tile (e.g. "00DEADBEEF99")
+        </li>
+        <li><span class="parameter">mapw</span>
+            <span class="types"><span class="type">number</span></span>
+         Width of the map in tiles
+         (<em>optional</em>)
+        </li>
+        <li><span class="parameter">celx</span>
+            <span class="types"><span class="type">number</span></span>
+         X coordinate to start replacing in the map space
+        </li>
+        <li><span class="parameter">cely</span>
+            <span class="types"><span class="type">number</span></span>
+         Y coordinate to start replacing in the map space
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "print_shadow"></a>
+    <strong>print_shadow (string, x, y, c, b)</strong>
+    </dt>
+    <dd>
+    Print string with a shadow
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">string</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.4">string</a></span>
+         The string to print
+        </li>
+        <li><span class="parameter">x</span>
+            <span class="types"><span class="type">number</span></span>
+         X coordinate, top left corner of print area
+        </li>
+        <li><span class="parameter">y</span>
+            <span class="types"><span class="type">number</span></span>
+         Y coordinate, top left corner of print area
+        </li>
+        <li><span class="parameter">c</span>
+            <span class="types"><span class="type">number</span></span>
+         Color of text
+        </li>
+        <li><span class="parameter">b</span>
+            <span class="types"><span class="type">number</span></span>
+         Color of shadow
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "print_shadow"></a>
+    <strong>print_shadow (string, x, y, c, b[, dx=1[, dy=1]])</strong>
+    </dt>
+    <dd>
+    Print string with a shadow
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">string</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.4">string</a></span>
+         The string to print
+        </li>
+        <li><span class="parameter">x</span>
+            <span class="types"><span class="type">number</span></span>
+         X coordinate, top left corner of print area
+        </li>
+        <li><span class="parameter">y</span>
+            <span class="types"><span class="type">number</span></span>
+         Y coordinate, top left corner of print area
+        </li>
+        <li><span class="parameter">c</span>
+            <span class="types"><span class="type">number</span></span>
+         Color of text
+        </li>
+        <li><span class="parameter">b</span>
+            <span class="types"><span class="type">number</span></span>
+         Color of shadow
+        </li>
+        <li><span class="parameter">dx</span>
+            <span class="types"><span class="type">number</span></span>
+         X offset of shadow
+         (<em>default</em> 1)
+        </li>
+        <li><span class="parameter">dy</span>
+            <span class="types"><span class="type">number</span></span>
+         Y offset of shadow
+         (<em>default</em> 1)
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "print_border_4"></a>
+    <strong>print_border_4 (string, x, y, c, b)</strong>
+    </dt>
+    <dd>
+    Print string with an outline
+ 4-direction outline
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">string</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.4">string</a></span>
+         The string to print
+        </li>
+        <li><span class="parameter">x</span>
+            <span class="types"><span class="type">number</span></span>
+         X coordinate, top left corner of print area
+        </li>
+        <li><span class="parameter">y</span>
+            <span class="types"><span class="type">number</span></span>
+         Y coordinate, top left corner of print area
+        </li>
+        <li><span class="parameter">c</span>
+            <span class="types"><span class="type">number</span></span>
+         Color of text
+        </li>
+        <li><span class="parameter">b</span>
+            <span class="types"><span class="type">number</span></span>
+         Color of outline
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "print_border_8"></a>
+    <strong>print_border_8 (string, x, y, c, b)</strong>
+    </dt>
+    <dd>
+    Print string with an outline
+ 8-direction outline
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">string</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.4">string</a></span>
+         The string to print
+        </li>
+        <li><span class="parameter">x</span>
+            <span class="types"><span class="type">number</span></span>
+         X coordinate, top left corner of print area
+        </li>
+        <li><span class="parameter">y</span>
+            <span class="types"><span class="type">number</span></span>
+         Y coordinate, top left corner of print area
+        </li>
+        <li><span class="parameter">c</span>
+            <span class="types"><span class="type">number</span></span>
+         Color of text
+        </li>
+        <li><span class="parameter">b</span>
+            <span class="types"><span class="type">number</span></span>
+         Color of outline
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "drawp"></a>
+    <strong>drawp (p, func, ...)</strong>
+    </dt>
+    <dd>
+    Wrap any drawing function in a fillp()
+ Replace <code>fillp(1234)rect(5,6,7,8,9)fillp()</code> with <code>drawp(1234,rect,5,6,7,8,9)</code>
+ Break even on tokens and/or bytes after 5-9 calls
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">p</span>
+            <span class="types"><span class="type">numbert</span></span>
+         Fill pattern
+        </li>
+        <li><span class="parameter">func</span>
+            <span class="types"><span class="type">function</span></span>
+         The draw function to call
+        </li>
+        <li><span class="parameter">...</span>
+         Paramters for func
         </li>
     </ul>
 
@@ -997,7 +1031,7 @@
 </div> <!-- id="main" -->
 <div id="about">
 <i>generated by <a href="http://github.com/lunarmodules/LDoc">LDoc 1.5.0</a></i>
-<i style="float:right;">Last updated 2024-09-08 00:27:21 </i>
+<i style="float:right;">Last updated 2024-09-08 02:54:25 </i>
 </div> <!-- id="about" -->
 </div> <!-- id="container" -->
 </body>

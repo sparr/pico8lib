@@ -15,6 +15,8 @@ if nthroot == nil then
  local function nthroot(n,x) return x^(1/n) end
 end
 
+--- Rational Number
+-- @type Rational
 local rational = setmetatable({
 
  __len = function(a)
@@ -117,6 +119,10 @@ local rational = setmetatable({
 
 },{
 
+ --- Constructor
+ -- @tparam class t Rational type
+ -- @tparam Rational|number n Numerator
+ -- @tparam[opt=1] Rational|number d Denominator
  __call=function(t, n, d)
   local a, b
   if t:is(n) and t:is(d) then -- rational over rational
@@ -157,6 +163,8 @@ local rational = setmetatable({
 })
 rational.__index=rational
 
--- useful constants
+--- Rational Zero
 rational.zero = rational(0)
+
+--- Rational One
 rational.one = rational(1)

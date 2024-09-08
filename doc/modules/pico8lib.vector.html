@@ -74,11 +74,9 @@
 
 <h1>Module <code>pico8lib.vector</code></h1>
 <p>pico8lib vector library
- a vector is a point or direction in 2d space
+ A vector is a point or direction in 2d space
  represented by an x and y coordinate
- vectors arithmetic represents operations on these points/directions
- some code from https://github.com/codekitchen/pico-8-circuits
- MIT license, details in LICENSE file</p>
+ vectors arithmetic represents operations on these points/directions</p>
 <p>
 
 </p>
@@ -87,8 +85,60 @@
 <h2><a href="#Functions">Functions</a></h2>
 <table class="function_list">
 	<tr>
+	<td class="name" nowrap><a href="#__len">__len (v)</a></td>
+	<td class="summary">Magnitude of this vector (alias <code>mag</code>)</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#magsqr">magsqr (v)</a></td>
+	<td class="summary">Magnitude squared</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#angle">angle (v)</a></td>
+	<td class="summary">Angle of this vector</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#normalize">normalize (a)</a></td>
+	<td class="summary">This vector with magnitude normalized to 1</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#contained">contained (a, p1, p2)</a></td>
+	<td class="summary">Is vector a contained within the rectangled defined by p1 and p2?</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#rotate_90">rotate_90 (a)</a></td>
+	<td class="summary">Return this vector rotated 90 degrees</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#rotate_180">rotate_180 (a)</a></td>
+	<td class="summary">Return this vector rotated 180 degrees</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#rotate_270">rotate_270 (a)</a></td>
+	<td class="summary">Return this vector rotated 270 degrees</td>
+	</tr>
+	<tr>
 	<td class="name" nowrap><a href="#rotate_degrees">rotate_degrees (a, angle)</a></td>
-	<td class="summary">Rotate a vector a certain number of degrees</td>
+	<td class="summary">Return this vector rotated a certain number of degrees</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#rotate">rotate (a, angle)</a></td>
+	<td class="summary">Return this vector rotated a certain angle</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#from_polar">from_polar (p)</a></td>
+	<td class="summary">Construct a Euclidean vector from a polar vector ({r,t})</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#to_polar">to_polar (a)</a></td>
+	<td class="summary">Return the polar version of this vector</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#reflect">reflect (a, n)</a></td>
+	<td class="summary">Reflection vector between vector a and normal n</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#__call">__call (t, o)</a></td>
+	<td class="summary">Constructor from array of two numbers</td>
 	</tr>
 </table>
 
@@ -100,11 +150,197 @@
 
     <dl class="function">
     <dt>
+    <a name = "__len"></a>
+    <strong>__len (v)</strong>
+    </dt>
+    <dd>
+    Magnitude of this vector (alias <code>mag</code>)
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">v</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "magsqr"></a>
+    <strong>magsqr (v)</strong>
+    </dt>
+    <dd>
+    Magnitude squared
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">v</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "angle"></a>
+    <strong>angle (v)</strong>
+    </dt>
+    <dd>
+    Angle of this vector
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">v</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "normalize"></a>
+    <strong>normalize (a)</strong>
+    </dt>
+    <dd>
+    This vector with magnitude normalized to 1
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">a</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "contained"></a>
+    <strong>contained (a, p1, p2)</strong>
+    </dt>
+    <dd>
+    Is vector a contained within the rectangled defined by p1 and p2?
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">a</span>
+
+
+
+        </li>
+        <li><span class="parameter">p1</span>
+
+
+
+        </li>
+        <li><span class="parameter">p2</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "rotate_90"></a>
+    <strong>rotate_90 (a)</strong>
+    </dt>
+    <dd>
+    Return this vector rotated 90 degrees
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">a</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "rotate_180"></a>
+    <strong>rotate_180 (a)</strong>
+    </dt>
+    <dd>
+    Return this vector rotated 180 degrees
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">a</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "rotate_270"></a>
+    <strong>rotate_270 (a)</strong>
+    </dt>
+    <dd>
+    Return this vector rotated 270 degrees
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">a</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
     <a name = "rotate_degrees"></a>
     <strong>rotate_degrees (a, angle)</strong>
     </dt>
     <dd>
-    Rotate a vector a certain number of degrees
+    Return this vector rotated a certain number of degrees
 
 
     <h3>Parameters:</h3>
@@ -126,6 +362,123 @@
 
 
 </dd>
+    <dt>
+    <a name = "rotate"></a>
+    <strong>rotate (a, angle)</strong>
+    </dt>
+    <dd>
+    Return this vector rotated a certain angle
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">a</span>
+
+
+
+        </li>
+        <li><span class="parameter">angle</span>
+        todo test
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "from_polar"></a>
+    <strong>from_polar (p)</strong>
+    </dt>
+    <dd>
+    Construct a Euclidean vector from a polar vector ({r,t})
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">p</span>
+        todo test
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "to_polar"></a>
+    <strong>to_polar (a)</strong>
+    </dt>
+    <dd>
+    Return the polar version of this vector
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">a</span>
+        todo test
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "reflect"></a>
+    <strong>reflect (a, n)</strong>
+    </dt>
+    <dd>
+    Reflection vector between vector a and normal n
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">a</span>
+
+
+
+        </li>
+        <li><span class="parameter">n</span>
+        todo test
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "__call"></a>
+    <strong>__call (t, o)</strong>
+    </dt>
+    <dd>
+    Constructor from array of two numbers
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">t</span>
+
+
+
+        </li>
+        <li><span class="parameter">o</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
 </dl>
 
 
@@ -133,7 +486,7 @@
 </div> <!-- id="main" -->
 <div id="about">
 <i>generated by <a href="http://github.com/lunarmodules/LDoc">LDoc 1.5.0</a></i>
-<i style="float:right;">Last updated 2024-09-08 00:27:21 </i>
+<i style="float:right;">Last updated 2024-09-08 02:54:25 </i>
 </div> <!-- id="about" -->
 </div> <!-- id="container" -->
 </body>

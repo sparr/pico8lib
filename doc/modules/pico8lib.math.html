@@ -34,8 +34,10 @@
 <h2>Contents</h2>
 <ul>
 <li><a href="#Local_Functions">Local Functions</a></li>
-<li><a href="#Distance_functions__partially_thanks_to_https___www_lexaloffle_com_bbs__pid_119363">Distance functions
- partially thanks to https://www.lexaloffle.com/bbs/?pid=119363 </a></li>
+<li><a href="#Roots">Roots </a></li>
+<li><a href="#Distance">Distance </a></li>
+<li><a href="#Trigonometry">Trigonometry </a></li>
+<li><a href="#Interpolation">Interpolation </a></li>
 </ul>
 
 
@@ -84,71 +86,106 @@
 <h2><a href="#Local_Functions">Local Functions</a></h2>
 <table class="function_list">
 	<tr>
-	<td class="name" nowrap><a href="#gcd1">gcd1 (a, b)</a></td>
+	<td class="name" nowrap><a href="#gcd_recursive">gcd_recursive (a, b)</a></td>
 	<td class="summary">Return the greatest common divisor of two numbers
  This implementation uses recursion</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#gcd2">gcd2 (a, b)</a></td>
+	<td class="name" nowrap><a href="#gcd">gcd (a, b)</a></td>
 	<td class="summary">Return the greatest common divisor of two numbers
  This implementation is iterative</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#lcm">lcm (a, b)</a></td>
-	<td class="summary">least common multiple of two numbers</td>
+	<td class="summary">Return the least common multiple of two numbers</td>
 	</tr>
+</table>
+<h2><a href="#Roots">Roots </a></h2>
+<table class="function_list">
 	<tr>
 	<td class="name" nowrap><a href="#nthroot">nthroot (n, x)</a></td>
 	<td class="summary">Calculate the nth root of x
- nthroot(3,8)==2 because 2^3==8
- all versions start with a guess based on the built in ^ operator
- this version performs newton's method until a convergent result or short loop is found
- very accurate</td>
+ <code>nthroot(3,8)==2</code> because <code>2^3==8</code>
+ All versions start with a guess based on the built in ^ operator
+ This version performs newton's method until a convergent result or short loop is found
+ Very accurate</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#nthroot_short">nthroot_short (n, x)</a></td>
+	<td class="summary">Calculate the nth root of x
+ This version performs newton's method exactly 4 times
+ Relatively accurate</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#nthroot_fast">nthroot_fast (n, x)</a></td>
+	<td class="summary">Calculate the nth root of x
+ This version performs newton's method exactly once, only for positive x
+ Least accurate, still much better than built in ^ operator alone</td>
 	</tr>
 </table>
-<h2><a href="#Distance_functions__partially_thanks_to_https___www_lexaloffle_com_bbs__pid_119363">Distance functions
- partially thanks to https://www.lexaloffle.com/bbs/?pid=119363 </a></h2>
+<h2><a href="#Distance">Distance </a></h2>
 <table class="function_list">
 	<tr>
 	<td class="name" nowrap><a href="#dist">dist (x, y)</a></td>
-	<td class="summary">distance calculation
- uses dist<em>naive for small values, dist</em>trig for large
+	<td class="summary">Distance to a point
+ Uses <a href="../modules/pico8lib.math.html#dist_naive">dist_naive</a> for small values, <a href="../modules/pico8lib.math.html#dist_trig">dist_trig</a> for large
  tokens: 46</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#asin_octant">asin_octant (d)</a></td>
-	<td class="summary">approximation of asin(d) for 0&lt;=d&lt;=.7071
- exact at d==0, d==sin(1/16), d==sin(1/8)
- max error .0021 at d==sin(3/32) in given range
- error within that max beyond bounds up to d==sin(.137)
- asin() is the inverse of sin(); a=asin(d) when d=sin(a)</td>
+	<td class="name" nowrap><a href="#dist_naive">dist_naive (x, y)</a></td>
+	<td class="summary">Distance to a point
+ Naive distance calculation
+ Overflows for dist^2>=32768
+ tokens: 15
+ cycles: 9 + 28 = 37 (lua+sys)</td>
 	</tr>
 	<tr>
+	<td class="name" nowrap><a href="#dist_trig">dist_trig (x, y)</a></td>
+	<td class="summary">Distance to a point
+ Uses trigonometry
+ Error in range (0,0)-(127,127): max 0.0017, avg 0.0004
+ tokens: 23
+ cycles: 21 + 0 = 21 (lua+sys)</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#dist_squared">dist_squared (x, y)</a></td>
+	<td class="summary">Distance squared to a point</td>
+	</tr>
+</table>
+<h2><a href="#Trigonometry">Trigonometry </a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#asin_octant">asin_octant (d)</a></td>
+	<td class="summary">Arithmetic approximation of arcsin
+ Intended for 0&lt;=d&lt;=.7071
+ Exact at d==0, d==sin(1/16), d==sin(1/8)
+ Max error .0021 at d==sin(3/32) in given range
+ asin() is the inverse of sin(); a=asin(d) when d=sin(a)</td>
+	</tr>
+</table>
+<h2><a href="#Interpolation">Interpolation </a></h2>
+<table class="function_list">
+	<tr>
 	<td class="name" nowrap><a href="#interp_linear">interp_linear (a, b, f)</a></td>
-	<td class="summary">linear interpolation between a and b
- (a,b,0) == a
- (a,b,1) == b
- (a,b,0.25) is 1/4 of the way from a to b</td>
+	<td class="summary">Linear interpolation between two values
+ <code>(a,b,0) == a</code>
+ <code>(a,b,1) == b</code>
+ <code>(a,b,0.25)</code> is 1/4 of the way from a to b</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#interp_linear_inverse">interp_linear_inverse (a, b, v)</a></td>
-	<td class="summary">inverse of linear interpolation between a and b
- "how far along the way from a to b is v?"
- (a,b,a) == 0
- (a,b,b) == 1
- (a,b,(a+b)/2) == 0.5</td>
+	<td class="summary">Inverse Linear Interpolation
+ "How far along the way from a to b is v?"
+ <code>(a,b,a) == 0</code>
+ <code>(a,b,b) == 1</code>
+ <code>(a,b,(a+b)/2) == 0.5</code></td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#interp_sine">interp_sine (a, b, f)</a></td>
-	<td class="summary">sine interpolation between a and b
- (a,b,0) == a
- (a,b,1) == b
- (a,b,0.5) == 70.71% of the way from a to b</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#interp_smoothstep">interp_smoothstep (a, b, x)</a></td>
-	<td class="summary">smoothstep interpolation between a and b
- https://en.wikipedia.org/wiki/smoothstep</td>
+	<td class="summary">Sine interpolation
+ <code>(a,b,0) == a</code>
+ <code>(a,b,1) == b</code>
+ <code>(a,b,0.5) == </code> 70.71% of the way from a to b</td>
 	</tr>
 </table>
 
@@ -160,8 +197,8 @@
 
     <dl class="function">
     <dt>
-    <a name = "gcd1"></a>
-    <strong>gcd1 (a, b)</strong>
+    <a name = "gcd_recursive"></a>
+    <strong>gcd_recursive (a, b)</strong>
     </dt>
     <dd>
     Return the greatest common divisor of two numbers
@@ -190,14 +227,14 @@
 
     <h3>See also:</h3>
     <ul>
-         <a href="../modules/pico8lib.math.html#gcd2">gcd2</a>
+         <a href="../modules/pico8lib.math.html#gcd">gcd</a>
     </ul>
 
 
 </dd>
     <dt>
-    <a name = "gcd2"></a>
-    <strong>gcd2 (a, b)</strong>
+    <a name = "gcd"></a>
+    <strong>gcd (a, b)</strong>
     </dt>
     <dd>
     Return the greatest common divisor of two numbers
@@ -226,7 +263,7 @@
 
     <h3>See also:</h3>
     <ul>
-         <a href="../modules/pico8lib.math.html#gcd1">gcd1</a>
+         <a href="../modules/pico8lib.math.html#gcd_recursive">gcd_recursive</a>
     </ul>
 
 
@@ -236,38 +273,46 @@
     <strong>lcm (a, b)</strong>
     </dt>
     <dd>
-    least common multiple of two numbers
+    Return the least common multiple of two numbers
 
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">a</span>
-
-
-
+            <span class="types"><span class="type">number</span></span>
+         The first number
         </li>
         <li><span class="parameter">b</span>
-
-
-
+            <span class="types"><span class="type">number</span></span>
+         The second number
         </li>
     </ul>
 
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">number</span></span>
+        The least common multiple
+    </ol>
 
 
 
 
 </dd>
+</dl>
+    <h2 class="section-header "><a name="Roots"></a>Roots </h2>
+
+    <dl class="function">
     <dt>
     <a name = "nthroot"></a>
     <strong>nthroot (n, x)</strong>
     </dt>
     <dd>
     Calculate the nth root of x
- nthroot(3,8)==2 because 2^3==8
- all versions start with a guess based on the built in ^ operator
- this version performs newton's method until a convergent result or short loop is found
- very accurate
+ <code>nthroot(3,8)==2</code> because <code>2^3==8</code>
+ All versions start with a guess based on the built in ^ operator
+ This version performs newton's method until a convergent result or short loop is found
+ Very accurate
 
 
     <h3>Parameters:</h3>
@@ -287,9 +332,66 @@
 
 
 </dd>
+    <dt>
+    <a name = "nthroot_short"></a>
+    <strong>nthroot_short (n, x)</strong>
+    </dt>
+    <dd>
+    Calculate the nth root of x
+ This version performs newton's method exactly 4 times
+ Relatively accurate
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">n</span>
+
+
+
+        </li>
+        <li><span class="parameter">x</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "nthroot_fast"></a>
+    <strong>nthroot_fast (n, x)</strong>
+    </dt>
+    <dd>
+    Calculate the nth root of x
+ This version performs newton's method exactly once, only for positive x
+ Least accurate, still much better than built in ^ operator alone
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">n</span>
+
+
+
+        </li>
+        <li><span class="parameter">x</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
 </dl>
-    <h2 class="section-header "><a name="Distance_functions__partially_thanks_to_https___www_lexaloffle_com_bbs__pid_119363"></a>Distance functions
- partially thanks to https://www.lexaloffle.com/bbs/?pid=119363 </h2>
+    <h2 class="section-header "><a name="Distance"></a>Distance </h2>
 
     <dl class="function">
     <dt>
@@ -297,84 +399,208 @@
     <strong>dist (x, y)</strong>
     </dt>
     <dd>
-    distance calculation
- uses dist<em>naive for small values, dist</em>trig for large
+    Distance to a point
+ Uses <a href="../modules/pico8lib.math.html#dist_naive">dist_naive</a> for small values, <a href="../modules/pico8lib.math.html#dist_trig">dist_trig</a> for large
  tokens: 46
 
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">x</span>
-
-
-
+            <span class="types"><span class="type">number</span></span>
+         X coordinate of the point
         </li>
         <li><span class="parameter">y</span>
-
-
-
+            <span class="types"><span class="type">number</span></span>
+         Y coordinate of the point
         </li>
     </ul>
 
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">number</span></span>
+        Distance from 0,0 to x,y
+    </ol>
 
 
 
 
 </dd>
     <dt>
+    <a name = "dist_naive"></a>
+    <strong>dist_naive (x, y)</strong>
+    </dt>
+    <dd>
+    Distance to a point
+ Naive distance calculation
+ Overflows for dist^2>=32768
+ tokens: 15
+ cycles: 9 + 28 = 37 (lua+sys)
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">x</span>
+            <span class="types"><span class="type">number</span></span>
+         X coordinate of the point
+        </li>
+        <li><span class="parameter">y</span>
+            <span class="types"><span class="type">number</span></span>
+         Y coordinate of the point
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">number</span></span>
+        Distance from 0,0 to x,y
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "dist_trig"></a>
+    <strong>dist_trig (x, y)</strong>
+    </dt>
+    <dd>
+    Distance to a point
+ Uses trigonometry
+ Error in range (0,0)-(127,127): max 0.0017, avg 0.0004
+ tokens: 23
+ cycles: 21 + 0 = 21 (lua+sys)
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">x</span>
+            <span class="types"><span class="type">number</span></span>
+         X coordinate of the point
+        </li>
+        <li><span class="parameter">y</span>
+            <span class="types"><span class="type">number</span></span>
+         Y coordinate of the point
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">number</span></span>
+        Distance from 0,0 to x,y
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "dist_squared"></a>
+    <strong>dist_squared (x, y)</strong>
+    </dt>
+    <dd>
+    Distance squared to a point
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">x</span>
+            <span class="types"><span class="type">number</span></span>
+         X coordinate of the point
+        </li>
+        <li><span class="parameter">y</span>
+            <span class="types"><span class="type">number</span></span>
+         Y coordinate of the point
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">number</span></span>
+        Distance from 0,0 to x,y
+    </ol>
+
+
+
+
+</dd>
+</dl>
+    <h2 class="section-header "><a name="Trigonometry"></a>Trigonometry </h2>
+
+    <dl class="function">
+    <dt>
     <a name = "asin_octant"></a>
     <strong>asin_octant (d)</strong>
     </dt>
     <dd>
-    approximation of asin(d) for 0&lt;=d&lt;=.7071
- exact at d==0, d==sin(1/16), d==sin(1/8)
- max error .0021 at d==sin(3/32) in given range
- error within that max beyond bounds up to d==sin(.137)
+    Arithmetic approximation of arcsin
+ Intended for 0&lt;=d&lt;=.7071
+ Exact at d==0, d==sin(1/16), d==sin(1/8)
+ Max error .0021 at d==sin(3/32) in given range
  asin() is the inverse of sin(); a=asin(d) when d=sin(a)
 
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">d</span>
+            <span class="types"><span class="type">number</span></span>
 
 
 
         </li>
     </ul>
 
+    <h3>Returns:</h3>
+    <ol>
+
+        arcsin of d
+    </ol>
 
 
 
 
 </dd>
+</dl>
+    <h2 class="section-header "><a name="Interpolation"></a>Interpolation </h2>
+
+    <dl class="function">
     <dt>
     <a name = "interp_linear"></a>
     <strong>interp_linear (a, b, f)</strong>
     </dt>
     <dd>
-    linear interpolation between a and b
- (a,b,0) == a
- (a,b,1) == b
- (a,b,0.25) is 1/4 of the way from a to b
+    Linear interpolation between two values
+ <code>(a,b,0) == a</code>
+ <code>(a,b,1) == b</code>
+ <code>(a,b,0.25)</code> is 1/4 of the way from a to b
 
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">a</span>
-
-
-
+            <span class="types"><span class="type">number</span></span>
+         Starting value
         </li>
         <li><span class="parameter">b</span>
-
-
-
+            <span class="types"><span class="type">number</span></span>
+         Ending value
         </li>
         <li><span class="parameter">f</span>
-        "lerp"
+            <span class="types"><span class="type">number</span></span>
+         [0-1] from a to b
         </li>
     </ul>
 
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">number</span></span>
+        value between a and b
+    </ol>
 
 
 
@@ -385,32 +611,35 @@
     <strong>interp_linear_inverse (a, b, v)</strong>
     </dt>
     <dd>
-    inverse of linear interpolation between a and b
- "how far along the way from a to b is v?"
- (a,b,a) == 0
- (a,b,b) == 1
- (a,b,(a+b)/2) == 0.5
+    Inverse Linear Interpolation
+ "How far along the way from a to b is v?"
+ <code>(a,b,a) == 0</code>
+ <code>(a,b,b) == 1</code>
+ <code>(a,b,(a+b)/2) == 0.5</code>
 
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">a</span>
-
-
-
+            <span class="types"><span class="type">number</span></span>
+         Starting value
         </li>
         <li><span class="parameter">b</span>
-
-
-
+            <span class="types"><span class="type">number</span></span>
+         Ending value
         </li>
         <li><span class="parameter">v</span>
-
-
-
+            <span class="types"><span class="type">number</span></span>
+         Value between a and b, inclusive
         </li>
     </ul>
 
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">number</span></span>
+        [0-1] from a to b
+    </ol>
 
 
 
@@ -421,64 +650,34 @@
     <strong>interp_sine (a, b, f)</strong>
     </dt>
     <dd>
-    sine interpolation between a and b
- (a,b,0) == a
- (a,b,1) == b
- (a,b,0.5) == 70.71% of the way from a to b
+    Sine interpolation
+ <code>(a,b,0) == a</code>
+ <code>(a,b,1) == b</code>
+ <code>(a,b,0.5) == </code> 70.71% of the way from a to b
 
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">a</span>
-
-
-
+            <span class="types"><span class="type">number</span></span>
+         Starting value
         </li>
         <li><span class="parameter">b</span>
-
-
-
+            <span class="types"><span class="type">number</span></span>
+         Ending value
         </li>
         <li><span class="parameter">f</span>
-
-
-
+            <span class="types"><span class="type">number</span></span>
+         [0-1] from a to b
         </li>
     </ul>
 
+    <h3>Returns:</h3>
+    <ol>
 
-
-
-
-</dd>
-    <dt>
-    <a name = "interp_smoothstep"></a>
-    <strong>interp_smoothstep (a, b, x)</strong>
-    </dt>
-    <dd>
-    smoothstep interpolation between a and b
- https://en.wikipedia.org/wiki/smoothstep
-
-
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">a</span>
-
-
-
-        </li>
-        <li><span class="parameter">b</span>
-
-
-
-        </li>
-        <li><span class="parameter">x</span>
-
-
-
-        </li>
-    </ul>
-
+           <span class="types"><span class="type">number</span></span>
+        value between a and b
+    </ol>
 
 
 
@@ -491,7 +690,7 @@
 </div> <!-- id="main" -->
 <div id="about">
 <i>generated by <a href="http://github.com/lunarmodules/LDoc">LDoc 1.5.0</a></i>
-<i style="float:right;">Last updated 2024-09-08 00:27:21 </i>
+<i style="float:right;">Last updated 2024-09-08 02:54:25 </i>
 </div> <!-- id="about" -->
 </div> <!-- id="container" -->
 </body>

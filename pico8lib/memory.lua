@@ -2,11 +2,10 @@
 --- Reading, writing, manipulating memory
 
 
---- Efficiently copy a block of memory from `src` to `dst`
--- 75% the runtime of memcpy, len must be a multiple of 4
+--- Copy a block of memory from `src` to `dst`
 -- @param dst The offset to copy to
 -- @param src The offset to copy from
--- @param len The number of bytes to copy
+-- @param len The number of bytes to copy (must be a multiple of 4)
 -- @return null
 local function memcpy4(dst, src, len)
  for i = 0, len - 1, 4 do
@@ -14,8 +13,9 @@ local function memcpy4(dst, src, len)
  end
 end
 
--- this version can handle lengths that are not a multiple of 4
+
 local _memcpy = memcpy
+--- Copy a block of memory from `src` to `dst`
 local function memcpy(dst, src, len)
  for i = 0, len - 4, 4 do
   poke4(dst + i, $(src + i))
@@ -25,21 +25,29 @@ local function memcpy(dst, src, len)
 end
 
 
-------------------------------------------------------------------------
--- compare two regions of memory
--- length must be multiple of four
-local function memcmp4(a, b, len)
- for i = 0, len - 1, 4 do
+--- Compare two regions of memory
+-- @tparam number a First starting memory address
+-- @tparam number b Second starting memory address
+-- @tparam number l Length of regions to compare (must be a multiple of 4)
+-- @treturn boolean True iff the regions are identical
+local function memcmp4(a, b, l)
+ for i = 0, l - 1, 4 do
   if $(a + i) != $(b + i) then
    return false
   end
  end
  return true
 end
--- compare two regions of memory
-local function memcmp(a, b, len)
- if not memcmp4(a,b,len-len%4) then return false end
- for i = len - 3, len - 1 do
+
+--- Compare two regions of memory
+-- @tparam number a First starting memory address
+-- @tparam number b Second starting memory address
+-- @tparam number l Length of regions to compare
+-- @treturn boolean True iff the regions are identical
+local function memcmp(a, b, l)
+ if not memcmp4(a,b,l-l%4) then return false end
+ -- FIXME correctly handle l<3
+ for i = l - 3, l - 1 do
   if @(a + i) != @(b + i) then
    return false
   end
