@@ -11,7 +11,7 @@
 
 --- json namespace object
 -- TODO: The functions need to be brought up to the module level to match the style of the rest of the libraries
-local json = setmetatable({
+json = setmetatable({
 
   null = {}, -- to uniquely identify json null values
 
