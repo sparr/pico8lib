@@ -35,21 +35,26 @@ end
 
 --- try/catch/finally implemented using coroutine return codes
 -- @tparam function t function to always call first
--- @tparam function c function to call if t raises an error
+-- @tparam[opt] function c function to call if t raises an error
 -- @tparam[opt] function f function to call if t or c succeeds without error
-local function try(t, c, f)
+-- @param ... Additional parameters that will be passed to `t`, `c`, and `f`
+-- @treturn bool Did `t` exit without error?
+-- @return Error message or successful return value from `t`
+local function try(t, c, f, ...)
  -- originally from https://www.lexaloffle.com/bbs/?pid=72820
  -- "enjoy, and if you like it feel free to kick a buck to my patreon."
  -- https://www.patreon.com/sharkhugseniko
  local co = cocreate(t)
  local s, m = true
+ -- This loop can be omitted and the contents run just once if `t` cannot contain `yield()`
  while s and costatus(co) ~= "dead" do
-  s, m = coresume(co)
-  if not s then
-   c(m)
+  s, m = coresume(co, ...)
+  if not s and c then
+   c(m, ...)
   end
  end
  if f then
-  f()
+  f(...)
  end
+ return s, m
 end
