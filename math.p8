@@ -71,10 +71,11 @@ local function nthroot_fast(n, x)
 end
 
 
-------------------------------------------------------------------------
--- distance functions partially thanks to https://www.lexaloffle.com/bbs/?pid=119363
+--- Distance functions
+-- partially thanks to https://www.lexaloffle.com/bbs/?pid=119363
+-- @section distance
 
--- distance calculation
+--- distance calculation
 -- uses dist_naive for small values, dist_trig for large
 -- tokens: 46
 function dist(x,y)

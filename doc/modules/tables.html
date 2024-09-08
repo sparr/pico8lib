@@ -34,8 +34,9 @@
 <h2>Contents</h2>
 <ul>
 <li><a href="#Functions">Functions</a></li>
-<li><a href="#Fields">Fields</a></li>
 <li><a href="#Local_Functions">Local Functions</a></li>
+<li><a href="#Functions_that_operate_on_two_or_more_tables__or_create_a_new_table">Functions that operate on two or more tables, or create a new table </a></li>
+<li><a href="#Sorting_Functions">Sorting Functions </a></li>
 </ul>
 
 
@@ -83,39 +84,102 @@
 <h2><a href="#Functions">Functions</a></h2>
 <table class="function_list">
 	<tr>
-	<td class="name" nowrap><a href="#shift">shift (t)</a></td>
-	<td class="summary">delete and return the first item from array t</td>
+	<td class="name" nowrap><a href="#shift">shift (a)</a></td>
+	<td class="summary">delete and return the first item from array</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#unshift">unshift (t, v)</a></td>
-	<td class="summary">add value v to the beginning of array t</td>
+	<td class="name" nowrap><a href="#unshift">unshift (a, v)</a></td>
+	<td class="summary">add value to the beginning of array</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#tblrand">tblrand (tbl)</a></td>
-	<td class="summary">selects a random value from tbl</td>
+	<td class="name" nowrap><a href="#rand_array">rand_array (a)</a></td>
+	<td class="summary">select a random value from an array</td>
+	</tr>
+</table>
+<h2><a href="#Local_Functions">Local Functions</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#add_">add_ (a, v)</a></td>
+	<td class="summary">add value to end of array
+ supposedly faster but less safe than add(a,v)</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#shuffle">shuffle (t)</a></td>
+	<td class="name" nowrap><a href="#del_r">del_r (a, v)</a></td>
+	<td class="summary">delete value from array, do not preserve order</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#deli_r">deli_r (a, i)</a></td>
+	<td class="summary">delete index from array, do not preserve order</td>
+	</tr>
+</table>
+<h2><a href="#Functions_that_operate_on_two_or_more_tables__or_create_a_new_table">Functions that operate on two or more tables, or create a new table </a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#merge">merge (d, s)</a></td>
+	<td class="summary">copy keys, values, and metatable from one table to another, using copy()</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#copy">copy (o)</a></td>
+	<td class="summary">create a copy of a variable, a deep copy if it's a table, using merge()</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#copy_merge">copy_merge (o[, t])</a></td>
+	<td class="summary">create a copy of a variable, a deep copy if it's a table, optionally merging another table over the copy</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#table_copy">table_copy (o)</a></td>
+	<td class="summary">create a deep copy of a table</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#table_compare">table_compare (a, b)</a></td>
+	<td class="summary">recursive/deep comparison of two tables</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#table_compare_meta">table_compare_meta (a, b)</a></td>
+	<td class="summary">recursive/deep comparison of two tables and their metatables</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#concat">concat (d, s)</a></td>
+	<td class="summary">add values from one array to the end of another</td>
+	</tr>
+</table>
+<h2><a href="#Sorting_Functions">Sorting Functions </a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#shuffle">shuffle (a)</a></td>
 	<td class="summary">randomize the order of a table using fisher-yates shuffle</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#sort_bubble">sort_bubble (t)</a></td>
-	<td class="summary">bubble sort an array in place</td>
+	<td class="name" nowrap><a href="#sort_slow">sort_slow (a)</a></td>
+	<td class="summary">sort an array in place, the slowest way</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#sort_bubble_func">sort_bubble_func (t, keyfn)</a></td>
-	<td class="summary">bubble sort an array in place
- second parameter extracts or calculates a sort key from each item</td>
+	<td class="name" nowrap><a href="#sort_slow_reverse">sort_slow_reverse (a)</a></td>
+	<td class="summary">sort an array in place, the slowest way</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#sort_bubble_func_unsafe">sort_bubble_func_unsafe (t, keyfn)</a></td>
-	<td class="summary">bubble sort an array in place
- second parameter extracts or calculates a sort key from each item
- second parameter is called multiple times per item</td>
+	<td class="name" nowrap><a href="#sort_slow_func">sort_slow_func (a, f)</a></td>
+	<td class="summary">sort an array in place, the slowest way, with a key function</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#sort_quick">sort_quick (t[, a[, b]])</a></td>
-	<td class="summary">modified quick sort an array in place</td>
+	<td class="name" nowrap><a href="#sort_slow_func_unsafe">sort_slow_func_unsafe (a, f)</a></td>
+	<td class="summary">sort an array in place, the slowest way, with a key function</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#sort_slow_cmp">sort_slow_cmp (a, f)</a></td>
+	<td class="summary">sort an array in place, the slowest way, with a comparison function</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#sort_quick">sort_quick (a[, i[, j]])</a></td>
+	<td class="summary">sort an array in place, modified quicksort</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#sort_quick_func">sort_quick_func (a, f[, i[, j]])</a></td>
+	<td class="summary">sort an array in place, modified quicksort, with a key function</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#sort_quick_func">sort_quick_func (a, f[, i[, j]])</a></td>
+	<td class="summary">sort an array in place, modified quicksort, with a comparison function</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#filter">filter (t, check)</a></td>
@@ -148,45 +212,9 @@
 	<td class="summary">iterate an array in reverse
  used just like all()</td>
 	</tr>
-</table>
-<h2><a href="#Fields">Fields</a></h2>
-<table class="function_list">
 	<tr>
-	<td class="name" nowrap><a href="#pop">pop</a></td>
-	<td class="summary">aliases to use table as stack</td>
-	</tr>
-</table>
-<h2><a href="#Local_Functions">Local Functions</a></h2>
-<table class="function_list">
-	<tr>
-	<td class="name" nowrap><a href="#add_">add_ (t, v)</a></td>
-	<td class="summary">add value v to end of array t
- supposedly faster but less safe than add(t,v)</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#del_r">del_r (t, v)</a></td>
-	<td class="summary">delete value v from array t, do not preserve order</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#deli_r">deli_r (t, i)</a></td>
-	<td class="summary">delete index i from array t, do not preserve order</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#merge">merge (dst, src)</a></td>
-	<td class="summary">copy keys and values from src to dst
- also copy metatable if present in src</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#copy">copy (o)</a></td>
-	<td class="summary">creates a new table copied from o, using merge()</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#table_compare">table_compare (a, b)</a></td>
-	<td class="summary">recursive/deep comparison of two tables</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#concat">concat (dst, src)</a></td>
-	<td class="summary">adds values from src to end of dst, in order</td>
+	<td class="name" nowrap><a href="#reverse">reverse (a)</a></td>
+	<td class="summary">reverses the items in an array</td>
 	</tr>
 </table>
 
@@ -199,21 +227,27 @@
     <dl class="function">
     <dt>
     <a name = "shift"></a>
-    <strong>shift (t)</strong>
+    <strong>shift (a)</strong>
     </dt>
     <dd>
-    delete and return the first item from array t
+    delete and return the first item from array
 
 
     <h3>Parameters:</h3>
     <ul>
-        <li><span class="parameter">t</span>
+        <li><span class="parameter">a</span>
+            <span class="types"><span class="type">array</span></span>
 
 
 
         </li>
     </ul>
 
+    <h3>Returns:</h3>
+    <ol>
+
+        value of a[1] prior to deletion
+    </ol>
 
 
 
@@ -221,23 +255,22 @@
 </dd>
     <dt>
     <a name = "unshift"></a>
-    <strong>unshift (t, v)</strong>
+    <strong>unshift (a, v)</strong>
     </dt>
     <dd>
-    add value v to the beginning of array t
+    add value to the beginning of array
 
 
     <h3>Parameters:</h3>
     <ul>
-        <li><span class="parameter">t</span>
+        <li><span class="parameter">a</span>
+            <span class="types"><span class="type">array</span></span>
 
 
 
         </li>
         <li><span class="parameter">v</span>
-
-
-
+         value to add
         </li>
     </ul>
 
@@ -247,19 +280,54 @@
 
 </dd>
     <dt>
-    <a name = "tblrand"></a>
-    <strong>tblrand (tbl)</strong>
+    <a name = "rand_array"></a>
+    <strong>rand_array (a)</strong>
     </dt>
     <dd>
-    selects a random value from tbl
+    select a random value from an array
 
 
     <h3>Parameters:</h3>
     <ul>
-        <li><span class="parameter">tbl</span>
+        <li><span class="parameter">a</span>
+            <span class="types"><span class="type">array</span></span>
+         array to choose from
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        randomly chosen item from array
+    </ol>
 
 
 
+
+</dd>
+</dl>
+    <h2 class="section-header "><a name="Local_Functions"></a>Local Functions</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "add_"></a>
+    <strong>add_ (a, v)</strong>
+    </dt>
+    <dd>
+    add value to end of array
+ supposedly faster but less safe than add(a,v)
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">a</span>
+            <span class="types"><span class="type">array</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">v</span>
+         value to add
         </li>
     </ul>
 
@@ -269,8 +337,277 @@
 
 </dd>
     <dt>
+    <a name = "del_r"></a>
+    <strong>del_r (a, v)</strong>
+    </dt>
+    <dd>
+    delete value from array, do not preserve order
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">a</span>
+            <span class="types"><span class="type">array</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">v</span>
+         value to delete
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "deli_r"></a>
+    <strong>deli_r (a, i)</strong>
+    </dt>
+    <dd>
+    delete index from array, do not preserve order
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">a</span>
+            <span class="types"><span class="type">array</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">i</span>
+            <span class="types"><span class="type">integer</span></span>
+         index
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+</dl>
+    <h2 class="section-header "><a name="Functions_that_operate_on_two_or_more_tables__or_create_a_new_table"></a>Functions that operate on two or more tables, or create a new table </h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "merge"></a>
+    <strong>merge (d, s)</strong>
+    </dt>
+    <dd>
+    copy keys, values, and metatable from one table to another, using copy()
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">d</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.6">table</a></span>
+         destination
+        </li>
+        <li><span class="parameter">s</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.6">table</a></span>
+         source
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.6">table</a></span>
+        d
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "copy"></a>
+    <strong>copy (o)</strong>
+    </dt>
+    <dd>
+    create a copy of a variable, a deep copy if it's a table, using merge()
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">o</span>
+         variable to copy
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        copy of o
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "copy_merge"></a>
+    <strong>copy_merge (o[, t])</strong>
+    </dt>
+    <dd>
+    create a copy of a variable, a deep copy if it's a table, optionally merging another table over the copy
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">o</span>
+         variable to copy
+        </li>
+        <li><span class="parameter">t</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.6">table</a></span>
+         table to merge over the copy
+         (<em>optional</em>)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        copy of o, optionally merged with t
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "table_copy"></a>
+    <strong>table_copy (o)</strong>
+    </dt>
+    <dd>
+    create a deep copy of a table
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">o</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.6">table</a></span>
+         original table
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.6">table</a></span>
+        copy of o
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "table_compare"></a>
+    <strong>table_compare (a, b)</strong>
+    </dt>
+    <dd>
+    recursive/deep comparison of two tables
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">a</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.6">table</a></span>
+
+
+
+        </li>
+        <li><span class="parameter">b</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.6">table</a></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        true iff tables have equal contents
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "table_compare_meta"></a>
+    <strong>table_compare_meta (a, b)</strong>
+    </dt>
+    <dd>
+    recursive/deep comparison of two tables and their metatables
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">a</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.6">table</a></span>
+
+
+
+        </li>
+        <li><span class="parameter">b</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.6">table</a></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        true iff tables have equal contents and metatable contents
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "concat"></a>
+    <strong>concat (d, s)</strong>
+    </dt>
+    <dd>
+    add values from one array to the end of another
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">d</span>
+            <span class="types"><span class="type">array</span></span>
+         destination
+        </li>
+        <li><span class="parameter">s</span>
+            <span class="types"><span class="type">array</span></span>
+         source
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+</dl>
+    <h2 class="section-header "><a name="Sorting_Functions"></a>Sorting Functions </h2>
+
+    <dl class="function">
+    <dt>
     <a name = "shuffle"></a>
-    <strong>shuffle (t)</strong>
+    <strong>shuffle (a)</strong>
     </dt>
     <dd>
     randomize the order of a table using fisher-yates shuffle
@@ -278,10 +615,9 @@
 
     <h3>Parameters:</h3>
     <ul>
-        <li><span class="parameter">t</span>
-
-
-
+        <li><span class="parameter">a</span>
+            <span class="types"><span class="type">array</span></span>
+         array to shuffle in place
         </li>
     </ul>
 
@@ -291,19 +627,18 @@
 
 </dd>
     <dt>
-    <a name = "sort_bubble"></a>
-    <strong>sort_bubble (t)</strong>
+    <a name = "sort_slow"></a>
+    <strong>sort_slow (a)</strong>
     </dt>
     <dd>
-    bubble sort an array in place
+    sort an array in place, the slowest way
 
 
     <h3>Parameters:</h3>
     <ul>
-        <li><span class="parameter">t</span>
-
-
-
+        <li><span class="parameter">a</span>
+            <span class="types"><span class="type">array</span></span>
+         array to sort in place
         </li>
     </ul>
 
@@ -313,25 +648,18 @@
 
 </dd>
     <dt>
-    <a name = "sort_bubble_func"></a>
-    <strong>sort_bubble_func (t, keyfn)</strong>
+    <a name = "sort_slow_reverse"></a>
+    <strong>sort_slow_reverse (a)</strong>
     </dt>
     <dd>
-    bubble sort an array in place
- second parameter extracts or calculates a sort key from each item
+    sort an array in place, the slowest way
 
 
     <h3>Parameters:</h3>
     <ul>
-        <li><span class="parameter">t</span>
-
-
-
-        </li>
-        <li><span class="parameter">keyfn</span>
-
-
-
+        <li><span class="parameter">a</span>
+            <span class="types"><span class="type">array</span></span>
+         array to sort in place
         </li>
     </ul>
 
@@ -341,26 +669,72 @@
 
 </dd>
     <dt>
-    <a name = "sort_bubble_func_unsafe"></a>
-    <strong>sort_bubble_func_unsafe (t, keyfn)</strong>
+    <a name = "sort_slow_func"></a>
+    <strong>sort_slow_func (a, f)</strong>
     </dt>
     <dd>
-    bubble sort an array in place
- second parameter extracts or calculates a sort key from each item
- second parameter is called multiple times per item
+    sort an array in place, the slowest way, with a key function
 
 
     <h3>Parameters:</h3>
     <ul>
-        <li><span class="parameter">t</span>
-
-
-
+        <li><span class="parameter">a</span>
+            <span class="types"><span class="type">array</span></span>
+         array to sort in place
         </li>
-        <li><span class="parameter">keyfn</span>
+        <li><span class="parameter">f</span>
+            <span class="types"><span class="type">function</span></span>
+         function to extract or calculate a comparison key for each value
+        </li>
+    </ul>
 
 
 
+
+
+</dd>
+    <dt>
+    <a name = "sort_slow_func_unsafe"></a>
+    <strong>sort_slow_func_unsafe (a, f)</strong>
+    </dt>
+    <dd>
+    sort an array in place, the slowest way, with a key function
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">a</span>
+            <span class="types"><span class="type">array</span></span>
+         array to sort in place
+        </li>
+        <li><span class="parameter">f</span>
+            <span class="types"><span class="type">function</span></span>
+         function to extract or calculate a comparison key for each value
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "sort_slow_cmp"></a>
+    <strong>sort_slow_cmp (a, f)</strong>
+    </dt>
+    <dd>
+    sort an array in place, the slowest way, with a comparison function
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">a</span>
+            <span class="types"><span class="type">array</span></span>
+         array to sort in place
+        </li>
+        <li><span class="parameter">f</span>
+            <span class="types"><span class="type">function</span></span>
+         function to compare two values
         </li>
     </ul>
 
@@ -371,27 +745,97 @@
 </dd>
     <dt>
     <a name = "sort_quick"></a>
-    <strong>sort_quick (t[, a[, b]])</strong>
+    <strong>sort_quick (a[, i[, j]])</strong>
     </dt>
     <dd>
-    modified quick sort an array in place
+    sort an array in place, modified quicksort
 
 
     <h3>Parameters:</h3>
     <ul>
-        <li><span class="parameter">t</span>
-            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+        <li><span class="parameter">a</span>
+            <span class="types"><span class="type">array</span></span>
          the table to sort
         </li>
-        <li><span class="parameter">a</span>
+        <li><span class="parameter">i</span>
             <span class="types"><span class="type">number</span></span>
          starting index of slice to sort
          (<em>optional</em>)
         </li>
-        <li><span class="parameter">b</span>
+        <li><span class="parameter">j</span>
             <span class="types"><span class="type">number</span></span>
          ending index of slice to sort
  quicksort chooses a pivot value, rearranges the table into {vals&lt;=pivot, pivot, vals>=pivot}, recurses on both sides
+         (<em>optional</em>)
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "sort_quick_func"></a>
+    <strong>sort_quick_func (a, f[, i[, j]])</strong>
+    </dt>
+    <dd>
+    sort an array in place, modified quicksort, with a key function
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">a</span>
+            <span class="types"><span class="type">array</span></span>
+         the table to sort
+        </li>
+        <li><span class="parameter">f</span>
+            <span class="types"><span class="type">function</span></span>
+         function to extract or calculate a comparison key for each value
+        </li>
+        <li><span class="parameter">i</span>
+            <span class="types"><span class="type">number</span></span>
+         starting index of slice to sort
+         (<em>optional</em>)
+        </li>
+        <li><span class="parameter">j</span>
+            <span class="types"><span class="type">number</span></span>
+         ending index of slice to sort
+         (<em>optional</em>)
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "sort_quick_func"></a>
+    <strong>sort_quick_func (a, f[, i[, j]])</strong>
+    </dt>
+    <dd>
+    sort an array in place, modified quicksort, with a comparison function
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">a</span>
+            <span class="types"><span class="type">array</span></span>
+         the table to sort
+        </li>
+        <li><span class="parameter">f</span>
+            <span class="types"><span class="type">function</span></span>
+         function to compare two values
+        </li>
+        <li><span class="parameter">i</span>
+            <span class="types"><span class="type">number</span></span>
+         starting index of slice to sort
+         (<em>optional</em>)
+        </li>
+        <li><span class="parameter">j</span>
+            <span class="types"><span class="type">number</span></span>
+         ending index of slice to sort
          (<em>optional</em>)
         </li>
     </ul>
@@ -578,205 +1022,18 @@
 
 
 </dd>
-</dl>
-    <h2 class="section-header "><a name="Fields"></a>Fields</h2>
-
-    <dl class="function">
     <dt>
-    <a name = "pop"></a>
-    <strong>pop</strong>
+    <a name = "reverse"></a>
+    <strong>reverse (a)</strong>
     </dt>
     <dd>
-    aliases to use table as stack
-
-
-
-
-
-
-
-</dd>
-</dl>
-    <h2 class="section-header "><a name="Local_Functions"></a>Local Functions</h2>
-
-    <dl class="function">
-    <dt>
-    <a name = "add_"></a>
-    <strong>add_ (t, v)</strong>
-    </dt>
-    <dd>
-    add value v to end of array t
- supposedly faster but less safe than add(t,v)
-
-
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">t</span>
-
-
-
-        </li>
-        <li><span class="parameter">v</span>
-
-
-
-        </li>
-    </ul>
-
-
-
-
-
-</dd>
-    <dt>
-    <a name = "del_r"></a>
-    <strong>del_r (t, v)</strong>
-    </dt>
-    <dd>
-    delete value v from array t, do not preserve order
-
-
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">t</span>
-
-
-
-        </li>
-        <li><span class="parameter">v</span>
-
-
-
-        </li>
-    </ul>
-
-
-
-
-
-</dd>
-    <dt>
-    <a name = "deli_r"></a>
-    <strong>deli_r (t, i)</strong>
-    </dt>
-    <dd>
-    delete index i from array t, do not preserve order
-
-
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">t</span>
-
-
-
-        </li>
-        <li><span class="parameter">i</span>
-
-
-
-        </li>
-    </ul>
-
-
-
-
-
-</dd>
-    <dt>
-    <a name = "merge"></a>
-    <strong>merge (dst, src)</strong>
-    </dt>
-    <dd>
-    copy keys and values from src to dst
- also copy metatable if present in src
-
-
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">dst</span>
-
-
-
-        </li>
-        <li><span class="parameter">src</span>
-
-
-
-        </li>
-    </ul>
-
-
-
-
-
-</dd>
-    <dt>
-    <a name = "copy"></a>
-    <strong>copy (o)</strong>
-    </dt>
-    <dd>
-    creates a new table copied from o, using merge()
-
-
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">o</span>
-
-
-
-        </li>
-    </ul>
-
-
-
-
-
-</dd>
-    <dt>
-    <a name = "table_compare"></a>
-    <strong>table_compare (a, b)</strong>
-    </dt>
-    <dd>
-    recursive/deep comparison of two tables
+    reverses the items in an array
 
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">a</span>
-            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
-
-
-
-        </li>
-        <li><span class="parameter">b</span>
-            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
-
-
-
-        </li>
-    </ul>
-
-
-
-
-
-</dd>
-    <dt>
-    <a name = "concat"></a>
-    <strong>concat (dst, src)</strong>
-    </dt>
-    <dd>
-    adds values from src to end of dst, in order
-
-
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">dst</span>
-
-
-
-        </li>
-        <li><span class="parameter">src</span>
+            <span class="types"><span class="type">array</span></span>
 
 
 
@@ -795,7 +1052,7 @@
 </div> <!-- id="main" -->
 <div id="about">
 <i>generated by <a href="http://github.com/lunarmodules/LDoc">LDoc 1.5.0</a></i>
-<i style="float:right;">Last updated 2023-05-22 14:38:11 </i>
+<i style="float:right;">Last updated 2024-09-07 23:41:36 </i>
 </div> <!-- id="about" -->
 </div> <!-- id="container" -->
 </body>

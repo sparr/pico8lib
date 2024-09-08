@@ -9,7 +9,7 @@ local function noop() end
 
 
 --- Raises an error with the given message
--- @tparam[opt] m The error message (string) to output
+-- @tparam[opt] string m The error message (string) to output
 -- @return null
 local function error(m)
  assert(false, m)
