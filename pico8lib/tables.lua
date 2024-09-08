@@ -209,8 +209,8 @@ end
 -- @tparam array a array to sort in place
 -- @tparam function f function to compare two values
 function sort_slow_cmp(a, f)
- for i,v in inext,k do
-  for j,w in inext,k do
+ for i,v in inext,a do
+  for j,w in inext,a do
    if (f(v,w)) v,a[i],a[j]=w,w,v
   end
  end
@@ -252,8 +252,8 @@ function sort_quick_func(a, f, i, j)
  while p < r do
   if (f(a[p])<f(a[r])) r-=1 else a[p],a[p+1],a[r]=a[r],a[p],a[p+1] p+=1
  end
- sort_quick(a,f,i,p-1)
- sort_quick(a,f,p+1,j)
+ sort_quick_func(a,f,i,p-1)
+ sort_quick_func(a,f,p+1,j)
 end
 
 --- Sort an array in place, modified quicksort, with a comparison function
@@ -261,15 +261,15 @@ end
 -- @tparam function f function to compare two values
 -- @tparam[opt] number i starting index of slice to sort
 -- @tparam[opt] number j ending index of slice to sort
-function sort_quick_func(a, f, i, j)
+function sort_quick_cmp(a, f, i, j)
  i, j = i or 1, j or #a
  if (i>=j) return
  local p,r = i,j
  while p < r do
   if (f(a[p],a[r])) r-=1 else a[p],a[p+1],a[r]=a[r],a[p],a[p+1] p+=1
- end
- sort_quick(a,f,i,p-1)
- sort_quick(a,f,p+1,j)
+  end
+ sort_quick_cmp(a,f,i,p-1)
+ sort_quick_cmp(a,f,p+1,j)
 end
 
 --- Default sort function

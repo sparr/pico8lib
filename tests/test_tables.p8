@@ -219,7 +219,15 @@ end
 function Sort:test_sort_slow_func ()
  for _,case in ipairs(sortable_tables) do
   local a = table_copy(case[1])
-  sort_slow_func(a, function (i,j) return i<j end)
+  sort_slow_func(a, function (i) return i end)
+  self:assert_true(table_compare(a,case[2]),tostr(a).." != "..tostr(case[2]))
+ end
+end
+
+function Sort:test_sort_slow_cmp ()
+ for _,case in ipairs(sortable_tables) do
+  local a = table_copy(case[1])
+  sort_slow_cmp(a, function (i,j) return i<j end)
   self:assert_true(table_compare(a,case[2]),tostr(a).." != "..tostr(case[2]))
  end
 end
@@ -241,5 +249,20 @@ function Sort:test_sort_quick ()
  end
 end
 
+function Sort:test_sort_quick_func ()
+ for _,case in ipairs(sortable_tables) do
+  local a = table_copy(case[1])
+  sort_quick_func(a, function (i) return i end)
+  self:assert_true(table_compare(a,case[2]),tostr(a).." != "..tostr(case[2]))
+ end
+end
+
+function Sort:test_sort_quick_cmp ()
+ for _,case in ipairs(sortable_tables) do
+  local a = table_copy(case[1])
+  sort_quick_cmp(a, function (i,j) return i<j end)
+  self:assert_true(table_compare(a,case[2]),tostr(a).." != "..tostr(case[2]))
+ end
+end
 
 run_suites{suite}
