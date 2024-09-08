@@ -24,13 +24,12 @@ local P8LIBLOGUTC = false
 -- @tparam string prefix A prefix to prepend to the message
 local function log (any, prefix)
    tz = P8LIBLOGUTC and 80 or 90
-   seconds = stat(tz+5)
    printh(stat(tz) .. "-" ..
-          stat(tz+1) .. "-" ..
-          stat(tz+2) .. " " ..
-          stat(tz+3) .. ":" ..
-          stat(tz+4) .. ":" ..
-          (seconds < 10 and "0" .. seconds or seconds)
+          pad_left(tostr(stat(tz+1)), 2, "0") .. "-" ..
+          pad_left(tostr(stat(tz+2)), 2, "0") .. " " ..
+          pad_left(tostr(stat(tz+3)), 2, "0") .. ":" ..
+          pad_left(tostr(stat(tz+4)), 2, "0") .. ":" ..
+          pad_left(tostr(stat(tz+5)), 2, "0")
           .. " " .. (prefix or "LOG") .. " - " .. tostr(any))
 end
 

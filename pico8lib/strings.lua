@@ -379,3 +379,16 @@ end
 local function starts_with(str, prefix)
  return ssub(str, 0, #prefix) == prefix
 end
+
+
+--- Pad a string on the left
+-- @tparam string s String to pad
+-- @tparam number l Length to pad to
+-- @tparam string p Padding character
+local function pad_left(s, l, p)
+ while #s < l do
+  s = p .. s
+ end
+ return s
+end
+
