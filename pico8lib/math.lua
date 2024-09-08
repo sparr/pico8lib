@@ -12,7 +12,7 @@ local power_overflow = {32767,181,31,13,7,5,4,3,3,2,2,2,2,2} -- ,1,1,1
 -- @tparam number b The second number
 -- @treturn number The greatest common divisor, or zero
 local function gcd_recursive(a, b)
- return a==0 and b or gcd(b%a, a)
+ return a==0 and b or gcd_recursive(b%a, a)
 end
 
 --- Return the greatest common divisor of two numbers
