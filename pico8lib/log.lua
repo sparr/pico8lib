@@ -20,9 +20,9 @@ local P8LIBLOGUTC = false
 --- Log the passed in object to STDOUT
 -- The passed in object will be converted to a string and then logged with a
 -- timestamp.
--- @param prefix A prefix to prepend to the message
 -- @param any The object to log
-local function log (prefix, any)
+-- @tparam string prefix A prefix to prepend to the message
+local function log (any, prefix)
    tz = P8LIBLOGUTC and 80 or 90
    seconds = stat(tz+5)
    printh(stat(tz) .. "-" ..
@@ -31,7 +31,7 @@ local function log (prefix, any)
           stat(tz+3) .. ":" ..
           stat(tz+4) .. ":" ..
           (seconds < 10 and "0" .. seconds or seconds)
-          .. " " .. prefix .. " - " .. tostr(any))
+          .. " " .. (prefix or "LOG") .. " - " .. tostr(any))
 end
 
 
@@ -39,7 +39,7 @@ end
 -- See the `log` function for details
 -- @param any The object to log
 local function log_info (any)
-   if (P8LIBLOGLVL >= 3) log("INF", any)
+   if (P8LIBLOGLVL >= 3) log(any, "INF")
 end
 
 
@@ -47,7 +47,7 @@ end
 -- See the `log` function for details
 -- @param any The object to log
 local function log_warn (any)
-   if (P8LIBLOGLVL >= 2) log("WRN", any)
+   if (P8LIBLOGLVL >= 2) log(any, "WRN")
 end
 
 
@@ -55,7 +55,7 @@ end
 -- See the `log` function for details
 -- @param any The object to log
 local function log_err (any)
-   if (P8LIBLOGLVL >= 1) log("ERR", any)
+   if (P8LIBLOGLVL >= 1) log(any, "ERR")
 end
 
 
