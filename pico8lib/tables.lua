@@ -44,21 +44,21 @@ end
 --- Delete and return the first item from array
 -- @tparam array a
 -- @return value of a[1] prior to deletion
-function shift(a)
+local function shift(a)
  return deli(a, 1)
 end
 
 --- Add value to the beginning of array
 -- @tparam array a
 -- @param v value to add
-function unshift(a, v)
+local function unshift(a, v)
  return add(a,v,1)
 end
 
 --- Select a random value from an array
 -- @tparam array a array to choose from
 -- @return randomly chosen item from array
-function rand_array(a)
+local function rand_array(a)
  return a[flr(rnd(#a)) + 1]
 end
 
@@ -103,7 +103,7 @@ end
 --- Create a deep copy of a table
 -- @tparam table o original table
 -- @treturn table copy of o
-function table_copy(o)
+local function table_copy(o)
  local c = {}
  for k,v in pairs(o) do
   c[k] = type(v) == "table" and copy_table(v) or v
@@ -152,7 +152,7 @@ end
 
 --- Randomize the order of a table using fisher-yates shuffle
 -- @tparam array a array to shuffle in place
-function shuffle(a)
+local function shuffle(a)
   for i = #a, 1, -1 do
     local j = flr(rnd(i)) + 1
     a[i], a[j] = a[j], a[i]
@@ -161,7 +161,7 @@ end
 
 --- Sort an array in place, the slowest way
 -- @tparam array a array to sort in place
-function sort_slow(a)
+local function sort_slow(a)
  for i,v in inext,a do
   for j,w in inext,a do
    if (v<w) v,a[i],a[j]=w,w,v
@@ -171,7 +171,7 @@ end
 
 --- Sort an array in place, in descending order, the slowest way
 -- @tparam array a array to sort in place
-function sort_slow_reverse(a)
+local function sort_slow_reverse(a)
  for i,v in inext,a do
   for j,w in inext,a do
    if (v>w) v,a[i],a[j]=w,w,v
@@ -182,7 +182,7 @@ end
 --- Sort an array in place, the slowest way, with a key function
 -- @tparam array a array to sort in place
 -- @tparam function f function to extract or calculate a comparison key for each value, run once per value
-function sort_slow_func(a, f)
+local function sort_slow_func(a, f)
  local k = {}
  for i = 1, #a do
   k[i] = f(a[i])
@@ -197,7 +197,7 @@ end
 --- Sort an array in place, the slowest way, with a key function
 -- @tparam array a array to sort in place
 -- @tparam function f function to extract or calculate a comparison key for each valuem run multiple times per value
-function sort_slow_func_unsafe(a, f)
+local function sort_slow_func_unsafe(a, f)
  for i,v in inext,a do
   for j,w in inext,a do
    if (f(v)<f(w)) v,a[i],a[j]=w,w,v
@@ -208,7 +208,7 @@ end
 --- Sort an array in place, the slowest way, with a comparison function
 -- @tparam array a array to sort in place
 -- @tparam function f function to compare two values
-function sort_slow_cmp(a, f)
+local function sort_slow_cmp(a, f)
  for i,v in inext,a do
   for j,w in inext,a do
    if (f(v,w)) v,a[i],a[j]=w,w,v
@@ -221,7 +221,7 @@ end
 -- @tparam array a the table to sort
 -- @tparam[opt] number i starting index of slice to sort
 -- @tparam[opt] number j ending index of slice to sort
-function sort_quick(a, i, j)
+local function sort_quick(a, i, j)
  i, j = i or 1, j or #a
  if (i>=j) return
  -- p points to the pivot, initially the first item
@@ -245,7 +245,7 @@ end
 -- @tparam function f function to extract or calculate a comparison key for each value
 -- @tparam[opt] number i starting index of slice to sort
 -- @tparam[opt] number j ending index of slice to sort
-function sort_quick_func(a, f, i, j)
+local function sort_quick_func(a, f, i, j)
  i, j = i or 1, j or #a
  if (i>=j) return
  local p,r = i,j
@@ -261,7 +261,7 @@ end
 -- @tparam function f function to compare two values
 -- @tparam[opt] number i starting index of slice to sort
 -- @tparam[opt] number j ending index of slice to sort
-function sort_quick_cmp(a, f, i, j)
+local function sort_quick_cmp(a, f, i, j)
  i, j = i or 1, j or #a
  if (i>=j) return
  local p,r = i,j
@@ -281,7 +281,7 @@ local sort = sort_quick
 
 --- Filter a table, keeping only key,value pairs that pass a check function
 -- return a new table with the same keys/indices kept from the original
-function filter(t, check)
+local function filter(t, check)
  o = {}
  for k, v in pairs(t) do
   if (check(k,v)) o[k] = v
@@ -292,7 +292,7 @@ end
 
 --- Filter an array, keeping only values that pass check function
 -- return a new array with sequential indices
-function filter_array(t, check)
+local function filter_array(t, check)
  o = {}
  for n in all(t) do
   if (check(v)) o[#o+1] = n
@@ -305,7 +305,7 @@ end
 -- @section Predicates
 
 --- Determine if any value in a table is truthy
-function pred_any(t)
+local function pred_any(t)
  for k, v in pairs(t) do
   if (v) return true
  end
@@ -314,7 +314,7 @@ end
 
 
 --- Determine if any value in a table passes check function
-function pred_any_func(t, check)
+local function pred_any_func(t, check)
  for k, v in pairs(t) do
   if (check(v)) return true
  end
@@ -322,7 +322,7 @@ function pred_any_func(t, check)
 end
 
 --- Determine if every value in a table is truthy
-function pred_all(t)
+local function pred_all(t)
  for k, v in pairs(t) do
   if (not v) return false
  end
@@ -331,7 +331,7 @@ end
 
 
 --- Determine if every value in a table is truthy or passes check function
-function pred_all_func(t, check)
+local function pred_all_func(t, check)
  for k, v in pairs(t) do
   if (not check(v)) return false
  end
@@ -344,7 +344,7 @@ end
 
 --- Iterate an array in reverse
 -- used just like all()
-function all_reverse(t)
+local function all_reverse(t)
  local i = #t
  return function()
   if (t==0) return nil
@@ -355,7 +355,7 @@ end
 
 --- Reverse the items in an array, in place
 -- @tparam array a
-function reverse(a)
+local function reverse(a)
  for i=1,#a\2 do
   a[i],a[#a-i+1]=a[#a-i+1],a[i]
  end
