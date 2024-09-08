@@ -91,12 +91,12 @@ end
 -- recursive handling of tables
 -- all keys unordered
 local function tostr_tables(t, ...)
- if type(n) == "table" then
+ if type(t) == "table" then
   local s = "{"
   for k, v in pairs(t) do
    s = s .. (s=="{" and '' or ",") .. tostr(k, ...) .. "=" .. tostr(v, ...) -- mishandles reserved words that require ["key"]
   end
-  return s
+  return s .. "}"
  end
  return _tostr(t, ...)
 end
