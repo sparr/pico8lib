@@ -21,6 +21,7 @@ examples = {
    "tests/test_functions.p8",
    "tests/test_json.p8",
    "tests/test_test.p8",
+   "examples/",
    excludes = {
       "snippets.p8",
       "boilerplate.p8",

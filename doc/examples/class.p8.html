@@ -35,12 +35,12 @@
 
 <h2>Examples</h2>
 <ul class="nowrap">
-  <li><strong>snippets.p8</strong></li>
+  <li><a href="../examples/snippets.p8.html">snippets.p8</a></li>
   <li><a href="../examples/test_class.p8.html">test_class.p8</a></li>
   <li><a href="../examples/test_functions.p8.html">test_functions.p8</a></li>
   <li><a href="../examples/test_json.p8.html">test_json.p8</a></li>
   <li><a href="../examples/test_test.p8.html">test_test.p8</a></li>
-  <li><a href="../examples/class.p8.html">class.p8</a></li>
+  <li><strong>class.p8</strong></li>
   <li><a href="../examples/log.p8.html">log.p8</a></li>
 </ul>
 <h2>Modules</h2>
@@ -70,21 +70,30 @@
 
 <div id="content">
 
-    <h2>snippets.p8</h2>
+    <h2>class.p8</h2>
 <pre>
-<span class="comment">-- pico8lib snippets library
-</span><span class="comment">-- by sparr
+include ../pico8lib/class.lua
+
+<span class="comment">-- create a new class called thingclass
+</span><span class="comment">-- it has no parent class
+</span><span class="comment">-- its prototype has x and y fields, and a constructor to set them
+</span>thingclass = <span class="function-name">class</span>(<span class="keyword">nil</span>, {x=<span class="number">0</span>, y=<span class="number">0</span>, __init = <span class="keyword">function</span>(self, x, y) self.x=x self.y=y})
+
+<span class="comment">-- create a new class called movablethingclass
+</span><span class="comment">-- it inherits from parent thingclass
+</span><span class="comment">-- it had a new function move() that modifies the x and y fields
+</span>movablethingclass = <span class="function-name">class</span>(thingclass, {move = <span class="keyword">function</span>() x=x+<span class="number">1</span> y=y+<span class="number">1</span> <span class="keyword">end</span>})
+
+amt = <span class="function-name">movablethingclass</span>(<span class="number">3</span>,<span class="number">5</span>)
+<span class="comment">-- this calls getmetatable(amt).__init(amt,3,5)
+</span><span class="comment">-- but getmetatable(amt) doesn't have __init, so getmetatable(getmetatable(amt)).__index.__init is called
+</span><span class="comment">-- this resolves to thingclass.__init which does exist
+</span><span class="comment">-- so in the end this does thingclass.__init(amt,3,5)
 </span>
-<span class="comment">-- this code is meant to be copied inline, not necessarily used as functions,
-</span><span class="comment">-- with your own own code inserted in the appropriate place
-</span>
-<span class="keyword">local</span> <span class="keyword">function</span> <span class="function-name">snippet_eight_neighbors</span>()
- <span class="keyword">for</span> y = -<span class="number">1</span>, <span class="number">1</span> <span class="keyword">do</span>
-  <span class="keyword">for</span> x = -<span class="number">1</span>, <span class="number">1</span>, y==<span class="number">0</span> <span class="keyword">and</span> <span class="number">2</span> <span class="keyword">or</span> <span class="number">1</span> <span class="keyword">do</span>
-   <span class="comment">-- insert code here using x and y as offsets
-</span>  <span class="keyword">end</span>
- <span class="keyword">end</span>
-<span class="keyword">end</span></pre>
+amt.<span class="function-name">move</span>()
+<span class="global">print</span>(amt.x)
+<span class="global">print</span>(amt.y)
+<span class="comment">-- amt.x is now 4, amt.y is now 6</span></pre>
 
 
 </div> <!-- id="content" -->

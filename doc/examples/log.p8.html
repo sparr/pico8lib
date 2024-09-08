@@ -1,0 +1,134 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>pico8lib</title>
+    <link rel="stylesheet" href="../ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>pico8lib</h1>
+
+
+<ul>
+  <li><a href="../index.html">Index</a></li>
+</ul>
+
+
+
+<h2>Examples</h2>
+<ul class="nowrap">
+  <li><a href="../examples/snippets.p8.html">snippets.p8</a></li>
+  <li><a href="../examples/test_class.p8.html">test_class.p8</a></li>
+  <li><a href="../examples/test_functions.p8.html">test_functions.p8</a></li>
+  <li><a href="../examples/test_json.p8.html">test_json.p8</a></li>
+  <li><a href="../examples/test_test.p8.html">test_test.p8</a></li>
+  <li><a href="../examples/class.p8.html">class.p8</a></li>
+  <li><strong>log.p8</strong></li>
+</ul>
+<h2>Modules</h2>
+<ul class="nowrap">
+  <li><a href="../modules/pico8lib.class.html">pico8lib.class</a></li>
+  <li><a href="../modules/pico8lib.functions.html">pico8lib.functions</a></li>
+  <li><a href="../modules/pico8lib.graphics.html">pico8lib.graphics</a></li>
+  <li><a href="../modules/pico8lib.json.html">pico8lib.json</a></li>
+  <li><a href="../modules/pico8lib.log.html">pico8lib.log</a></li>
+  <li><a href="../modules/pico8lib.math.html">pico8lib.math</a></li>
+  <li><a href="../modules/pico8lib.memory.html">pico8lib.memory</a></li>
+  <li><a href="../modules/pico8lib.number.html">pico8lib.number</a></li>
+  <li><a href="../modules/pico8lib.physics.html">pico8lib.physics</a></li>
+  <li><a href="../modules/pico8lib.rational.html">pico8lib.rational</a></li>
+  <li><a href="../modules/pico8lib.strings.html">pico8lib.strings</a></li>
+  <li><a href="../modules/pico8lib.tables.html">pico8lib.tables</a></li>
+  <li><a href="../modules/pico8lib.test.html">pico8lib.test</a></li>
+  <li><a href="../modules/pico8lib.uint32.html">pico8lib.uint32</a></li>
+  <li><a href="../modules/pico8lib.vector.html">pico8lib.vector</a></li>
+</ul>
+<h2>Topics</h2>
+<ul class="">
+  <li><a href="../topics/README.md.html">README</a></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+    <h2>log.p8</h2>
+<pre>
+pico-<span class="number">8</span> cartridge // http://www.pico-<span class="number">8.</span>com
+version <span class="number">18</span>
+__lua__
+
+#include ../pico8lib/strings.lua
+#include ../pico8lib/log.lua
+
+life = <span class="number">0</span>
+save_file_exists = <span class="keyword">false</span>
+fps = <span class="number">30</span>
+
+P8LIBLOGUTC = <span class="keyword">true</span>
+P8LIBLOGLVL = <span class="number">4</span>
+<span class="function-name">log_debug</span>(<span class="string">"Doing setup"</span>)
+<span class="function-name">log_info</span>(<span class="string">"Disabling debug level logging"</span>)
+P8LIBLOGLVL = <span class="number">3</span>
+<span class="function-name">log_debug</span>(<span class="string">"Finished setup"</span>) <span class="comment">-- disabled
+</span><span class="keyword">if</span> (life == <span class="number">0</span>) <span class="function-name">log_err</span>(<span class="string">"Oh no! life is zero!"</span>)
+<span class="keyword">if</span> (<span class="keyword">not</span> save_file_exists) <span class="function-name">log_warn</span>(<span class="string">"No save file found."</span>)
+<span class="function-name">log_info</span>(<span class="string">"FPS:"</span> .. fps)
+
+<span class="function-name">log_info</span>(<span class="string">"Switching from UTC to Local time"</span>)
+P8LIBLOGUTC = <span class="keyword">false</span>
+<span class="function-name">log_info</span>(<span class="string">"Disabling info level logging"</span>)
+P8LIBLOGLVL = <span class="number">2</span>
+<span class="keyword">if</span> (life == <span class="number">0</span>) <span class="function-name">log_err</span>(<span class="string">"Oh no! life is zero!"</span>)
+<span class="keyword">if</span> (<span class="keyword">not</span> save_file_exists) <span class="function-name">log_warn</span>(<span class="string">"No save file found."</span>)
+<span class="function-name">log_info</span>(<span class="string">"FPS:"</span> .. fps) <span class="comment">-- disabled
+</span>
+<span class="function-name">log_info</span>(<span class="string">"Disabling warning level logging"</span>) <span class="comment">-- disabled
+</span>P8LIBLOGLVL = <span class="number">1</span>
+<span class="keyword">if</span> (life == <span class="number">0</span>) <span class="function-name">log_err</span>(<span class="string">"Oh no! life is zero!"</span>)
+<span class="keyword">if</span> (<span class="keyword">not</span> save_file_exists) <span class="function-name">log_warn</span>(<span class="string">"No save file found."</span>) <span class="comment">-- disabled
+</span><span class="function-name">log_info</span>(<span class="string">"FPS:"</span> .. fps) <span class="comment">-- disabled
+</span>
+
+<span class="comment">-- Example output
+</span><span class="comment">-- $ pico8 -x log.p8
+</span><span class="comment">-- RUNNING: log.p8
+</span><span class="comment">-- 2024-09-08 07:52:17 DBG - Doing setup
+</span><span class="comment">-- 2024-09-08 07:52:17 INF - Disabling debug level logging
+</span><span class="comment">-- 2024-09-08 07:52:17 ERR - Oh no! life is zero!
+</span><span class="comment">-- 2024-09-08 07:52:17 WRN - No save file found.
+</span><span class="comment">-- 2024-09-08 07:52:17 INF - FPS:30
+</span><span class="comment">-- 2024-09-08 07:52:17 INF - Switching from UTC to Local time
+</span><span class="comment">-- 2024-09-08 03:52:17 INF - Disabling info level logging
+</span><span class="comment">-- 2024-09-08 03:52:17 ERR - Oh no! life is zero!
+</span><span class="comment">-- 2024-09-08 03:52:17 WRN - No save file found.
+</span><span class="comment">-- 2024-09-08 03:52:17 ERR - Oh no! life is zero!</span></pre>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/lunarmodules/LDoc">LDoc 1.5.0</a></i>
+<i style="float:right;">Last updated 2024-09-08 03:55:26 </i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>
