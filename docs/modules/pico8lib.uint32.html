@@ -31,6 +31,10 @@
   <li><a href="../index.html">Index</a></li>
 </ul>
 
+<h2>Contents</h2>
+<ul>
+<li><a href="#Class_uint32">Class uint32 </a></li>
+</ul>
 
 
 <h2>Modules</h2>
@@ -77,18 +81,512 @@
 </p>
 
 
+<h2><a href="#Class_uint32">Class uint32 </a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#uint32.raw">uint32.raw</a></td>
+	<td class="summary">Internal raw represenation of the uint32 value as a 16.16 fixed point number</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#uint32.overflow">uint32.overflow</a></td>
+	<td class="summary">Overflow flag</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#uint32.repr">uint32.repr</a></td>
+	<td class="summary">Cached decimal formatted representation</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#uint32.repr_raw">uint32.repr_raw</a></td>
+	<td class="summary">Last raw value to be converted to decimal</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#uint32:__eq">uint32:__eq (a, b)</a></td>
+	<td class="summary">Equality Operation
+ Only called for uint32==uint32</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#uint32:__lt">uint32:__lt (a, b)</a></td>
+	<td class="summary">Less Than Operation</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#uint32:__unm">uint32:__unm (u)</a></td>
+	<td class="summary">Unary Minus Operation
+ Always underflows for unsigned type</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#uint32:__add">uint32:__add (a, b)</a></td>
+	<td class="summary">Addition Operation</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#uint32:__sub">uint32:__sub (a, b)</a></td>
+	<td class="summary">Subtraction Operation</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#uint32:__mul">uint32:__mul (a, b)</a></td>
+	<td class="summary">Multiplication Operation</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#uint32:__concat">uint32:__concat (a, b)</a></td>
+	<td class="summary">String Concatenation Operation</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#uint32:from_raw">uint32:from_raw (raw[, overflow])</a></td>
+	<td class="summary">Create a new uint32 from a raw value and overflow</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#uint32:create_from_bytes">uint32:create_from_bytes (a, b, c, d[, overflow])</a></td>
+	<td class="summary">Create a new uint32 from a raw value and overflow</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#uint32:__call">uint32:__call (t, val[, overflow])</a></td>
+	<td class="summary">Constructor</td>
+	</tr>
+</table>
 
 <br/>
 <br/>
 
 
+    <h2 class="section-header "><a name="Class_uint32"></a>Class uint32 </h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "uint32.raw"></a>
+    <strong>uint32.raw</strong>
+    </dt>
+    <dd>
+    Internal raw represenation of the uint32 value as a 16.16 fixed point number
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "uint32.overflow"></a>
+    <strong>uint32.overflow</strong>
+    </dt>
+    <dd>
+    Overflow flag
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "uint32.repr"></a>
+    <strong>uint32.repr</strong>
+    </dt>
+    <dd>
+    Cached decimal formatted representation
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "uint32.repr_raw"></a>
+    <strong>uint32.repr_raw</strong>
+    </dt>
+    <dd>
+    Last raw value to be converted to decimal
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "uint32:__eq"></a>
+    <strong>uint32:__eq (a, b)</strong>
+    </dt>
+    <dd>
+    Equality Operation
+ Only called for uint32==uint32
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">a</span>
+            <span class="types"><a class="type" href="../modules/pico8lib.uint32.html#uint32">uint32</a></span>
+
+
+
+        </li>
+        <li><span class="parameter">b</span>
+            <span class="types"><a class="type" href="../modules/pico8lib.uint32.html#uint32">uint32</a> or <span class="type">number</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Boolean</span></span>
+        <code>a==b</code>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "uint32:__lt"></a>
+    <strong>uint32:__lt (a, b)</strong>
+    </dt>
+    <dd>
+    Less Than Operation
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">a</span>
+            <span class="types"><a class="type" href="../modules/pico8lib.uint32.html#uint32">uint32</a></span>
+
+
+
+        </li>
+        <li><span class="parameter">b</span>
+            <span class="types"><a class="type" href="../modules/pico8lib.uint32.html#uint32">uint32</a></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Boolean</span></span>
+        <code>a&lt;b</code>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "uint32:__unm"></a>
+    <strong>uint32:__unm (u)</strong>
+    </dt>
+    <dd>
+    Unary Minus Operation
+ Always underflows for unsigned type
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">u</span>
+            <span class="types"><a class="type" href="../modules/pico8lib.uint32.html#uint32">uint32</a></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="../modules/pico8lib.uint32.html#uint32">uint32</a></span>
+        <code>-u</code>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "uint32:__add"></a>
+    <strong>uint32:__add (a, b)</strong>
+    </dt>
+    <dd>
+    Addition Operation
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">a</span>
+            <span class="types"><a class="type" href="../modules/pico8lib.uint32.html#uint32">uint32</a></span>
+
+
+
+        </li>
+        <li><span class="parameter">b</span>
+            <span class="types"><a class="type" href="../modules/pico8lib.uint32.html#uint32">uint32</a></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="../modules/pico8lib.uint32.html#uint32">uint32</a></span>
+        <code>a+b</code>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "uint32:__sub"></a>
+    <strong>uint32:__sub (a, b)</strong>
+    </dt>
+    <dd>
+    Subtraction Operation
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">a</span>
+            <span class="types"><a class="type" href="../modules/pico8lib.uint32.html#uint32">uint32</a></span>
+
+
+
+        </li>
+        <li><span class="parameter">b</span>
+            <span class="types"><a class="type" href="../modules/pico8lib.uint32.html#uint32">uint32</a></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="../modules/pico8lib.uint32.html#uint32">uint32</a></span>
+        <code>a-b</code>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "uint32:__mul"></a>
+    <strong>uint32:__mul (a, b)</strong>
+    </dt>
+    <dd>
+    Multiplication Operation
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">a</span>
+            <span class="types"><a class="type" href="../modules/pico8lib.uint32.html#uint32">uint32</a></span>
+
+
+
+        </li>
+        <li><span class="parameter">b</span>
+            <span class="types"><a class="type" href="../modules/pico8lib.uint32.html#uint32">uint32</a> or <span class="type">number</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="../modules/pico8lib.uint32.html#uint32">uint32</a></span>
+        <code>a*b</code>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "uint32:__concat"></a>
+    <strong>uint32:__concat (a, b)</strong>
+    </dt>
+    <dd>
+    String Concatenation Operation
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">a</span>
+            <span class="types"><a class="type" href="../modules/pico8lib.uint32.html#uint32">uint32</a></span>
+
+
+
+        </li>
+        <li><span class="parameter">b</span>
+            <span class="types"><a class="type" href="../modules/pico8lib.uint32.html#uint32">uint32</a></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.4">string</a></span>
+        <code>tostr(a) .. tostr(b)</code>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "uint32:from_raw"></a>
+    <strong>uint32:from_raw (raw[, overflow])</strong>
+    </dt>
+    <dd>
+    Create a new uint32 from a raw value and overflow
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">raw</span>
+            <span class="types"><span class="type">number</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">overflow</span>
+            <span class="types"><span class="type">Boolean</span></span>
+
+
+
+         (<em>optional</em>)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="../modules/pico8lib.uint32.html#uint32">uint32</a></span>
+
+
+
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "uint32:create_from_bytes"></a>
+    <strong>uint32:create_from_bytes (a, b, c, d[, overflow])</strong>
+    </dt>
+    <dd>
+    Create a new uint32 from a raw value and overflow
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">a</span>
+            <span class="types"><span class="type">int</span></span>
+         LSB
+        </li>
+        <li><span class="parameter">b</span>
+            <span class="types"><span class="type">int</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">c</span>
+            <span class="types"><span class="type">int</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">d</span>
+            <span class="types"><span class="type">int</span></span>
+         MSB
+        </li>
+        <li><span class="parameter">overflow</span>
+            <span class="types"><span class="type">Boolean</span></span>
+
+
+
+         (<em>optional</em>)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="../modules/pico8lib.uint32.html#uint32">uint32</a></span>
+
+
+
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "uint32:__call"></a>
+    <strong>uint32:__call (t, val[, overflow])</strong>
+    </dt>
+    <dd>
+    Constructor
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">t</span>
+            <span class="types"><span class="type">class</span></span>
+         uint32 class
+        </li>
+        <li><span class="parameter">val</span>
+            <span class="types"><span class="type">number</span> or <a class="type" href="../modules/pico8lib.uint32.html#uint32">uint32</a></span>
+
+
+
+        </li>
+        <li><span class="parameter">overflow</span>
+            <span class="types"><span class="type">Boolean</span></span>
+
+
+
+         (<em>optional</em>)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="../modules/pico8lib.uint32.html#uint32">uint32</a></span>
+
+
+
+    </ol>
+
+
+
+
+</dd>
+</dl>
 
 
 </div> <!-- id="content" -->
 </div> <!-- id="main" -->
 <div id="about">
 <i>generated by <a href="http://github.com/lunarmodules/LDoc">LDoc 1.5.0</a></i>
-<i style="float:right;">Last updated 2024-09-08 14:28:56 </i>
+<i style="float:right;">Last updated 2024-09-08 18:09:42 </i>
 </div> <!-- id="about" -->
 </div> <!-- id="container" -->
 </body>

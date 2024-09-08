@@ -123,6 +123,9 @@ end
 -- @param b the expected object
 -- @tparam[opt] string message override the default error message with `message` instead
 function TestCase:assert_equal (a, b, message)
+   -- printh("y")
+   -- printh(a:__eq(b))
+   -- printh(type(b))
    assert(a == b, message or tostr(a) .. " ~= " .. tostr(b))
 end
 

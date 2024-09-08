@@ -6,158 +6,174 @@
 -- "sure, you have my permission to use the code from those two repositories (i'm the sole author) under the unlicense license (instead of mit) if you prefer." - jaredkrinke
 
 
+--- @type uint32
 local uint32
 uint32 = setmetatable({
 
+ --- Internal raw represenation of the uint32 value as a 16.16 fixed point number
+ raw = 0,
+
+ --- Overflow flag
+ overflow = false,
+
+ --- Cached decimal formatted representation
+ repr = "0",
+
+ --- Last raw value to be converted to decimal
+ repr_raw = 0,
+
+ --- Equality Operation
+ -- Only called for uint32==uint32
+ -- @tparam uint32 a
+ -- @tparam uint32|number b
+ -- @treturn Boolean `a==b`
  __eq = function (a, b)
-  return a.value == b.value
+  return a.raw == b.raw
  end,
 
+ --- Less Than Operation
+ -- @tparam uint32 a
+ -- @tparam uint32 b
+ -- @treturn Boolean `a<b`
  __lt = function (a, b)
-  return a.value < b.value
+  if (type(a) == "number") a,b=b,a
+  if (type(a) == "number") a=uint32(a)
+  -- negative raw values represent unsigned values greater than any positive raw value
+  if a.raw < 0 then
+   if b.raw >= 0 then
+    return false
+   else
+    return a.raw < b.raw
+   end
+  end
+  if b.raw < 0 then
+   if a.raw >= 0 then
+    return true
+   else
+    return b.raw <= a.raw
+   end
+  end
+  return a.raw < b.raw
  end,
 
- __unm = function (a)
-  return 0 - a
+ --- Unary Minus Operation
+ -- Always underflows for unsigned type
+ -- @tparam uint32 u
+ -- @treturn uint32 `-u`
+ __unm = function (u)
+  return 0 - u
  end,
 
+ --- Addition Operation
+ -- @tparam uint32 a
+ -- @tparam uint32 b
+ -- @treturn uint32 `a+b`
  __add = function (a, b)
-  if type(a) == "number" then
-   a = uint32(a)
-  elseif type(b) == "number" then
-   b = uint32(b)
-  end
+  if (type(a) == "number") a=uint32(a)
+  if (type(b) == "number") b=uint32(b)
   -- -- sum without overflow flag
-  -- return uint32.from_raw(a.value + b.value)
+  -- return uint32.from_raw(a.raw + b.raw)
   -- sum with overflow flag
-  local sum = a.value + b.value
-  return uint32.from_raw(sum, (sgn(a.value) < 0 or sgn(b.value) < 0) and sgn(sum) == 1)
+  local sum = uint32.from_raw(a.raw + b.raw)
+  sum.overflow = sum < a or sum < b
+  return sum
  end,
 
+ --- Subtraction Operation
+ -- @tparam uint32 a
+ -- @tparam uint32 b
+ -- @treturn uint32 `a-b`
  __sub = function (a, b)
-  if type(a) == "number" then
-   a = uint32(a)
-  elseif type(b) == "number" then
-   b = uint32(b)
-  end
+  if (type(a) == "number") a,b=b,a
+  if (type(a) == "number") a=uint32(a)
   -- -- difference without overflow flag
-  -- return uint32.from_raw(a.value - b.value)
+  -- return uint32.from_raw(a.raw - b.raw)
   -- difference with overflow flag
-  local diff = a.value - b.value
-  return uint32.from_raw(diff, a.value >= 0 and b.value < 0 or sgn(a.value) == sgn(b.value) and a.value < b.value) -- todo test thoroughly
+  local diff = a.raw - b.raw
+  return uint32.from_raw(diff, a.raw >= 0 and b.raw < 0 or sgn(a.raw) == sgn(b.raw) and a.raw < b.raw) -- todo test thoroughly
  end,
 
+ --- Multiplication Operation
+ -- @tparam uint32 a
+ -- @tparam uint32|number b
+ -- @treturn uint32 `a*b`
  __mul = function (a, b)
+  -- TODO test!
+  if (type(a) == "number") a,b=b,a
   if type(a) == "number" then
-   a = uint32(a)
-  elseif type(b) == "number" then
-   b = uint32(b)
+   -- TODO detect overflow
+   return uint32.from_raw(a * b.raw)
   end
+  if a.raw<1 and a.raw>-1 and b.raw<1 and b.raw>-1 then
+   -- values betwen -32768 and 32767 can be multiplied losslessly with shifting
+   return uint32.from_raw(((a.raw << 16) * b.raw))
+  end
+  local acc = 0
+  for bit = 0, 31 do
+   if a.raw>>bit & 0x0000.0001 > 0 then
+    acc += b.raw << bit
+   end
+  end
+  return uint32.from_raw(acc)
+ end,
 
- end
-
+ --- String Concatenation Operation
+ -- @tparam uint32 a
+ -- @tparam uint32 b
+ -- @treturn string `tostr(a) .. tostr(b)`
  __concat = function (a, b)
   if (getmetatable(a) == uint32) a = a:__tostring()
   if (getmetatable(b) == uint32) b = b:__tostring()
   return a .. b
  end,
 
- set_raw = function(u, val)
-  u.value = val
+ --- Create a new uint32 from a raw value and overflow
+ -- @tparam number raw
+ -- @tparam[opt] Boolean overflow
+ -- @treturn uint32
+ from_raw = function(raw, overflow)
+  u = uint32(0, overflow)
+  u.raw = raw
   return u
  end,
 
- from_raw = function(val, overflow)
-  return uint32(0, overflow):set_raw(val)
+ --- Create a new uint32 from a raw value and overflow
+ -- @tparam int a LSB
+ -- @tparam int b
+ -- @tparam int c
+ -- @tparam int d MSB
+ -- @tparam[opt] Boolean overflow
+ -- @treturn uint32
+ create_from_bytes = function(a, b, c, d, overflow)
+  return from_raw(a >>> 16 | b >>> 8 | c | d << 8, overflow)
  end,
 
 },{
 
+ --- Constructor
+ -- @tparam class t uint32 class
+ -- @tparam number|uint32 val
+ -- @tparam[opt] Boolean overflow
+ -- @treturn uint32
  __call=function(t, val, overflow)
   if getmetatable(val) == uint32 then
-   val = val.value
+   raw = val.raw
   else
-   val = lshr(val, 16)
+   raw = lshr(val, 16)
   end
-  return setmetatable({ value = val, overflow = overflow }, t)
+  return setmetatable({ raw = raw, overflow = overflow }, t)
  end
 
 })
 uint32.__index = uint32
-
-local function uint32_number_to_value(n)
- return lshr(n, 16)
-end
-
-function uint32:get_raw()
- return self.value
-end
-
-function uint32:set_raw(x)
- if self.value ~= x then
-  self.value = x
-  self.formatted = false
- end
- return self
-end
-
-function uint32:set(a)
- return self:set_raw(a.value)
-end
-
-function uint32.create_raw(x)
- local instance = uint32.create()
- if instance.value ~= x then
-  instance:set_raw(x)
- end
- return instance
-end
-
-function uint32.create_from_uint32(b)
- return uint32.create_raw(b.value)
-end
-
-function uint32.create_from_number(n)
- return uint32.create_raw(uint32_number_to_value(n))
-end
-
-function uint32.create_from_bytes(a, b, c, d)
- return uint32.create_raw(a >>> 16 | b >>> 8 | c | d << 8)
-end
-
-function uint32:set_number(n)
- return self:set_raw(uint32_number_to_value(n))
-end
-
-function uint32:multiply_raw(y)
- local x = self.value
- if x < y then x, y = y, x end
- local acc = 0
-
- for i = y, 0x0000.0001, -0x0000.0001 do
-  acc = acc + x
- end
- self:set_raw(acc)
- return self
-end
-
-function uint32:multiply(b)
- return self:multiply_raw(b.value)
-end
-
-function uint32:multiply_number(n)
- return self:multiply_raw(uint32_number_to_value(n))
-end
 
 local function decimal_digits_add_in_place(a, b)
  local carry = 0
  local i = 1
  local digits = max(#a, #b)
  while i <= digits or carry > 0 do
-  local left = a[i]
-  local right = b[i]
-  if left == nil then left = 0 end
-  if right == nil then right = 0 end
+  local left = a[i] or 0
+  local right = b[i] or 0
   local sum = left + right + carry
   a[i] = sum % 10
   carry = flr(sum / 10)
@@ -175,11 +191,11 @@ end
 local uint32_binary_digits = { { 1 } }
 function uint32:format_decimal()
  local result_digits = { 0 }
- local value = self.value
+ local raw = self.raw
 
  -- find highest bit
  local max_index = 0
- local v = value
+ local v = raw
  while v ~= 0 do
   v = lshr(v, 1)
   max_index = max_index + 1
@@ -203,7 +219,7 @@ function uint32:format_decimal()
   end
 
   local bit = false
-  if mask & value ~= 0 then bit = true end
+  if mask & raw ~= 0 then bit = true end
 
   -- add, if necessary
   if bit then
@@ -219,42 +235,16 @@ function uint32:format_decimal()
  return str
 end
 
-function uint32:to_string(raw)
- if raw == true then
-  return tostr(self.value, true)
- else
-  -- cache format_decimal result
-  if self.formatted ~= true then
-   self.str = self:format_decimal()
-   self.formatted = true
-  end
-  return self.str
+function uint32:__tostring(raw)
+ if (raw) return tostr(self.raw, true)
+ -- cache format_decimal result
+ if self.repr_raw ~= self.raw then
+  self.repr = self:format_decimal()
+  self.repr_raw = self.raw
  end
+ return self.repr
 end
 
-function uint32:to_bytes()
- local value = self.value
- return
-  0xff & value << 16,
-  0xff & value << 8,
-  0xff & value,
-  0xff & value >>> 8,
-end
-
-function number_to_bytes(value)
- return {
-  0xff & value << 16,
-  0xff & value << 8,
-  0xff & value,
-  0xff & value >>> 8,
- }
-end
-
-function bytes_to_number(bytes)
- return
-  bytes[1] >>> 16 |
-  bytes[2] >>> 8 |
-  bytes[3] |
-  bytes[4] << 8
-end
-
+uint32.zero = uint32(0)
+uint32.one = uint32(1)
+uint32.maxint = uint32.from_raw(0xFFFF.FFFF)
