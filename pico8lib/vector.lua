@@ -1,13 +1,10 @@
 --- @module vector
 --- pico8lib vector library
--- @author sparr
--- @author codekitchen
-
--- mit license, details in license file
-
 -- a vector is a point or direction in 2d space
 -- represented by an x and y coordinate
 -- vectors arithmetic represents operations on these points/directions
+-- some code from https://github.com/codekitchen/pico-8-circuits
+-- MIT license, details in LICENSE file
 
 -- pico8 coordinate system
 -- +x is east/right
@@ -15,7 +12,6 @@
 -- +y is south/down
 -- -y is north/up
 
--- some code from https://github.com/codekitchen/pico-8-circuits
 
 local vector
 

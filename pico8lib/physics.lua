@@ -1,6 +1,6 @@
 --- @module physics
 -- Collision functions, etc
--- @author sparr
+
 
 ------------------------------------------------------------------------
 -- check for collision/overlap of a point and a circle

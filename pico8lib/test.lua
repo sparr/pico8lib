@@ -1,14 +1,12 @@
 --- @module test
 --- pico8lib unit test library
--- @author mindfilleter
+
 
 -- #include class.lua
 -- #include log.lua
 -- #include functions.lua
 -- #include strings.lua
 -- #include tables.lua
-
--- @module test
 
 --- The TestCase class represents a collection of tests to be run for a given context. Subclass TestCase and add functions starting with "test_" then add an instance to a TestSuite instance to run your tests. For an example of how do this, see the `Assertions` test case in `test/test_test.p8`.
 local TestCase = class(

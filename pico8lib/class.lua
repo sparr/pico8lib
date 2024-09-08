@@ -1,6 +1,6 @@
 --- @module class
 --- Easily create subclasses and object-oriented designs
--- @author sparr
+
 
 --- Create a new class from a parent class, with optional prototype
 -- @tparam class parent The parent of this new class

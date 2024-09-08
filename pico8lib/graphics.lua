@@ -1,6 +1,5 @@
 --- @module graphics
 --- Drawing and sprite manipulation
--- @author by sparr
 
 
 -- any function with a color parameter can add the following line

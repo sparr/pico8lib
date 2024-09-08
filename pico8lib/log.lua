@@ -1,6 +1,6 @@
 --- @module log
 --- A module for logging output to STDOUT
--- @author mindfilleter
+
 
 -- #include strings.lua
 

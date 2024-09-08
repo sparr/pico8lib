@@ -1,6 +1,6 @@
 --- @module json
 --- JSON(ish) parser
--- @author sparr
+
 
 -- #include strings.lua
 

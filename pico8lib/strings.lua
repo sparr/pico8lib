@@ -1,6 +1,6 @@
 --- @module strings
 --- Manipulating and creating strings
--- @author sparr
+
 
 --- Unambiguous string serialization of arbitrary objects
 -- alternate condensed strings included as comments

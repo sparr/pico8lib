@@ -1,15 +1,9 @@
-pico-8 cartridge // http://www.pico-8.com
-version 18
-__lua__
--- pico8lib uint32 library
--- by sparr and jaredkrinke
-
--- this library implements unsigned 32-bit integers
+--- @module uint32
+--- Unsigned 32-bit Integers
 -- one uint32 is stored as a single pico8 16.16bit fixed point number
-
 -- based on https://github.com/jaredkrinke/pico-8-fbg/blob/master/fbg.p8
--- "sure, you have my permission to use the code from those two repositories (i'm the sole author) under the unlicense license (instead of mit) if you prefer."
 
+-- "sure, you have my permission to use the code from those two repositories (i'm the sole author) under the unlicense license (instead of mit) if you prefer." - jaredkrinke
 
 
 local uint32

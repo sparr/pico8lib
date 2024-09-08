@@ -1,6 +1,6 @@
 --- @module tables
 -- Manipulating and creating tables
--- @author sparr
+
 
 -- --- Functions that operate on one table and one key and/or value
 -- -- @section One Table or Key/Value

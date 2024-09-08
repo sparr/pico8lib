@@ -1,6 +1,5 @@
 --- @module functions
 --- Manipulating and creating functions
--- @author sparr
 
 
 --- Empty function, useful for callbacks and placeholders

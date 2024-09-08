@@ -1,6 +1,6 @@
 --- @module memory
 --- Reading, writing, manipulating memory
--- @author sparr
+
 
 --- Efficiently copy a block of memory from `src` to `dst`
 -- 75% the runtime of memcpy, len must be a multiple of 4
