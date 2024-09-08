@@ -7,27 +7,30 @@ The focus of this repository is on game-agnostic code and functions. Most of the
 What you will not find here is code related to gameplay implementation, such as actor and component frameworks, rendering engines, or game rule logic. I would like to add this sort of content in the future, but it will require significant additional organization and documentation efforts above and beyond those requires for the current contents of the repo.
 
 ### Utility Functions
-* [`strings`](strings.p8) - Manipulating and creating strings
-* [`tables`](tables.p8) - Manipulating and creating tables
-* [`functions`](functions.p8) - Manipulating and creating functions
-* [`math`](math.p8) - Mathematical operations, mostly on numbers
-* [`number`](number.p8) - Non-mathematical manipulation of numbers
-* [`json`](json.p8) - JSON(ish) parser
-* [`graphics`](graphics.p8) - Drawing and sprite manipulation
-* [`physics`](physics.p8) - Collision functions, etc
-* [`memory`](memory.p8) - Reading, writing, manipulating memory
-* [`log`](log.p8) - Write timestamped (local time) logs to STDOUT
-* [`test`](test.p8) - A unit test framework for pico-8
-
+* [`class`](pico8lib/class.p8) - Create object oriented classes with inheritance
+* [`functions`](pico8lib/functions.p8) - Function manipulation, creation, and helpers
+* [`graphics`](pico8lib/graphics.p8) - Drawing and sprite manipulation
+* [`json`](pico8lib/json.p8) - JSON(ish) parser
+* [`log`](pico8lib/log.p8) - Write timestamped and leveled logs to STDOUT
+* [`math`](pico8lib/math.p8) - Mathematical operations, mostly on numbers
+* [`memory`](pico8lib/memory.p8) - Reading, writing, and manipulating memory
+* [`number`](pico8lib/number.p8) - Non-mathematical manipulation of numbers
+* [`physics`](pico8lib/physics.p8) - Collision functions, etc
+* [`strings`](pico8lib/strings.p8) - String manipulation and creation
+* [`tables`](pico8lib/tables.p8) - Table manipulation and creation
 
 ### Classes
-* [`vector`](vector.p8) - 2d vectors
-* [`rational`](rational.p8) - Rational numbers
-* [`test`](test.p8) - Unit test library
+* [`vector`](vector.p8) - Vectors (points and directions)
+* [`rational`](rational.p8) - Rational Numbers (Fractions)
+* [`test`](test.p8) - Unit testing
+* [`uint32`](uint32.p8) - Unsigned 32-bit Integers
 
 ### Other
 * [`snippets`](snippets.p8) - Inline snippets to mix with your own code
 * [`boilerplate`](boilerplate.p8) - Mostly empty pico8 cart with profiling and comments
+
+### Examples
+Some usage examples can be found in [`examples/`](examples) and [`tests/`](tests)
 
 ## Conventions
 Code is not minified for character count; that is a job for a minifier if desired or necessary. I try to aim for 3-5 character identifiers in moderate to complex functions, 1-3 characters in simple functions.
@@ -58,7 +61,7 @@ The best place to chat with other PICO-8 developers is on the [PICO-8 Discord](h
 
 ### Libraries
 * [pico8-missing-builtins](https://github.com/adamscott/pico8-missing-builtins)
-* https://github.com/clowerweb/Lib-Pico8
+* [Lib-Pico8](https://github.com/clowerweb/Lib-Pico8)
 * https://github.com/0xcafed00d/pico-8-games/blob/master/lib/
 
 ### Game engine implementations

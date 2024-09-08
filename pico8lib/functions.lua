@@ -1,5 +1,5 @@
 --- @module functions
---- Manipulating and creating functions
+--- Function manipulation, creation, and helpers
 
 
 --- Empty function, useful for callbacks and placeholders

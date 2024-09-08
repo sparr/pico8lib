@@ -1,5 +1,5 @@
 --- @module test
---- pico8lib unit test library
+--- Unit testing
 
 
 -- #include class.lua

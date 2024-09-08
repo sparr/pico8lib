@@ -1,5 +1,5 @@
 --- @module log
---- A module for logging output to STDOUT
+--- Write timestamped and leveled logs to STDOUT
 
 
 -- #include strings.lua

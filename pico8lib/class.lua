@@ -1,5 +1,5 @@
 --- @module class
---- Easily create subclasses and object-oriented designs
+--- Create object oriented classes with inheritance
 
 
 --- Create a new class from a parent class, with optional prototype
