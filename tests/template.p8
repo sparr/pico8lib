@@ -9,9 +9,9 @@ __lua__
 
 -- includes required for testing
 #include ../pico8lib/class.lua
+#include ../pico8lib/strings.lua
 #include ../pico8lib/log.lua
 #include ../pico8lib/functions.lua
-#include ../pico8lib/strings.lua
 #include ../pico8lib/tables.lua
 #include ../pico8lib/test.lua
 

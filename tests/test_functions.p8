@@ -8,9 +8,9 @@ __lua__
 -- to run the tests use `pico8 -x tests/test_functions.p8`
 
 #include ../pico8lib/class.lua
+#include ../pico8lib/strings.lua
 #include ../pico8lib/log.lua
 #include ../pico8lib/functions.lua
-#include ../pico8lib/strings.lua
 #include ../pico8lib/tables.lua
 #include ../pico8lib/test.lua
 
