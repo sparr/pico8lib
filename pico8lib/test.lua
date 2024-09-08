@@ -2,11 +2,11 @@
 --- pico8lib unit test library
 -- @author mindfilleter
 
--- #include class.p8
--- #include log.p8
--- #include functions.p8
--- #include strings.p8
--- #include tables.p8
+-- #include class.lua
+-- #include log.lua
+-- #include functions.lua
+-- #include strings.lua
+-- #include tables.lua
 
 -- @module test
 

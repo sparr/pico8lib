@@ -2,7 +2,7 @@
 --- JSON(ish) parser
 -- @author sparr
 
--- #include strings.p8
+-- #include strings.lua
 
 -- based on https://gist.github.com/tylerneylon/59f4bcf316be525b30ab
 -- "tylerneylon commented on sep 1, 2015 [...] yes, please use it. i put this in the public domain."

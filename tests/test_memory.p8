@@ -7,14 +7,14 @@ __lua__
 
 -- to run the tests use `pico8 -x tests/test_memory.p8`
 
-#include ../pico8lib/class.p8
-#include ../pico8lib/log.p8
-#include ../pico8lib/functions.p8
-#include ../pico8lib/strings.p8
-#include ../pico8lib/tables.p8
-#include ../pico8lib/test.p8
+#include ../pico8lib/class.lua
+#include ../pico8lib/log.lua
+#include ../pico8lib/functions.lua
+#include ../pico8lib/strings.lua
+#include ../pico8lib/tables.lua
+#include ../pico8lib/test.lua
 
-#include ../pico8lib/memory.p8
+#include ../pico8lib/memory.lua
 
 
 local suite = TestSuite("memory.p8")

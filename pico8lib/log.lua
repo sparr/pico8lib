@@ -2,7 +2,7 @@
 --- A module for logging output to STDOUT
 -- @author mindfilleter
 
--- #include strings.p8
+-- #include strings.lua
 
 --- P8LIBLOGLVL configures the logging functions to only output certain log levels.
 -- - 0 - disable logging

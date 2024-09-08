@@ -40,7 +40,7 @@ Some functions are provided in multiple variations, optimized for tokens, size, 
 
 `-- remove[t,c]` marks code that can be removed, usually at the cost of reduced functionality or code safety.
 
-`#include` lines are commented out because nested includes are a syntax error in pico8. You will need to put all required includes in your own top level script file. e.g. if you want to do `#include json.p8` then you need to `#include strings.p8` earlier in the same file.
+`#include` lines are commented out because nested includes are a syntax error in pico8. You will need to put all required includes in your own top level script file. e.g. if you want to do `#include json.lua` then you need to `#include strings.lua` earlier in the same file.
 
 ## Tests
 Thanks to [mindfilleter](/mindfilleter) we can use [`test`](test.p8) to perform unit tests on this repo.
