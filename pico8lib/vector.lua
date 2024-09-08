@@ -1,5 +1,6 @@
 --- @module vector
---- pico8lib vector library
+--- Vectors (points and directions)
+
 -- A vector is a point or direction in 2d space
 -- represented by an x and y coordinate
 -- vectors arithmetic represents operations on these points/directions

@@ -1,6 +1,7 @@
 --- @module graphics
 --- Drawing and sprite manipulation
--- 
+
+
 -- Any function with a color parameter can add the following line
 -- to make the color optional and use the pen color by default:
 -- `c = c or peek(24357) & 15`
@@ -127,6 +128,7 @@ local function circ_even(s, x, y, r, c)
  -- 80765433
  -- 87654302
  -- 87654321
+ -- hard coding the sprite index will save a few tokens
 
  -- if (r < 1 or r > 8) return -- [optional] safety
  -- todo optional code to preserve pal/palt state
@@ -156,6 +158,8 @@ local function circfill_even(s, x, y, r, c)
  -- 88765433
  -- 87654332
  -- 87654321
+ -- hard coding the sprite index will save a few tokens
+
 
  -- if (r < 1 or r > 8) return -- [optional] safety
  -- todo optional code to preserve pal/palt state
@@ -188,6 +192,8 @@ local function circ_even_small(s, x, y, r, c)
  -- 40322304
  -- 04033040
  -- 00444400
+ -- hard coding the sprite index will save a few tokens
+
 
  -- if (r < 1 or r > 4) return -- [optional] safety
  -- todo optional code to preserve pal/palt state
@@ -214,6 +220,8 @@ local function circfill_even_small(s, x, y, r, c)
  -- 44322344
  -- 04433440
  -- 00444400
+ -- hard coding the sprite index will save a few tokens
+
 
  -- if (r < 1 or r > 4) return -- [optional] safety
  -- todo optional code to preserve pal/palt state

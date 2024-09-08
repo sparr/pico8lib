@@ -57,7 +57,7 @@ The best place to chat with other PICO-8 developers is on the [PICO-8 Discord](h
 ## Related Projects and Links
 
 ### Libraries
-* https://github.com/adamscott/pico8-missing-builtins
+* [pico8-missing-builtins](https://github.com/adamscott/pico8-missing-builtins)
 * https://github.com/clowerweb/Lib-Pico8
 * https://github.com/0xcafed00d/pico-8-games/blob/master/lib/
 

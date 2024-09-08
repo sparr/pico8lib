@@ -1,7 +1,7 @@
 -- Meta Data
 project = "pico8lib"
 title = "pico8lib"
-description = "Helpful modules and best-in-class implementations of commonly needed functions and algorithms"
+description = "Helpful modules and best-in-class implementations of commonly needed functions and algorithms, from [https://github.com/sparr/pico8lib](https://github.com/sparr/pico8lib)"
 readme = "README.md"
 
 -- Output Options

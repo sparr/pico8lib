@@ -1,5 +1,5 @@
 --- @module strings
---- Manipulating and creating strings
+--- String manipulation and creation
 
 
 --- Unambiguous string serialization of arbitrary objects

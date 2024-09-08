@@ -1,7 +1,5 @@
 --- @module tables
--- Manipulating and creating tables
-
---- _
+--- Table manipulation and creation
 
 --- One Table or Key/Value
 -- @section One_Table_or_Key_Value

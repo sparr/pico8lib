@@ -1,9 +1,5 @@
 --- @module rational
---- Rational numbers
--- a rational number is a fraction, numerator/denominator
--- rational number arithmetic operates on the two parts of the fraction separately
--- rational numbers avoid floating point rounding errors in values like 1/3
-
+--- Rational Numbers (Fractions)
 
 
 if nthroot == nil then

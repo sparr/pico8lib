@@ -1,5 +1,5 @@
 --- @module number
---- Non-mathematical manipulation of number
+--- Non-mathematical manipulation of numbers
 
 
 --- Smallest representable positive fraction (`1/32768`)

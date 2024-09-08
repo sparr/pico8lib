@@ -1,8 +1,8 @@
 --- @module uint32
 --- Unsigned 32-bit Integers
+
 -- one uint32 is stored as a single pico8 16.16bit fixed point number
 -- based on https://github.com/jaredkrinke/pico-8-fbg/blob/master/fbg.p8
-
 -- "sure, you have my permission to use the code from those two repositories (i'm the sole author) under the unlicense license (instead of mit) if you prefer." - jaredkrinke
 
 

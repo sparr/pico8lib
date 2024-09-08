@@ -1,5 +1,5 @@
 --- @module physics
--- Collision functions, etc
+--- Collision functions, etc
 
 
 --- Check for collision/overlap of a point and a circle
