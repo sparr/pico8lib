@@ -8,15 +8,15 @@ __lua__
 -- to run the tests use `pico8 -x tests/test_graphics.p8`
 
 -- includes required for testing
-#include ../class.p8
-#include ../log.p8
-#include ../functions.p8
-#include ../strings.p8
-#include ../tables.p8
-#include ../test.p8
+#include ../pico8lib/class.p8
+#include ../pico8lib/log.p8
+#include ../pico8lib/functions.p8
+#include ../pico8lib/strings.p8
+#include ../pico8lib/tables.p8
+#include ../pico8lib/test.p8
 
 -- file being tested
-#include ../graphics.p8
+#include ../pico8lib/graphics.p8
 
 local function check_pixels(test, x, y, pixelstrings)
  for i=x,x+#pixelstrings[1]-1 do

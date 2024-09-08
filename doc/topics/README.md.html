@@ -46,20 +46,20 @@
 </ul>
 <h2>Modules</h2>
 <ul class="nowrap">
-  <li><a href="../modules/class.html">class</a></li>
-  <li><a href="../modules/functions.html">functions</a></li>
-  <li><a href="../modules/graphics.html">graphics</a></li>
-  <li><a href="../modules/json.html">json</a></li>
-  <li><a href="../modules/log.html">log</a></li>
-  <li><a href="../modules/math.html">math</a></li>
-  <li><a href="../modules/memory.html">memory</a></li>
-  <li><a href="../modules/number.html">number</a></li>
-  <li><a href="../modules/physics.html">physics</a></li>
-  <li><a href="../modules/rational.html">rational</a></li>
-  <li><a href="../modules/strings.html">strings</a></li>
-  <li><a href="../modules/tables.html">tables</a></li>
-  <li><a href="../modules/test.html">test</a></li>
-  <li><a href="../modules/vector.html">vector</a></li>
+  <li><a href="../modules/pico8lib.class.html">pico8lib.class</a></li>
+  <li><a href="../modules/pico8lib.functions.html">pico8lib.functions</a></li>
+  <li><a href="../modules/pico8lib.graphics.html">pico8lib.graphics</a></li>
+  <li><a href="../modules/pico8lib.json.html">pico8lib.json</a></li>
+  <li><a href="../modules/pico8lib.log.html">pico8lib.log</a></li>
+  <li><a href="../modules/pico8lib.math.html">pico8lib.math</a></li>
+  <li><a href="../modules/pico8lib.memory.html">pico8lib.memory</a></li>
+  <li><a href="../modules/pico8lib.number.html">pico8lib.number</a></li>
+  <li><a href="../modules/pico8lib.physics.html">pico8lib.physics</a></li>
+  <li><a href="../modules/pico8lib.rational.html">pico8lib.rational</a></li>
+  <li><a href="../modules/pico8lib.strings.html">pico8lib.strings</a></li>
+  <li><a href="../modules/pico8lib.tables.html">pico8lib.tables</a></li>
+  <li><a href="../modules/pico8lib.test.html">pico8lib.test</a></li>
+  <li><a href="../modules/pico8lib.vector.html">pico8lib.vector</a></li>
 </ul>
 <h2>Examples</h2>
 <ul class="nowrap">
@@ -84,23 +84,23 @@
 <p>What you will not find here is code related to gameplay implementation, such as actor and component frameworks, rendering engines, or game rule logic. I would like to add this sort of content in the future, but it will require significant additional organization and documentation efforts above and beyond those requires for the current contents of the repo.</p>
 
 <h3>Utility Functions</h3>
-<p>* <a href="strings.p8"><a href="../modules/strings.html#">strings</a></a> - Manipulating and creating strings
-* <a href="tables.p8"><a href="../modules/tables.html#">tables</a></a> - Manipulating and creating tables
-* <a href="functions.p8"><a href="../modules/functions.html#">functions</a></a> - Manipulating and creating functions
-* <a href="math.p8"><a href="../modules/math.html#">math</a></a> - Mathematical operations, mostly on numbers
-* <a href="number.p8"><a href="../modules/number.html#">number</a></a> - Non-mathematical manipulation of numbers
-* <a href="json.p8"><a href="../modules/json.html#">json</a></a> - JSON(ish) parser
-* <a href="graphics.p8"><a href="../modules/graphics.html#">graphics</a></a> - Drawing and sprite manipulation
-* <a href="physics.p8"><a href="../modules/physics.html#">physics</a></a> - Collision functions, etc
-* <a href="memory.p8"><a href="../modules/memory.html#">memory</a></a> - Reading, writing, manipulating memory
-* <a href="log.p8"><a href="../modules/log.html#">log</a></a> - Write timestamped (local time) logs to STDOUT
-* <a href="test.p8"><a href="../modules/test.html#">test</a></a> - A unit test framework for pico-8</p>
+<p>* <a href="strings.p8"><code>strings</code></a> - Manipulating and creating strings
+* <a href="tables.p8"><code>tables</code></a> - Manipulating and creating tables
+* <a href="functions.p8"><code>functions</code></a> - Manipulating and creating functions
+* <a href="math.p8"><a href="https://www.lua.org/manual/5.4/manual.html#6.7">math</a></a> - Mathematical operations, mostly on numbers
+* <a href="number.p8"><code>number</code></a> - Non-mathematical manipulation of numbers
+* <a href="json.p8"><code>json</code></a> - JSON(ish) parser
+* <a href="graphics.p8"><code>graphics</code></a> - Drawing and sprite manipulation
+* <a href="physics.p8"><code>physics</code></a> - Collision functions, etc
+* <a href="memory.p8"><code>memory</code></a> - Reading, writing, manipulating memory
+* <a href="log.p8"><code>log</code></a> - Write timestamped (local time) logs to STDOUT
+* <a href="test.p8"><code>test</code></a> - A unit test framework for pico-8</p>
 
 
 <h3>Classes</h3>
-<p>* <a href="vector.p8"><a href="../modules/vector.html#">vector</a></a> - 2d vectors
-* <a href="rational.p8"><a href="../modules/rational.html#">rational</a></a> - Rational numbers
-* <a href="test.p8"><a href="../modules/test.html#">test</a></a> - Unit test library</p>
+<p>* <a href="vector.p8"><code>vector</code></a> - 2d vectors
+* <a href="rational.p8"><code>rational</code></a> - Rational numbers
+* <a href="test.p8"><code>test</code></a> - Unit test library</p>
 
 <h3>Other</h3>
 <p>* <a href="snippets.p8"><code>snippets</code></a> - Inline snippets to mix with your own code
@@ -122,7 +122,7 @@
 
 <p><a name="Tests"></a></p>
 <h2>Tests</h2>
-<p>Thanks to <a href="/mindfilleter">mindfilleter</a> we can use <a href="test.p8"><a href="../modules/test.html#">test</a></a> to perform unit tests on this repo.</p>
+<p>Thanks to <a href="/mindfilleter">mindfilleter</a> we can use <a href="test.p8"><code>test</code></a> to perform unit tests on this repo.</p>
 
 <p>Individual tests are in <a href="tests"><code>tests/</code></a>, and can run with a command like <code>pico8 -x tests/test_test.p8</code>.</p>
 
@@ -160,7 +160,7 @@
 </div> <!-- id="main" -->
 <div id="about">
 <i>generated by <a href="http://github.com/lunarmodules/LDoc">LDoc 1.5.0</a></i>
-<i style="float:right;">Last updated 2024-09-07 23:41:36 </i>
+<i style="float:right;">Last updated 2024-09-08 00:13:52 </i>
 </div> <!-- id="about" -->
 </div> <!-- id="container" -->
 </body>
