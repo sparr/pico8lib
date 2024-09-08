@@ -23,9 +23,9 @@ local TestCase = class(
 --- TestCase naming convention: snake_case
 function TestCase:__init (name, setup, teardown)
    self.name = name
-   --- setup is run before each test function is executed. It exists as a hook to setup state relevant to the test on the TestCase instance. Override this method as needed in your TestCase subclass.
+   -- setup is run before each test function is executed. It exists as a hook to setup state relevant to the test on the TestCase instance. Override this method as needed in your TestCase subclass.
    if setup then self.setup = setup end
-   --- teardown is run after each test function is executed. It exists as a hook to reset state relevant to the test on the TestCase instance. Override this method as needed in your TestCase subclass.
+   -- teardown is run after each test function is executed. It exists as a hook to reset state relevant to the test on the TestCase instance. Override this method as needed in your TestCase subclass.
    if teardown then self.teardown = teardown end
 end
 

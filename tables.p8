@@ -2,8 +2,8 @@
 -- Manipulating and creating tables
 -- @author sparr
 
-------------------------------------------------------------------------
--- Functions that operate on one table and one key and/or value
+-- --- Functions that operate on one table and one key and/or value
+-- -- @section One Table or Key/Value
 
 --- Get value from table by key, with default
 -- @tparam table t The table to reference
@@ -66,8 +66,8 @@ function rand_array(a)
 end
 
 
-------------------------------------------------------------------------
--- Functions that operate on two or more tables, or one table and return a new table
+--- Functions that operate on two or more tables, or create a new table
+-- @section Multiple_Tables
 
 --- copy keys, values, and metatable from one table to another, using copy()
 -- @tparam table d destination
@@ -150,8 +150,8 @@ local function concat(d, s)
 end
 
 
-------------------------------------------------------------------------
--- Sorting functions
+--- Sorting Functions
+-- @section Sorting
 
 --- randomize the order of a table using fisher-yates shuffle
 -- @tparam array a array to shuffle in place
