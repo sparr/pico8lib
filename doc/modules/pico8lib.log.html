@@ -102,6 +102,11 @@
  timestamp.</td>
 	</tr>
 	<tr>
+	<td class="name" nowrap><a href="#log_debug">log_debug (any)</a></td>
+	<td class="summary">Log the passed in object to STDOUT with the DBG tag
+ See the <a href="../modules/pico8lib.log.html">log</a> function for details</td>
+	</tr>
+	<tr>
 	<td class="name" nowrap><a href="#log_info">log_info (any)</a></td>
 	<td class="summary">Log the passed in object to STDOUT with the INF tag
  See the <a href="../modules/pico8lib.log.html">log</a> function for details</td>
@@ -133,8 +138,9 @@
     P8LIBLOGLVL configures the logging functions to only output certain log levels.
  - 0 - disable logging
  - 1 - errors only
- - 2 - warnings and errors
- - 3 - all logs (info, warnings, and errors)
+ - 2 - errors and warnings
+ - 3 - errors, warnings, info
+ - 4 - errors, warnings, info, debug (aka everything)
 
 
 
@@ -180,6 +186,27 @@
         <li><span class="parameter">prefix</span>
             <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.4">string</a></span>
          A prefix to prepend to the message
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "log_debug"></a>
+    <strong>log_debug (any)</strong>
+    </dt>
+    <dd>
+    Log the passed in object to STDOUT with the DBG tag
+ See the <a href="../modules/pico8lib.log.html">log</a> function for details
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">any</span>
+         The object to log
         </li>
     </ul>
 

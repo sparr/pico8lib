@@ -7,15 +7,15 @@
 --- P8LIBLOGLVL configures the logging functions to only output certain log levels.
 -- - 0 - disable logging
 -- - 1 - errors only
--- - 2 - warnings and errors
--- - 3 - all logs (info, warnings, and errors)
+-- - 2 - errors and warnings
+-- - 3 - errors, warnings, info
+-- - 4 - errors, warnings, info, debug (aka everything)
 local P8LIBLOGLVL = 3
 
 
 --- P8LIBLOGUTC configures the output to either use UTC or local time.
 -- false (default) for local time, true for UTC
 local P8LIBLOGUTC = false
-
 
 --- Log the passed in object to STDOUT
 -- The passed in object will be converted to a string and then logged with a
@@ -32,6 +32,14 @@ local function log (any, prefix)
           stat(tz+4) .. ":" ..
           (seconds < 10 and "0" .. seconds or seconds)
           .. " " .. (prefix or "LOG") .. " - " .. tostr(any))
+end
+
+
+--- Log the passed in object to STDOUT with the DBG tag
+-- See the `log` function for details
+-- @param any The object to log
+local function log_debug (any)
+   if (P8LIBLOGLVL >= 4) log(any, "DBG")
 end
 
 
