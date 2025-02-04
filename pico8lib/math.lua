@@ -86,17 +86,6 @@ end
 -- partially thanks to https://www.lexaloffle.com/bbs/?pid=119363
 
 --- Distance to a point
--- Uses `dist_naive` for small values, `dist_trig` for large
--- tokens: 46
--- @tparam number x X coordinate of the point
--- @tparam number y Y coordinate of the point
--- @treturn number Distance from 0,0 to x,y
-local function dist(x,y)
- if (abs(x) < 128 and abs(y) < 128) return dist_naive(x,y)
- return dist_trig(x,y)
-end
-
---- Distance to a point
 -- Naive distance calculation
 -- Overflows for dist^2>=32768
 -- tokens: 15
@@ -119,6 +108,17 @@ end
 local function dist_trig(x,y)
  local a=atan2(x,y)
  return x*cos(a)+y*sin(a)
+end
+
+--- Distance to a point
+-- Uses `dist_naive` for small values, `dist_trig` for large
+-- tokens: 46
+-- @tparam number x X coordinate of the point
+-- @tparam number y Y coordinate of the point
+-- @treturn number Distance from 0,0 to x,y
+local function dist(x,y)
+ if (abs(x) < 128 and abs(y) < 128) return dist_naive(x,y)
+ return dist_trig(x,y)
 end
 
 --- Distance squared to a point

@@ -117,6 +117,19 @@ suite:add_test_case(Nthroot)
 -- Distancefunctions
 local Distance = TestCase("distance")
 
+function Distance:test_dist_exact ()
+ for _,v in ipairs({
+  {0,0,0},
+  {1,1,sqrt(2)},
+  {3,4,5},
+  {44,117,125},
+ })
+ do
+  self:assert_equal(dist(v[1],v[2]), v[3])
+  self:assert_equal(dist(v[2],v[1]), v[3])
+ end
+end
+
 function Distance:test_dist_naive_exact ()
  for _,v in ipairs({
   {0,0,0},
